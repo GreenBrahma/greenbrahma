@@ -3,24 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>GreenBrahma — The Inference Gap</title>
-<meta name="description" content="Enterprise AI has your data. It does not have your logic. GreenBrahma closes the Inference Gap with the Authoritative Logic Protocol — logic that is executed, not inferred." />
+<title>GreenBrahma — Make your templates readable by AI</title>
+<meta name="description" content="Your Word and PowerPoint templates look fine to a person and mean almost nothing to a machine. See what ChatGPT, Copilot, Claude and Gemini actually see." />
 
-<!-- Open Graph / social -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="GreenBrahma — The Inference Gap" />
-<meta property="og:description" content="Your AI has your data. It does not have your logic. So it answers with confidence — to a question you never asked." />
-
-<!-- Schema: the Inference Gap as a defined concept, so it can be cited -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "DefinedTerm",
-  "name": "The Inference Gap",
-  "description": "The failure mode in which an enterprise AI system has access to organizational data but not organizational logic, and therefore infers a plausible but operationally wrong answer instead of executing the organization's actual decision rules.",
-  "inDefinedTermSet": "GreenBrahma — Authoritative Logic Protocol (ALP)"
-}
-</script>
+<meta property="og:title" content="Your template looks fine. Your AI can't read it." />
+<meta property="og:description" content="Every time you ask an AI to build a deck from your company template, it guesses. See exactly what it has to guess at." />
 
 <style>
   :root{
@@ -32,159 +20,113 @@
     --green:#30730f;
     --green-lit:#4a9e1c;
     --rule:#23261d;
+    --decay-solid:#2a2e26;
+    --decay-line:#23261f;
     --mono:'SFMono-Regular',ui-monospace,'Menlo','Consolas','Liberation Mono',monospace;
     --serif:'Georgia','Times New Roman',serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    background:var(--ground);
-    color:var(--ink);
-    font-family:var(--serif);
-    font-size:18px;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
+  body{background:var(--ground);color:var(--ink);font-family:var(--serif);
+    font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   .mono{font-family:var(--mono)}
-  .wrap{max-width:820px;margin:0 auto;padding:0 28px}
-  .green{color:var(--green-lit)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 28px}
   .dim{color:var(--ink-dim)}
 
-  /* ---- header ---- */
-  header{
-    border-bottom:1px solid var(--rule);
-    padding:22px 0;
-    position:sticky;top:0;
-    background:rgba(13,15,12,.9);
-    backdrop-filter:blur(6px);
-    z-index:20;
-  }
-  .brand{
-    display:flex;align-items:center;gap:12px;
-    font-family:var(--mono);
-    letter-spacing:.14em;
-    font-size:15px;
-    font-weight:600;
-  }
+  header{border-bottom:1px solid var(--rule);padding:22px 0;position:sticky;top:0;
+    background:rgba(13,15,12,.9);backdrop-filter:blur(6px);z-index:20}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--mono);
+    letter-spacing:.14em;font-size:15px;font-weight:600}
   .glyph{width:22px;height:22px;flex:none}
+  .navback{font-family:var(--mono);font-size:12px;letter-spacing:.1em;
+    color:var(--ink-dim);text-decoration:none}
+  .navback:hover{color:var(--ink)}
 
-  /* ---- section scaffolding ---- */
-  section{position:relative;padding:92px 0;border-bottom:1px solid var(--rule)}
-  .eyebrow{
-    font-family:var(--mono);
-    font-size:12px;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:var(--green-lit);
-    margin-bottom:26px;
-  }
-  h1{
-    font-family:var(--mono);
-    font-weight:600;
-    font-size:clamp(30px,6vw,52px);
-    line-height:1.12;
-    letter-spacing:-.01em;
-    margin-bottom:28px;
-  }
-  h2{
-    font-family:var(--mono);
-    font-weight:600;
-    font-size:clamp(22px,4vw,32px);
-    line-height:1.2;
-    margin-bottom:22px;
-  }
+  section{position:relative;padding:84px 0;border-bottom:1px solid var(--rule)}
+  section.hero{padding:64px 0 76px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--green-lit);margin-bottom:26px}
+  h1{font-family:var(--mono);font-weight:600;font-size:clamp(30px,6vw,52px);
+    line-height:1.12;letter-spacing:-.01em;margin-bottom:26px;max-width:17ch}
+  h2{font-family:var(--mono);font-weight:600;font-size:clamp(22px,4vw,32px);
+    line-height:1.25;margin-bottom:22px}
   p{margin-bottom:20px;max-width:64ch}
-  p.lead{font-size:21px;color:var(--ink)}
-  .assert{
-    font-family:var(--mono);
-    font-size:clamp(22px,4.4vw,36px);
-    line-height:1.3;
-    color:var(--ink);
-    margin:14px 0;
-  }
-  .assert b{color:var(--green-lit);font-weight:600}
+  p.lead{font-size:21px}
 
-  /* ---- watermark ---- */
-  .wm{
-    position:absolute;inset:0;
-    background-size:cover;background-position:center;
-    opacity:.07;
-    pointer-events:none;
-    z-index:0;
-    mix-blend-mode:screen;
-  }
-  section > .wrap{position:relative;z-index:1}
+  /* ---------- viewer ---------- */
+  .viewer{margin:34px 0 34px}
+  .samples{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .chip{font-family:var(--mono);font-size:12px;letter-spacing:.06em;background:transparent;
+    color:var(--ink-faint);border:1px solid var(--rule);padding:9px 13px;cursor:pointer;min-height:38px}
+  .chip[aria-pressed="true"]{color:var(--ink);border-color:var(--green)}
+  .chip:focus-visible{outline:2px solid var(--green-lit);outline-offset:2px}
 
-  /* ---- the demonstration block ---- */
-  .demo{
-    border:1px solid var(--rule);
-    background:var(--ground-2);
-    padding:30px;
-    font-family:var(--mono);
-    font-size:15px;
-    line-height:1.7;
-    margin:8px 0 4px;
-  }
-  .demo .q{color:var(--ink-dim)}
-  .demo .a-wrong{color:var(--ink);border-left:2px solid var(--ink-faint);padding-left:14px;margin:16px 0}
-  .demo .flag{color:#c9662b}
-  .demo .a-right{color:var(--green-lit);border-left:2px solid var(--green);padding-left:14px;margin:16px 0}
-  .caption{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);letter-spacing:.04em;margin-top:14px}
+  .panes{display:grid;grid-template-columns:1fr;gap:12px}
+  @media(min-width:860px){.panes{grid-template-columns:1fr 1fr}}
+  .pane{border:1px solid var(--rule);background:var(--ground-2);padding:18px}
+  .pane.machine{border-color:var(--green)}
+  .pane-label{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    color:var(--green-lit);margin-bottom:18px}
+  .doc{min-height:238px}
+  .t{height:11px;background:var(--ink);transition:background 900ms ease}
+  .l{height:6px;background:var(--ink-dim);margin-top:8px;transition:background 900ms ease}
+  .tbl{border:1px solid var(--rule);height:66px;margin-top:18px;padding:9px 11px;
+    transition:border-color 900ms ease}
+  .row{display:flex;align-items:center;gap:10px}
+  .flag{font-family:var(--mono);font-size:11px;color:var(--green-lit);opacity:0;
+    transform:translateX(-4px);transition:opacity 600ms ease 250ms,transform 600ms ease 250ms;
+    white-space:nowrap}
+  .is-machine .t{background:var(--decay-solid)}
+  .is-machine .l{background:var(--decay-line)}
+  .is-machine .tbl{border-color:#3a4034;border-style:dashed}
+  .is-machine .flag{opacity:1;transform:none}
+  .vcap{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px}
+  .vcap p{font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);
+    letter-spacing:.04em;margin:0;max-width:none}
+  .replay{font-family:var(--mono);font-size:12.5px;background:transparent;color:var(--green-lit);
+    border:none;cursor:pointer;padding:8px 2px;min-height:38px;letter-spacing:.06em}
+  .replay:focus-visible{outline:2px solid var(--green-lit);outline-offset:2px}
 
-  /* ---- qualifier ---- */
-  .qualify{color:var(--ink-dim);font-size:19px}
-  .qualify strong{color:var(--ink)}
-
-  /* ---- form ---- */
-  .cta-band{padding:100px 0;border-bottom:1px solid var(--rule)}
-  form{margin-top:34px;max-width:560px}
-  label{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin:20px 0 8px}
-  input,textarea{
-    width:100%;
-    background:var(--ground-2);
-    border:1px solid var(--rule);
-    color:var(--ink);
-    font-family:var(--mono);
-    font-size:16px;
-    padding:14px 16px;
-    border-radius:0;
-  }
-  input:focus,textarea:focus{outline:none;border-color:var(--green)}
-  textarea{resize:vertical;min-height:88px}
-  button{
-    margin-top:28px;
-    background:var(--green);
-    color:var(--ink);
-    font-family:var(--mono);
-    font-size:15px;
-    letter-spacing:.08em;
-    border:none;
-    padding:16px 30px;
-    cursor:pointer;
-    transition:background .15s;
-  }
-  button:hover{background:var(--green-lit)}
-  .cta-link{
-    display:inline-block;
-    font-family:var(--mono);
-    font-size:15px;
-    letter-spacing:.06em;
-    color:var(--green-lit);
-    text-decoration:none;
-    border-bottom:1px solid var(--green);
-    padding-bottom:3px;
-    margin-top:8px;
-  }
+  .cta-link{display:inline-block;font-family:var(--mono);font-size:15px;letter-spacing:.06em;
+    color:var(--green-lit);text-decoration:none;border-bottom:1px solid var(--green);
+    padding-bottom:3px;margin-top:6px}
   .cta-link:hover{color:var(--ink)}
 
-  /* ---- footer ---- */
-  footer{padding:54px 0 70px;color:var(--ink-faint);font-family:var(--mono);font-size:13px;letter-spacing:.04em}
+  .models{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 16px}
+  .model{font-family:var(--mono);font-size:13px;letter-spacing:.05em;color:var(--ink-dim);
+    border:1px solid var(--rule);padding:11px 15px}
+  .verticals{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
+    border:1px solid var(--rule);margin-top:30px}
+  @media(min-width:720px){.verticals{grid-template-columns:1fr 1fr}}
+  .v{background:var(--ground);padding:20px 22px}
+  .v b{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.08em;
+    color:var(--green-lit);font-weight:600;margin-bottom:7px}
+  .v span{color:var(--ink-dim);font-size:17px}
+
+  .honest{border-left:2px solid var(--green);padding-left:22px}
+
+  .cta-band{padding:96px 0}
+  form{margin-top:34px;max-width:560px}
+  label{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--ink-dim);margin:20px 0 8px}
+  input,textarea{width:100%;background:var(--ground-2);border:1px solid var(--rule);
+    color:var(--ink);font-family:var(--mono);font-size:16px;padding:14px 16px;border-radius:0}
+  input:focus,textarea:focus{outline:none;border-color:var(--green)}
+  textarea{resize:vertical;min-height:88px}
+  button[type=submit]{margin-top:28px;background:var(--green);color:var(--ink);
+    font-family:var(--mono);font-size:15px;letter-spacing:.08em;border:none;
+    padding:16px 30px;cursor:pointer;transition:background .15s;min-height:48px}
+  button[type=submit]:hover{background:var(--green-lit)}
+
+  footer{padding:54px 0 70px;color:var(--ink-faint);font-family:var(--mono);
+    font-size:13px;letter-spacing:.04em}
   footer a{color:var(--ink-dim);text-decoration:none;border-bottom:1px solid var(--rule)}
   footer a:hover{color:var(--ink)}
   .foot-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:14px}
-
+  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
   ::selection{background:var(--green);color:var(--ink)}
+  @media(prefers-reduced-motion:reduce){.t,.l,.tbl,.flag{transition:none}}
 </style>
 </head>
 <body>
@@ -198,92 +140,115 @@
       </svg>
       GREENBRAHMA
     </div>
+    <a class="navback" href="/thesis.html">THE THESIS &rarr;</a>
   </div>
 </header>
 
-<!-- ===== HERO / RECOGNIZE ===== -->
-<section id="gap">
-  <div class="wm" style="background-image:url('assets/01-gutenberg.jpg')"></div>
+<section class="hero">
   <div class="wrap">
-    <div class="eyebrow">The Inference Gap</div>
-    <h1>Your AI has your data.<br>It does not have your&nbsp;logic.</h1>
-    <p class="lead">So it answers with confidence — to a question you never asked.</p>
-    <a class="cta-link" href="#engage">See where this is costing you &rarr;</a>
-  </div>
-</section>
+    <div class="eyebrow">BrahmaScore</div>
+    <h1>Your template looks fine. Your AI can't&nbsp;read&nbsp;it.</h1>
+    <p class="lead">Ask ChatGPT, Copilot, Claude or Gemini to build a deck from your company
+      template and it guesses — at your hierarchy, your tone, how much text fits a slide, which
+      line is a finding and which is a heading. It guesses well enough to look right and wrong
+      enough to cost you an evening.</p>
 
-<!-- ===== DEMONSTRATE ===== -->
-<section>
-  <div class="wm" style="background-image:url('assets/02-franklin.jpg')"></div>
-  <div class="wrap">
-    <div class="eyebrow">How it happens</div>
-    <p class="lead">A planner asks the enterprise AI a routine question. The model has the data. What it does not have is <em>your</em> rule for weighing it.</p>
-
-    <div class="demo">
-      <div class="q">&gt; global satisfaction score, all regions, this quarter</div>
-      <div class="a-wrong">= +36. Healthy. Above benchmark. No action indicated.</div>
-      <div class="flag">// the average is correct. the answer is wrong.</div>
-      <div class="a-right">One segment sits at +22 and is collapsing as it scales.
-The model averaged what your business would have weighted.
-The number that mattered was buried inside the number that reassured.</div>
+    <div class="viewer">
+      <p class="sr" id="vdesc">The same document shown twice: as a person reads it, and as an AI
+        model reads it, with everything the model cannot determine dimmed and annotated.</p>
+      <div class="samples" role="group" aria-label="Choose a sample document">
+        <button class="chip" type="button" data-s="deck" aria-pressed="true">STRATEGY DECK</button>
+        <button class="chip" type="button" data-s="brief" aria-pressed="false">CLIENT BRIEF</button>
+        <button class="chip" type="button" data-s="board" aria-pressed="false">BOARD PACK</button>
+      </div>
+      <div class="panes" id="panes" aria-describedby="vdesc">
+        <div class="pane">
+          <p class="pane-label">AS A HUMAN SEES IT</p>
+          <div class="doc" data-doc="human"></div>
+        </div>
+        <div class="pane machine">
+          <p class="pane-label">AS A MODEL SEES IT</p>
+          <div class="doc" data-doc="machine"></div>
+        </div>
+      </div>
+      <div class="vcap">
+        <p id="vcaption">Six things this file never told the machine.</p>
+        <button class="replay" type="button" id="replay">&#8635; REPLAY</button>
+      </div>
     </div>
-    <div class="caption">A composite drawn from real engagements. Details altered; the failure is exact.</div>
 
-    <p style="margin-top:34px">No one catches it. It was confident. It cited its sources. The decision moves forward on an answer that is <em>mathematically correct and operationally wrong.</em></p>
+    <a class="cta-link" href="#apply">Apply for the beta &rarr;</a>
   </div>
 </section>
 
-<!-- ===== THE FALSE FIX ===== -->
 <section>
-  <div class="wm" style="background-image:url('assets/03-turing.jpg')"></div>
   <div class="wrap">
-    <div class="eyebrow">The instinct that fails</div>
-    <h2>You cannot prompt your way out of this.</h2>
-    <p>The reflex is a better prompt. But a prompt is not a control — it is a request. It has no version, no owner, no audit trail, and no guarantee that the same input produces the same output tomorrow.</p>
-    <p class="assert">That is not a strategy. That is <b>hope.</b></p>
-    <p class="dim">Retrieval solved the data problem. It never touched the reasoning problem. Your rules are still being interpreted, not executed.</p>
+    <div class="eyebrow">The part nobody put in the job description</div>
+    <h2>You are the middleware.</h2>
+    <p>Every document starts the same way. You re-explain who the audience is. What tone we use.
+      The three words we never use. That the executive summary runs to one page, not three. That
+      sources get cited inline. That the divider slides in the template are not slide titles.</p>
+    <p>You explain it to one model. Then you explain it again to a different model because the
+      first one wouldn't open the file. Then you fix the output by hand, because it still put a
+      90-word paragraph in a box built for 25.</p>
+    <p class="dim">Your organization already knows all of this. It just has no way to tell the
+      machine.</p>
   </div>
 </section>
 
-<!-- ===== THE ASSERTION / TRUST ===== -->
 <section>
-  <div class="wm" style="background-image:url('assets/04-manhattan.jpg')"></div>
   <div class="wrap">
-    <div class="eyebrow">The correction</div>
-    <p class="assert"><b>Logic is not content.</b><br>Logic is code.</p>
-    <p style="margin-top:30px">Content can be retrieved. Logic must be <em>executed.</em> Your pricing rules, your risk weightings, your escalation thresholds, your compliance boundaries — these are not documents for a model to read and interpret. They are functions for a model to run.</p>
-    <p>Stop giving AI reading assignments. Start giving it runtime instructions.</p>
+    <div class="eyebrow">Cross-model</div>
+    <h2>One template. Six models. Six different documents.</h2>
+    <p>Copilot honours things ChatGPT ignores. Claude reads structure Gemini flattens. Perplexity
+      does something else entirely. If your template only works in one of them, it doesn't work.</p>
+    <div class="models">
+      <span class="model">MICROSOFT COPILOT</span>
+      <span class="model">CHATGPT</span>
+      <span class="model">CLAUDE</span>
+      <span class="model">GEMINI</span>
+      <span class="model">GEMINI NOTEBOOK</span>
+      <span class="model">PERPLEXITY</span>
+    </div>
+    <p class="dim" style="font-size:15px">Tested, not affiliated. GreenBrahma is model-neutral by design.</p>
   </div>
 </section>
 
-<!-- ===== ALP / WANT ===== -->
 <section>
-  <div class="wm" style="background-image:url('assets/05-web.jpg')"></div>
   <div class="wrap">
-    <div class="eyebrow">The protocol</div>
-    <h2>The Authoritative Logic Protocol</h2>
-    <p>ALP defines your organization's logic separately from its data. It versions authority, enforces territory, and removes inference from decisions that were never meant to be inferred.</p>
-    <p>The artifact it produces is a <strong>Canonical Logic Registry</strong> — a single, versioned, executable source of truth for how your organization actually decides. Not a document about your rules. Your rules, running.</p>
-    <p class="dim mono" style="font-size:15px;margin-top:26px">ALP &middot; the methodology &nbsp;|&nbsp; Canonical Logic Registry &middot; the artifact</p>
+    <div class="eyebrow">Where this hurts most</div>
+    <h2>You already know which file this is.</h2>
+    <div class="verticals">
+      <div class="v"><b>MARKETING</b><span>The strategy deck that gets rebuilt three times before the exec review.</span></div>
+      <div class="v"><b>LEGAL</b><span>The demand package where a fabricated citation is not a typo.</span></div>
+      <div class="v"><b>CONSULTING</b><span>The client report and the deck that have to say the same thing.</span></div>
+      <div class="v"><b>FINANCE</b><span>The board pack whose variance narrative has to be traceable.</span></div>
+      <div class="v"><b>ENGINEERING</b><span>The design review a non-engineer has to be able to read.</span></div>
+      <div class="v"><b>HEALTHCARE ADMIN</b><span>The operational report governance will actually audit.</span></div>
+    </div>
   </div>
 </section>
 
-<!-- ===== QUALIFY ===== -->
 <section>
-  <div class="wm" style="background-image:url('assets/06-ai.jpg')"></div>
   <div class="wrap">
-    <div class="eyebrow">Who this is for</div>
-    <p class="qualify">Built for organizations where a wrong answer is expensive — <strong>regulated operations, complex supply chains, financial and clinical and legal decisioning, high-stakes B2B.</strong></p>
-    <p class="qualify" style="margin-top:18px">If your AI is writing marketing copy, you do not need this.</p>
+    <div class="eyebrow">Before you ask for a number</div>
+    <div class="honest">
+      <h2>What we can and can't tell you yet.</h2>
+      <p>We are running controlled tests: the same task, the same sources, one conventional
+        template and one GreenBrahma template, across six platforms, three runs each.</p>
+      <p class="dim">We will publish the results when they are repeatable, and we will publish
+        them if they are bad. Until then we are not going to put a number on this page.</p>
+    </div>
   </div>
 </section>
 
-<!-- ===== ENGAGE / BUY ===== -->
-<section class="cta-band" id="engage">
+<section class="cta-band" id="apply">
   <div class="wrap">
-    <div class="eyebrow">Start a conversation</div>
-    <h2>Where is your AI making confident, wrong decisions?</h2>
-    <p class="dim">Name the place it happens. That is where a Registry begins.</p>
+    <div class="eyebrow">Design partner beta</div>
+    <h2>We're picking twenty people.</h2>
+    <p class="dim">Design partners get compiled artifacts for their own templates, cross-model
+      results before anyone else sees them, and direct input on what gets built. What we want in
+      return is your real work and your honest reaction — including the times it doesn't help.</p>
 
     <form name="engage" method="POST" data-netlify="true" action="/thanks.html" netlify-honeypot="bot-field">
       <input type="hidden" name="form-name" value="engage" />
@@ -298,10 +263,10 @@ The number that mattered was buried inside the number that reassured.</div>
       <label for="email">Email</label>
       <input id="email" name="email" type="email" required />
 
-      <label for="where">Where is your AI making confident, wrong decisions?</label>
+      <label for="where">What breaks? One sentence.</label>
       <textarea id="where" name="where" required></textarea>
 
-      <button type="submit">Send &rarr;</button>
+      <button type="submit">Apply &rarr;</button>
     </form>
   </div>
 </section>
@@ -309,13 +274,84 @@ The number that mattered was buried inside the number that reassured.</div>
 <footer>
   <div class="wrap">
     <div>GREENBRAHMA</div>
-    <div style="margin-top:8px">The Authoritative Logic Protocol &middot; created by Geoff Pickering</div>
+    <div style="margin-top:8px">AI-native document intelligence &middot; created by Geoff Pickering</div>
     <div class="foot-row">
       <a href="mailto:Geoff@greenbrahma.com">Geoff@greenbrahma.com</a>
-      <a href="#gap">The Inference Gap</a>
+      <a href="/thesis.html">The Inference Gap</a>
     </div>
   </div>
 </footer>
 
+<script>
+(function(){
+  var S={
+    deck:{t:.58,l:[.92,.86,.71],t2:.36,l2:[.88,.64],
+      f:{a:"? heading or finding",b:"? no capacity limit",
+         c:["? evidence or decoration","? source unattributed"]}},
+    brief:{t:.66,l:[.95,.9,.88,.62],t2:.42,l2:[.84,.7],
+      f:{a:"? party or subject",b:"? claim or conclusion",
+         c:["? quote or paraphrase","? citation unlinked"]}},
+    board:{t:.5,l:[.9,.83],t2:.44,l2:[.91,.86,.58],
+      f:{a:"? period or segment",b:"? actual or forecast",
+         c:["? variance basis unknown","? no rounding rule"]}}
+  };
+  var panes=document.getElementById('panes'),
+      cap=document.getElementById('vcaption'),
+      replay=document.getElementById('replay'),
+      chips=document.querySelectorAll('.chip'),
+      timer=null;
+
+  function bar(cls,f){var d=document.createElement('div');d.className=cls;
+    d.style.width=(f*100)+'%';return d;}
+  function row(f,txt,show,mt,mb){
+    var r=document.createElement('div');r.className='row';
+    if(mt)r.style.marginTop=mt; if(mb)r.style.marginBottom=mb;
+    r.appendChild(bar('t',f));
+    if(show){var s=document.createElement('span');s.className='flag';s.textContent=txt;r.appendChild(s);}
+    return r;
+  }
+  function build(el,s,m){
+    el.textContent='';
+    el.appendChild(row(s.t,s.f.a,m,null,'10px'));
+    s.l.forEach(function(f){el.appendChild(bar('l',f));});
+    el.appendChild(row(s.t2,s.f.b,m,'22px','10px'));
+    s.l2.forEach(function(f){el.appendChild(bar('l',f));});
+    var t=document.createElement('div');t.className='tbl';
+    if(m){s.f.c.forEach(function(x){var d=document.createElement('div');
+      d.className='flag';d.textContent=x;d.style.marginBottom='5px';t.appendChild(d);});}
+    el.appendChild(t);
+  }
+  function render(k){
+    build(document.querySelector('[data-doc="human"]'),S[k],false);
+    build(document.querySelector('[data-doc="machine"]'),S[k],true);
+  }
+  function play(){
+    panes.classList.remove('is-machine');
+    cap.textContent='Same file. Same page. Watch the right panel.';
+    clearTimeout(timer);
+    timer=setTimeout(function(){
+      panes.classList.add('is-machine');
+      cap.textContent='Six things this file never told the machine.';
+    },700);
+  }
+  render('deck');
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      chips.forEach(function(o){o.setAttribute('aria-pressed','false');});
+      c.setAttribute('aria-pressed','true');
+      render(c.dataset.s); play();
+    });
+  });
+  replay.addEventListener('click',play);
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    panes.classList.add('is-machine');
+  }else if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(e){
+      e.forEach(function(x){if(x.isIntersecting){play();io.disconnect();}});
+    },{threshold:.35});
+    io.observe(panes);
+  }else{play();}
+})();
+</script>
 </body>
 </html>
