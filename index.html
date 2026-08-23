@@ -41,11 +41,11 @@
   .navback:hover{color:var(--ink)}
 
   section{padding:52px 0;border-bottom:1px solid var(--rule)}
-  section.hero{padding:26px 0 44px;border-bottom:1px solid var(--rule)}
+  section.hero{padding:16px 0 34px;border-bottom:1px solid var(--rule)}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;
     text-transform:uppercase;color:var(--green-lit);margin-bottom:16px}
-  h1{font-family:var(--mono);font-weight:600;font-size:clamp(26px,4.6vw,40px);
-    line-height:1.14;letter-spacing:-.01em;margin-bottom:14px;max-width:20ch}
+  h1{font-family:var(--mono);font-weight:600;font-size:clamp(23px,3.3vw,33px);
+    line-height:1.16;letter-spacing:-.01em;margin-bottom:12px;max-width:26ch}
   h2{font-family:var(--mono);font-weight:600;font-size:clamp(21px,3.4vw,28px);
     line-height:1.25;margin-bottom:16px}
   p{margin-bottom:16px;max-width:68ch;color:var(--ink-2)}
@@ -56,7 +56,7 @@
   padding:20px 22px;margin-bottom:16px}
 .step{font-family:var(--mono);font-size:12px;letter-spacing:.16em;
   color:var(--green-lit);margin-bottom:10px}
-.primary h2{font-size:20px;line-height:1.35;font-weight:600;margin-bottom:8px}
+.primary h2{font-size:19px;line-height:1.3;font-weight:600;margin-bottom:6px}
 .primary p{color:var(--ink-2);font-size:16px;max-width:70ch}
 .primary .cue{color:var(--green-lit);font-weight:600}
 
@@ -158,17 +158,22 @@
 
 
   /* ---------- dithered mark band ---------- */
-  .band{position:relative;overflow:hidden;padding:38px 0 34px;
+  .band{position:relative;overflow:hidden;padding:24px 0 26px;
     border-bottom:1px solid var(--rule)}
   .band .wrap{position:relative;z-index:2}
   #dither{position:absolute;top:50%;right:-6%;transform:translateY(-50%);
     z-index:1;pointer-events:none;opacity:.9}
   @media(max-width:860px){
-    #dither{right:-18%;opacity:.42}
-    .band{padding:30px 0 26px}
+    #dither{right:-22%;opacity:.38}
+    .band{padding:18px 0 20px}
   }
-  .band h1{margin-bottom:12px}
-  .band .lead{max-width:34ch}
+  .band h1{margin-bottom:10px;max-width:26ch}
+  .band .lead{max-width:none;margin-bottom:20px;font-size:18px}
+  .band .eyebrow{margin-bottom:10px}
+  .bcta{display:inline-block;background:var(--ink);color:var(--ground);
+    font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-decoration:none;
+    padding:13px 22px;min-height:44px}
+  .bcta:hover{background:var(--green-lit)}
 
   .verticals{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
     border:1px solid var(--rule);margin-top:24px}
@@ -225,8 +230,9 @@
   <div class="wrap">
     <div class="eyebrow">BrahmaScore</div>
     <h1>Your template looks fine. Your AI can&rsquo;t&nbsp;read&nbsp;it.</h1>
-    <p class="lead">Every word survives the trip into ChatGPT, Copilot, Claude or Gemini.
+    <p class="lead">Every word survives the trip into ChatGPT, Copilot, Claude or Gemini.<br>
       Every meaning does not.</p>
+    <a class="bcta" href="#apply">APPLY FOR THE BETA</a>
   </div>
 </section>
 
@@ -417,7 +423,8 @@
           x: x, y: y,
           base: 0.30 + ramp * 0.62,
           ph: Math.random() * Math.PI * 2,
-          sp: 0.4 + Math.random() * 0.9
+          sp: 0.4 + Math.random() * 0.9,
+          dly: (x / W) * 2100 + Math.random() * 800
         });
       }
     }
@@ -432,8 +439,14 @@
     ctx.clearRect(0, 0, W, H);
     for(var k = 0; k < cells.length; k++){
       var c = cells[k];
-      var shimmer = reduced ? 1 : (0.72 + 0.28 * Math.sin(t * 0.0011 * c.sp + c.ph));
-      ctx.globalAlpha = Math.max(0, Math.min(1, c.base * shimmer));
+      var app = 1;
+      if(!reduced){
+        var lt = t - c.dly;
+        if(lt <= 0) continue;
+        app = Math.min(lt / 620, 1);
+      }
+      var shimmer = reduced ? 1 : (0.60 + 0.40 * Math.sin(t * 0.0008 * c.sp + c.ph));
+      ctx.globalAlpha = Math.max(0, Math.min(1, c.base * shimmer * app));
       ctx.fillStyle = '#5cb824';
       ctx.fillRect(c.x, c.y, CELL, CELL);
     }
@@ -444,7 +457,7 @@
   function loop(ts){
     if(start === null) start = ts;
     var t = ts - start;
-    if(t - last > 55){ draw(t); last = t; }   /* ~18fps is plenty for a shimmer */
+    if(t - last > 40){ draw(t); last = t; }   /* 25fps: smooth enough for the build */
     raf = requestAnimationFrame(loop);
   }
 
