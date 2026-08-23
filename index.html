@@ -41,10 +41,10 @@
   .navback:hover{color:var(--ink)}
 
   section{padding:52px 0;border-bottom:1px solid var(--rule)}
-  section.hero{padding:16px 0 34px;border-bottom:1px solid var(--rule)}
+  section.hero{padding:6px 0 30px;border-bottom:1px solid var(--rule)}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;
     text-transform:uppercase;color:var(--green-lit);margin-bottom:16px}
-  h1{font-family:var(--mono);font-weight:600;font-size:clamp(23px,3.3vw,33px);
+  h1{font-family:var(--mono);font-weight:600;font-size:clamp(21px,2.7vw,29px);
     line-height:1.16;letter-spacing:-.01em;margin-bottom:12px;max-width:26ch}
   h2{font-family:var(--mono);font-weight:600;font-size:clamp(21px,3.4vw,28px);
     line-height:1.25;margin-bottom:16px}
@@ -157,23 +157,26 @@
   border:none;cursor:pointer;padding:10px 2px;letter-spacing:.06em;margin-top:6px}
 
 
-  /* ---------- dithered mark band ---------- */
-  .band{position:relative;overflow:hidden;padding:24px 0 26px;
-    border-bottom:1px solid var(--rule)}
-  .band .wrap{position:relative;z-index:2}
-  #dither{position:absolute;top:50%;right:-6%;transform:translateY(-50%);
-    z-index:1;pointer-events:none;opacity:.9}
-  @media(max-width:860px){
-    #dither{right:-22%;opacity:.38}
-    .band{padding:18px 0 20px}
+  /* ---------- image band ---------- */
+  .band{position:relative;padding:0;border-bottom:1px solid var(--rule);background:var(--ground)}
+  .bandimg{display:block;position:relative}
+  .bandimg img{display:block;width:100%;height:clamp(210px,34vh,330px);object-fit:cover;
+    object-position:center 42%}
+  .bandimg:after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(to bottom,rgba(13,15,12,.30) 0%,rgba(13,15,12,0) 26%,
+      rgba(13,15,12,.72) 78%,var(--ground) 100%)}
+  .bandtext{padding-top:22px;padding-bottom:26px}
+  .band .eyebrow{margin-bottom:8px}
+  .band h1{margin-bottom:9px;max-width:22ch}
+  .band .lead{max-width:52ch;margin-bottom:14px;font-size:17px}
+  .scrollcue{display:inline-block;font-family:var(--mono);font-size:13.5px;letter-spacing:.05em;
+    color:var(--green-lit);text-decoration:none;border-bottom:1px solid var(--green);
+    padding-bottom:3px}
+  .scrollcue:hover{color:var(--ink)}
+  @media(max-width:700px){
+    .bandimg img{height:clamp(230px,42vh,340px);object-position:center 40%}
+    .bandtext{padding-top:18px;padding-bottom:20px}
   }
-  .band h1{margin-bottom:10px;max-width:26ch}
-  .band .lead{max-width:none;margin-bottom:20px;font-size:18px}
-  .band .eyebrow{margin-bottom:10px}
-  .bcta{display:inline-block;background:var(--ink);color:var(--ground);
-    font-family:var(--mono);font-size:14px;letter-spacing:.06em;text-decoration:none;
-    padding:13px 22px;min-height:44px}
-  .bcta:hover{background:var(--green-lit)}
 
   .verticals{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
     border:1px solid var(--rule);margin-top:24px}
@@ -226,17 +229,19 @@
 </header>
 
 <section class="band">
-  <canvas id="dither" aria-hidden="true"></canvas>
-  <div class="wrap">
-    <div class="eyebrow">BrahmaScore</div>
-    <h1>Your template looks fine. Your AI can&rsquo;t&nbsp;read&nbsp;it.</h1>
-    <p class="lead">Every word survives the trip into ChatGPT, Copilot, Claude or Gemini.<br>
-      Every meaning does not.</p>
-    <a class="bcta" href="#apply">APPLY FOR THE BETA</a>
+  <picture class="bandimg">
+    <source media="(max-width:700px)" srcset="/hero-squeeze-4x5.webp">
+    <img src="/hero-squeeze.webp" alt="A lone office worker standing between two converging walls: AI tools pressing in from one side, Word, PowerPoint and Excel from the other, under demands to do more with less." fetchpriority="high" width="1672" height="941">
+  </picture>
+  <div class="wrap bandtext">
+    <div class="eyebrow">Stuck in the middle</div>
+    <h1>You are the part in the middle.</h1>
+    <p class="lead">Explain it to the model. Fix what it hands back. Do it again tomorrow.</p>
+    <a class="scrollcue" href="#viewer">See what the model actually receives &darr;</a>
   </div>
 </section>
 
-<section class="hero">
+<section class="hero" id="viewer">
   <div class="wrap">
 <!-- PRIMARY NARRATION PANEL -->
   <div class="primary" id="primary" aria-live="polite">
@@ -375,98 +380,7 @@
 </footer>
 
 <script>
-/* ---------- dithered mark: sampled cells, density ramps left to right ---------- */
-(function(){
-  var cv = document.getElementById('dither');
-  if(!cv || !cv.getContext) return;
-  var ctx = cv.getContext('2d');
-  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var cells = [], W = 0, H = 0, CELL = 4, GAP = 6, raf = null;
 
-  var img = new Image();
-  img.onerror = function(){ cv.style.display = 'none'; };
-  img.onload = build;
-  img.src = '/bull-mark.png';
-
-  function build(){
-    var vw = window.innerWidth;
-    W = Math.round(Math.min(vw * (vw < 860 ? 0.92 : 0.58), 620));
-    H = Math.round(W * (img.height / img.width));
-    GAP = vw < 520 ? 5 : 6;
-    CELL = vw < 520 ? 3 : 4;
-
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    cv.width = W * dpr; cv.height = H * dpr;
-    cv.style.width = W + 'px'; cv.style.height = H + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    /* sample the source once, offscreen */
-    var off = document.createElement('canvas');
-    off.width = W; off.height = H;
-    var octx = off.getContext('2d');
-    octx.drawImage(img, 0, 0, W, H);
-    var d;
-    try { d = octx.getImageData(0, 0, W, H).data; }
-    catch(e){ cv.style.display = 'none'; return; }
-
-    cells = [];
-    for(var y = 0; y < H; y += GAP){
-      for(var x = 0; x < W; x += GAP){
-        var i = ((y | 0) * W + (x | 0)) * 4;
-        var a = d[i + 3];
-        if(a < 90) continue;
-        /* density ramp: sparse at the left where the headline sits, solid at the right edge */
-        var ramp = Math.pow(x / W, 1.55);
-        var keep = 0.06 + ramp * 0.98;
-        if(Math.random() > keep) continue;
-        cells.push({
-          x: x, y: y,
-          base: 0.30 + ramp * 0.62,
-          ph: Math.random() * Math.PI * 2,
-          sp: 0.4 + Math.random() * 0.9,
-          dly: (x / W) * 2100 + Math.random() * 800
-        });
-      }
-    }
-    if(!cells.length){ cv.style.display = 'none'; return; }
-    if(reduced){ draw(0); return; }
-    if(raf) cancelAnimationFrame(raf);
-    start = null;
-    raf = requestAnimationFrame(loop);
-  }
-
-  function draw(t){
-    ctx.clearRect(0, 0, W, H);
-    for(var k = 0; k < cells.length; k++){
-      var c = cells[k];
-      var app = 1;
-      if(!reduced){
-        var lt = t - c.dly;
-        if(lt <= 0) continue;
-        app = Math.min(lt / 620, 1);
-      }
-      var shimmer = reduced ? 1 : (0.60 + 0.40 * Math.sin(t * 0.0008 * c.sp + c.ph));
-      ctx.globalAlpha = Math.max(0, Math.min(1, c.base * shimmer * app));
-      ctx.fillStyle = '#5cb824';
-      ctx.fillRect(c.x, c.y, CELL, CELL);
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  var start = null, last = 0;
-  function loop(ts){
-    if(start === null) start = ts;
-    var t = ts - start;
-    if(t - last > 40){ draw(t); last = t; }   /* 25fps: smooth enough for the build */
-    raf = requestAnimationFrame(loop);
-  }
-
-  var rt;
-  window.addEventListener('resize', function(){
-    clearTimeout(rt);
-    rt = setTimeout(function(){ if(img.complete) build(); }, 200);
-  });
-})();
 
 (function(){
   var DOCS = {
@@ -567,10 +481,10 @@
   };
 
   var STEPS = [
-    {s:'STEP 1 OF 4', h:'You go round and round with your LLM, and it never behaves.',
-     b:'ChatGPT, Copilot, Claude, Gemini, Perplexity — you explain the same things every time, and you still rewrite the output by hand. <span class="cue">Look below.</span>'},
-    {s:'STEP 2 OF 4', h:'Here\'s your document.',
-     b:'A real one. <span class="cue">Click the three tabs</span> and find the one you actually made this week.'},
+    {s:'STEP 1 OF 4', h:'Start with something you recognise.',
+     b:'<span class="cue">Pick one of the three</span> — whichever is closest to the thing you made this week.'},
+    {s:'STEP 2 OF 4', h:'That\'s the document. Nothing unusual about it.',
+     b:'Try the others if you like. <span class="cue">Then open the panel on the right.</span>'},
     {s:'STEP 3 OF 4', h:'That\'s what you see. Ready?',
      b:'<span class="cue">Click the panel on the right</span> — <i>An AI model sees this</i>.'},
     {s:'STEP 4 OF 4', h:'Every word survived. Every meaning did not.',
@@ -597,7 +511,6 @@
   }
 
   renderHuman(); setStep(0);
-  setTimeout(function(){ if(!tabbed) setStep(1); }, 2600);
 
   tabs.forEach(function(t){
     t.addEventListener('click', function(){
@@ -625,8 +538,6 @@
     machine.hidden=true; shut.hidden=false; shut.style.display='';
     verdict.classList.remove('on'); models.classList.remove('on');
     setStep(0);
-    window.scrollTo({top:0,behavior:'smooth'});
-    setTimeout(function(){ if(!tabbed) setStep(1); }, 2600);
   });
 })();
 </script>
