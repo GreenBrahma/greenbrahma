@@ -190,6 +190,130 @@
 </head>
 <body>
 
+<!-- ===== INTRO: pixelated mark disperses to reveal the page ===== -->
+<div id="gbIntro" aria-hidden="true">
+  <canvas id="gbCanvas"></canvas>
+  <div id="gbSkip">TAP TO SKIP</div>
+</div>
+
+<style>
+  #gbIntro{position:fixed;inset:0;z-index:9999;background:var(--ground);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:opacity 380ms ease}
+  #gbIntro.out{opacity:0;pointer-events:none}
+  #gbCanvas{display:block;max-width:100%;max-height:100%}
+  #gbSkip{position:absolute;bottom:26px;left:0;right:0;text-align:center;
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:#4a4d44;
+    opacity:0;transition:opacity 400ms ease 500ms}
+  #gbIntro.ready #gbSkip{opacity:1}
+  @media(prefers-reduced-motion:reduce){#gbIntro{display:none}}
+  html.gb-intro-lock,html.gb-intro-lock body{overflow:hidden}
+</style>
+
+<script>
+(function(){
+  var intro = document.getElementById('gbIntro');
+  if(!intro) return;
+
+  function kill(){
+    if(!intro || intro.dataset.done) return;
+    intro.dataset.done = '1';
+    intro.classList.add('out');
+    document.documentElement.classList.remove('gb-intro-lock');
+    setTimeout(function(){ if(intro.parentNode) intro.parentNode.removeChild(intro); }, 420);
+  }
+
+  // --- bail out early in every case where a splash would be wrong ---
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var seen = false;
+  try { seen = sessionStorage.getItem('gbIntroSeen') === '1'; } catch(e){}
+  if(reduced || seen || !document.getElementById('gbCanvas').getContext){ kill(); return; }
+  try { sessionStorage.setItem('gbIntroSeen','1'); } catch(e){}
+
+  document.documentElement.classList.add('gb-intro-lock');
+  // hard failsafe: whatever happens, the page is never blocked past 2.2s
+  var failsafe = setTimeout(kill, 2200);
+
+  intro.addEventListener('click', kill);
+  window.addEventListener('keydown', kill, {once:true});
+  window.addEventListener('touchstart', kill, {once:true, passive:true});
+
+  var cv = document.getElementById('gbCanvas'), ctx = cv.getContext('2d');
+  var img = new Image();
+  img.onerror = kill;
+  img.onload = function(){
+    var vw = Math.min(window.innerWidth, 900), vh = window.innerHeight;
+    var size = Math.min(vw * 0.72, vh * 0.62, 560);
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = Math.round(size), H = Math.round(size * (img.height / img.width));
+
+    cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    ctx.scale(dpr, dpr);
+    ctx.drawImage(img, 0, 0, W, H);
+
+    var data;
+    try { data = ctx.getImageData(0, 0, W * dpr, H * dpr).data; }
+    catch(e){ kill(); return; }
+
+    // cell size: coarser on small screens so particle count stays sane
+    var cell = W < 380 ? 7 : (W < 520 ? 6 : 5);
+    var pts = [], cx = W / 2, cy = H / 2;
+
+    for(var y = 0; y < H; y += cell){
+      for(var x = 0; x < W; x += cell){
+        var i = ((Math.round(y * dpr) * Math.round(W * dpr)) + Math.round(x * dpr)) * 4;
+        if(data[i + 3] > 120){
+          var dx = x - cx, dy = y - cy, d = Math.sqrt(dx*dx + dy*dy) || 1;
+          pts.push({
+            x:x, y:y,
+            r:data[i], g:data[i+1], b:data[i+2],
+            vx:(dx/d) * (1.4 + Math.random()*3.6) + (Math.random()-0.5)*1.2,
+            vy:(dy/d) * (1.4 + Math.random()*3.6) + (Math.random()-0.5)*1.2 - 0.5,
+            dly: (d / Math.max(W,H)) * 190 + Math.random()*90
+          });
+        }
+      }
+    }
+    if(!pts.length){ kill(); return; }
+
+    intro.classList.add('ready');
+
+    var HOLD = 340, SPAN = 760, t0 = null;
+    function frame(ts){
+      if(t0 === null) t0 = ts;
+      var t = ts - t0;
+      ctx.clearRect(0, 0, W, H);
+
+      for(var k = 0; k < pts.length; k++){
+        var p = pts[k];
+        var lt = t - HOLD - p.dly;
+        var a = 1, ox = 0, oy = 0, s = cell;
+        if(lt > 0){
+          var u = Math.min(lt / SPAN, 1);
+          var e = u * u;                  // accelerate outward
+          ox = p.vx * e * 190;
+          oy = p.vy * e * 190;
+          a = 1 - u;
+          s = cell * (1 - u * 0.55);
+        }
+        if(a <= 0.02) continue;
+        ctx.globalAlpha = a;
+        ctx.fillStyle = 'rgb(' + p.r + ',' + p.g + ',' + p.b + ')';
+        ctx.fillRect(p.x + ox, p.y + oy, s, s);
+      }
+      ctx.globalAlpha = 1;
+
+      if(t < HOLD + SPAN + 340){ requestAnimationFrame(frame); }
+      else { clearTimeout(failsafe); kill(); }
+    }
+    requestAnimationFrame(frame);
+  };
+  img.src = '/bull-mark.png';
+})();
+</script>
+
+
 <header>
   <div class="wrap">
     <div class="brand">
