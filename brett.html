@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>GreenBrahma — Resell AI visibility as a widget</title>
+<meta name="description" content="Charge $400–$1,200 a month per client for AI visibility. Pay $20. One line of code, your brand on it." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Charge $400–$1,200/mo per client. Pay $20." />
+<meta property="og:description" content="A white-label AI visibility widget your clients watch every day — not a PDF they file once a month." />
+
+<style>
+  :root{
+    --ground:#0d0f0c;
+    --ground-2:#12140f;
+    --paper:#16190f;
+    --ink:#f2f0e9;
+    --ink-2:#cfcdc4;
+    --ink-dim:#8e8c84;
+    --green:#30730f;
+    --green-lit:#5cb824;
+    --rule:#2a2f22;
+    --mono:'SFMono-Regular',ui-monospace,'Menlo','Consolas','Liberation Mono',monospace;
+    --sans:'SFMono-Regular',ui-monospace,'Menlo','Consolas','Liberation Mono',monospace;
+    --sheet:#f7f6f1;--docink:#1b1d18;--docink2:#4d5049;--docdim:#83867d;--docrule:#d9d7cf;
+    --wa:#5cb824;          /* widget accent — swapped live by the white-label demo */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
+    font-size:17.5px;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .narrow{max-width:760px}
+
+  header{border-bottom:1px solid var(--rule);padding:16px 0;position:sticky;top:0;
+    background:rgba(13,15,12,.94);backdrop-filter:blur(6px);z-index:20}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);
+    letter-spacing:.14em;font-size:14px;font-weight:600}
+  .glyph{width:20px;height:20px;flex:none}
+  .navback{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;
+    color:var(--ink-dim);text-decoration:none}
+  .navback:hover{color:var(--ink)}
+
+  section{padding:34px 0;border-bottom:1px solid var(--rule)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--green-lit);margin-bottom:14px}
+  h1{font-family:var(--mono);font-weight:600;font-size:clamp(22px,3vw,31px);
+    line-height:1.2;letter-spacing:-.025em;margin-bottom:12px;max-width:26ch}
+  h2{font-family:var(--mono);font-weight:600;font-size:clamp(19px,2.9vw,25px);
+    line-height:1.3;letter-spacing:-.02em;margin-bottom:14px}
+  h3{font-family:var(--mono);font-weight:600;font-size:17px;line-height:1.35;
+    letter-spacing:-.01em;margin-bottom:7px}
+  p{margin-bottom:14px;max-width:62ch;color:var(--ink)}
+  p.lead{font-size:18.5px;line-height:1.5;margin-bottom:18px}
+  .dim{color:var(--ink-2)}
+  strong,b{color:var(--green-lit);font-weight:600}
+
+  /* ---------- the ad, recreated ---------- */
+  .adcard{border:1px solid var(--green);background:var(--ground-2);padding:26px 22px;
+    margin:22px 0 6px}
+  .adlabel{font-family:var(--mono);font-size:11px;letter-spacing:.26em;
+    color:var(--ink-dim);text-align:center;margin-bottom:24px;text-transform:uppercase}
+  .math{display:grid;grid-template-columns:1fr;gap:16px;align-items:center;text-align:center}
+  @media(min-width:760px){.math{grid-template-columns:1fr 26px 1fr 26px 1fr}}
+  .mcap{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+    color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px}
+  .mnum{font-family:var(--mono);font-size:clamp(34px,6vw,46px);font-weight:600;
+    letter-spacing:-.03em;line-height:1}
+  .mnum.win{color:var(--green-lit);border-bottom:2px solid var(--green);
+    display:inline-block;padding-bottom:5px}
+  .mfoot{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);margin-top:7px}
+  .op{font-family:var(--mono);font-size:26px;color:var(--ink-dim);line-height:1}
+  .adrule{border-top:1px solid var(--rule);margin-top:24px;padding-top:18px;text-align:center}
+  .adrule .big{font-family:var(--mono);font-size:clamp(15px,2.4vw,19px);font-weight:600;
+    letter-spacing:-.01em;margin-bottom:6px}
+  .adrule .fine{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim)}
+
+  /* ---------- buttons ---------- */
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}
+  .btn{display:inline-block;background:var(--green);color:var(--ink);font-family:var(--mono);
+    font-size:15px;letter-spacing:.06em;border:none;padding:15px 26px;cursor:pointer;
+    text-decoration:none;transition:background .15s;min-height:48px;line-height:1.25}
+  .btn:hover{background:var(--green-lit);color:var(--ground)}
+  .btn.ghost{background:transparent;border:1px solid var(--rule);color:var(--ink)}
+  .btn.ghost:hover{background:transparent;border-color:var(--green-lit);color:var(--green-lit)}
+
+  /* ---------- generic grid cards ---------- */
+  .grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
+    border:1px solid var(--rule);margin-top:20px}
+  @media(min-width:720px){.grid.two{grid-template-columns:1fr 1fr}
+    .grid.three{grid-template-columns:1fr 1fr 1fr}}
+  .cell{background:var(--ground);padding:19px 20px}
+  .cell .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;
+    color:var(--green-lit);margin-bottom:8px;text-transform:uppercase}
+  .cell p{font-size:16px;line-height:1.52;margin:0;color:var(--ink)}
+
+  /* ---------- code ---------- */
+  pre{background:var(--ground-2);border:1px solid var(--rule);padding:17px 18px;
+    overflow-x:auto;margin:16px 0;font-family:var(--mono);font-size:13.5px;
+    line-height:1.62;color:var(--ink-2)}
+  pre .t{color:var(--green-lit)}
+  pre .a{color:var(--ink)}
+  pre .s{color:#c9a227}
+
+  /* ---------- the widget mockup ---------- */
+  .lab{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin:18px 0 16px;
+    padding:15px 16px;border:1px solid var(--rule);background:var(--ground-2)}
+  .lab .f{flex:1 1 220px}
+  .lab label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--ink-dim);margin-bottom:7px}
+  .lab input{width:100%;background:var(--ground);border:1px solid var(--rule);color:var(--ink);
+    font-family:var(--mono);font-size:15px;padding:11px 13px;border-radius:0;
+    letter-spacing:.08em;text-transform:uppercase}
+  .lab input:focus{outline:none;border-color:var(--green-lit)}
+  .sw{display:flex;gap:9px}
+  .sw button{width:36px;height:36px;border:1px solid var(--rule);cursor:pointer;padding:0;
+    background:transparent;position:relative}
+  .sw button i{position:absolute;inset:5px;display:block}
+  .sw button[aria-pressed="true"]{border-color:var(--ink)}
+  .sw button:focus-visible{outline:2px solid var(--green-lit);outline-offset:2px}
+
+  .widget{border:1px solid var(--rule);background:var(--ground-2);
+    box-shadow:0 14px 40px rgba(0,0,0,.5);max-width:560px}
+  .w-top{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 17px;border-bottom:1px solid var(--rule)}
+  .w-brand{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12.5px;
+    letter-spacing:.14em;font-weight:600;color:var(--ink)}
+  .w-dot{width:15px;height:15px;background:var(--wa);flex:none;
+    clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
+  .w-tag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--ink-dim);
+    border:1px solid var(--rule);padding:3px 7px}
+  .w-body{padding:19px 17px 16px}
+  .w-headline{display:flex;align-items:flex-end;gap:13px;flex-wrap:wrap}
+  .w-big{font-family:var(--mono);font-size:50px;font-weight:600;letter-spacing:-.04em;
+    line-height:.92;color:var(--wa)}
+  .w-delta{font-family:var(--mono);font-size:13px;color:var(--wa);padding-bottom:5px}
+  .w-what{font-family:var(--mono);font-size:12px;letter-spacing:.13em;color:var(--ink-dim);
+    text-transform:uppercase;margin-top:11px}
+  .w-sub{font-size:14px;color:var(--ink-2);line-height:1.5;margin-top:9px;max-width:46ch}
+
+  .w-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);
+    border:1px solid var(--rule);margin-top:17px}
+  .w-stat{background:var(--ground-2);padding:11px 12px}
+  .w-stat .n{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
+  .w-stat .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;color:var(--ink-dim);
+    text-transform:uppercase;margin-top:4px;line-height:1.3}
+
+  .w-sec{margin-top:19px;padding-top:15px;border-top:1px solid var(--rule)}
+  .w-sec h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--ink-dim);
+    text-transform:uppercase;font-weight:600;margin-bottom:11px}
+  .eng{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+  .eng .nm{font-family:var(--mono);font-size:12.5px;width:92px;flex:none;color:var(--ink-2)}
+  .eng .track{flex:1;height:7px;background:var(--rule);position:relative}
+  .eng .fill{position:absolute;left:0;top:0;bottom:0;background:var(--wa)}
+  .eng .pc{font-family:var(--mono);font-size:12px;width:38px;text-align:right;flex:none;
+    color:var(--ink);font-variant-numeric:tabular-nums}
+
+  .src{display:flex;align-items:baseline;gap:10px;margin-bottom:7px;font-family:var(--mono);
+    font-size:12.5px}
+  .src .r{color:var(--ink-dim);width:17px;flex:none}
+  .src .d{color:var(--ink-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .src .v{color:var(--ink);font-variant-numeric:tabular-nums}
+  .src.me .d{color:var(--wa)}
+  .src.me .r{color:var(--wa)}
+
+  .w-foot{border-top:1px solid var(--rule);padding:11px 17px;font-family:var(--mono);
+    font-size:10.5px;letter-spacing:.09em;color:var(--ink-dim);display:flex;
+    justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .w-foot b{color:var(--wa);font-weight:600}
+
+  /* ---------- pricing block ---------- */
+  .price{border:1px solid var(--rule);background:var(--ground-2);padding:22px;margin-top:20px}
+  .prow{padding:15px 0;border-bottom:1px solid var(--rule)}
+  .prow:last-child{border-bottom:none;padding-bottom:3px}
+  .prow .cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--ink-dim);
+    text-transform:uppercase;margin-bottom:7px}
+  .prow .amt{font-family:var(--mono);font-size:clamp(25px,4.4vw,33px);font-weight:600;
+    letter-spacing:-.03em;line-height:1.08}
+  .prow .amt small{font-size:16px;font-weight:400;letter-spacing:0;color:var(--ink-2)}
+  .prow .note{font-size:14.5px;color:var(--ink-2);line-height:1.5;margin-top:7px;max-width:58ch}
+  .prow.win .amt{color:var(--green-lit)}
+
+  /* ---------- checklist ---------- */
+  ul.checks{list-style:none;margin-top:16px}
+  ul.checks li{position:relative;padding-left:26px;margin-bottom:12px;font-size:16.5px;
+    line-height:1.52;max-width:66ch}
+  ul.checks li:before{content:"\2713";position:absolute;left:0;top:0;color:var(--green-lit);
+    font-family:var(--mono);font-weight:600}
+
+  /* ---------- numbered steps ---------- */
+  .steps{counter-reset:s;margin-top:18px}
+  .stepitem{counter-increment:s;position:relative;padding-left:46px;margin-bottom:18px}
+  .stepitem:before{content:counter(s);position:absolute;left:0;top:-2px;
+    font-family:var(--mono);font-size:25px;font-weight:600;color:var(--green-lit);
+    letter-spacing:-.03em}
+  .stepitem p{margin:0;font-size:16px;color:var(--ink-2);line-height:1.52}
+
+  /* ---------- faq ---------- */
+  details{border-bottom:1px solid var(--rule);padding:15px 0}
+  details summary{cursor:pointer;font-family:var(--mono);font-size:16px;font-weight:600;
+    letter-spacing:-.01em;list-style:none;display:flex;justify-content:space-between;
+    gap:14px;align-items:flex-start;color:var(--ink)}
+  details summary::-webkit-details-marker{display:none}
+  details summary:after{content:"+";color:var(--green-lit);font-family:var(--mono);flex:none}
+  details[open] summary:after{content:"\2212"}
+  details summary:focus-visible{outline:2px solid var(--green-lit);outline-offset:3px}
+  details p{margin:11px 0 0;font-size:16px;color:var(--ink-2);line-height:1.55;max-width:68ch}
+
+  /* ---------- honest note ---------- */
+  .honest{border-left:2px solid var(--green);padding:4px 0 4px 20px;margin-top:18px}
+  .honest p{color:var(--ink-2);font-size:16px;line-height:1.55}
+
+  /* ---------- form ---------- */
+  form{margin-top:22px;max-width:560px}
+  form label{display:block;font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-dim);margin:18px 0 7px}
+  form input,form textarea{width:100%;background:var(--ground-2);border:1px solid var(--rule);
+    color:var(--ink);font-family:var(--mono);font-size:16px;padding:13px 15px;border-radius:0}
+  form input:focus,form textarea:focus{outline:none;border-color:var(--green-lit)}
+  form textarea{resize:vertical;min-height:84px}
+  form button[type=submit]{margin-top:24px;background:var(--green);color:var(--ink);
+    font-family:var(--mono);font-size:15px;letter-spacing:.08em;border:none;
+    padding:16px 30px;cursor:pointer;transition:background .15s;min-height:48px}
+  form button[type=submit]:hover{background:var(--green-lit);color:var(--ground)}
+
+  footer{padding:38px 0 54px;color:var(--ink-dim);font-family:var(--mono);
+    font-size:13px;letter-spacing:.04em}
+  footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+  .foot-row{display:flex;gap:24px;flex-wrap:wrap;margin-top:12px}
+  ::selection{background:var(--green);color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="#5cb824" stroke-width="1.6">
+        <rect x="3" y="3" width="18" height="18"/>
+        <path d="M7 12 L11 12 M11 8 L11 16 M14 8 L17 8 L17 16 L14 16"/>
+      </svg>
+      GREENBRAHMA
+    </div>
+    <a class="navback" href="/">HOME &rarr;</a>
+  </div>
+</header>
+
+<!-- ============ 1. THE OFFER ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">For agencies &middot; prepared for Brett</div>
+    <h1>Charge $400&ndash;$1,200 a month per client. Pay $20.</h1>
+    <p class="lead">Add AI visibility to what you already sell. One line of code on the
+      client&rsquo;s site, your brand on the widget, and a number that moves every week
+      instead of a PDF they open once a month.</p>
+
+    <div class="adcard">
+      <div class="adlabel">AI visibility pricing &middot; agency math</div>
+      <div class="math">
+        <div>
+          <div class="mcap">Charge client</div>
+          <div class="mnum">$800</div>
+          <div class="mfoot">per client / month</div>
+        </div>
+        <div class="op" aria-hidden="true">&minus;</div>
+        <div>
+          <div class="mcap">Pay GreenBrahma</div>
+          <div class="mnum">$20</div>
+          <div class="mfoot">per client / month</div>
+        </div>
+        <div class="op" aria-hidden="true">=</div>
+        <div>
+          <div class="mcap">Your margin</div>
+          <div class="mnum win">$780</div>
+          <div class="mfoot">kept per client / month</div>
+        </div>
+      </div>
+      <div class="adrule">
+        <div class="big">Bill clients $400&ndash;$1,200/mo for AI visibility. Pay $20.</div>
+        <div class="fine">$99/mo covers 5 client widgets &middot; $29/mo each additional
+          &middot; 20% off annual</div>
+      </div>
+    </div>
+
+    <div class="ctas">
+      <a class="btn" href="#talk">Book 20 minutes &rarr;</a>
+      <a class="btn ghost" href="#widget">See the widget first</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. WHAT IT IS ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The product</div>
+    <h2>It is a widget, not a report.</h2>
+    <p>Your developer pastes two lines into the client&rsquo;s site, their portal, or your own
+      dashboard. It renders a live AI visibility scorecard under <strong>your</strong> name.
+      No login for the client. No monthly send. No GreenBrahma anywhere on it.</p>
+
+<pre><span class="t">&lt;script</span> <span class="a">src</span>=<span class="s">"https://cdn.greenbrahma.com/bs.js"</span>
+        <span class="a">data-site</span>=<span class="s">"acme-dental"</span>
+        <span class="a">data-key</span>=<span class="s">"pk_live_8f2c&hellip;"</span>
+        <span class="a">data-accent</span>=<span class="s">"#0e7c86"</span><span class="t">&gt;&lt;/script&gt;</span>
+<span class="t">&lt;div</span> <span class="a">id</span>=<span class="s">"brahmascore"</span><span class="t">&gt;&lt;/div&gt;</span></pre>
+
+    <p class="dim">That is the whole integration. Everything else &mdash; the prompts, the model
+      runs, the citation parsing, the scoring &mdash; happens on our side and refreshes on its
+      own.</p>
+  </div>
+</section>
+
+<!-- ============ 3. THE WIDGET ITSELF ============ -->
+<section id="widget">
+  <div class="wrap">
+    <div class="eyebrow">White label</div>
+    <h2>Put your name on it. Watch it change.</h2>
+    <p>Type an agency name and pick an accent. The widget below is the real component,
+      re-skinned live &mdash; this is exactly how white-labelling works in production.</p>
+
+    <div class="lab">
+      <div class="f">
+        <label for="agname">Agency name</label>
+        <input id="agname" type="text" value="YOUR AGENCY" maxlength="22"
+               autocomplete="off" spellcheck="false" />
+      </div>
+      <div>
+        <label>Accent</label>
+        <div class="sw" id="sw">
+          <button type="button" data-c="#0e7c86" aria-pressed="true" aria-label="Teal accent"><i style="background:#0e7c86"></i></button>
+          <button type="button" data-c="#c9772a" aria-pressed="false" aria-label="Amber accent"><i style="background:#c9772a"></i></button>
+          <button type="button" data-c="#4a6cf0" aria-pressed="false" aria-label="Blue accent"><i style="background:#4a6cf0"></i></button>
+          <button type="button" data-c="#5cb824" aria-pressed="false" aria-label="Green accent"><i style="background:#5cb824"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="widget" style="--wa:#0e7c86" id="wdg">
+      <div class="w-top">
+        <div class="w-brand"><span class="w-dot"></span><span id="wname">YOUR AGENCY</span></div>
+        <div class="w-tag">SAMPLE DATA</div>
+      </div>
+
+      <div class="w-body">
+        <div class="w-headline">
+          <div class="w-big">34%</div>
+          <div class="w-delta">&uarr; 11 pts vs. October</div>
+        </div>
+        <div class="w-what">Unprompted mention rate</div>
+        <div class="w-sub">How often the models name this business when a buyer asks the
+          category question and never says the brand.</div>
+
+        <div class="w-stats">
+          <div class="w-stat"><div class="n">#2.4</div><div class="l">Avg position</div></div>
+          <div class="w-stat"><div class="n">19%</div><div class="l">Share of voice</div></div>
+          <div class="w-stat"><div class="n">4</div><div class="l">Engines</div></div>
+        </div>
+
+        <div class="w-sec">
+          <h4>By engine</h4>
+          <div class="eng"><span class="nm">ChatGPT</span><span class="track"><span class="fill" style="width:47%"></span></span><span class="pc">47%</span></div>
+          <div class="eng"><span class="nm">Claude</span><span class="track"><span class="fill" style="width:38%"></span></span><span class="pc">38%</span></div>
+          <div class="eng"><span class="nm">Perplexity</span><span class="track"><span class="fill" style="width:29%"></span></span><span class="pc">29%</span></div>
+          <div class="eng"><span class="nm">Gemini</span><span class="track"><span class="fill" style="width:21%"></span></span><span class="pc">21%</span></div>
+        </div>
+
+        <div class="w-sec">
+          <h4>What the models read before answering</h4>
+          <div class="src"><span class="r">1</span><span class="d">directory-site.com</span><span class="v">41%</span></div>
+          <div class="src"><span class="r">2</span><span class="d">reviews-aggregator.com</span><span class="v">28%</span></div>
+          <div class="src"><span class="r">3</span><span class="d">local-news-outlet.com</span><span class="v">16%</span></div>
+          <div class="src me"><span class="r">4</span><span class="d">yourclient.com &mdash; own site</span><span class="v">9%</span></div>
+          <div class="src"><span class="r">5</span><span class="d">industry-association.org</span><span class="v">6%</span></div>
+        </div>
+      </div>
+
+      <div class="w-foot">
+        <span>Updated 4 Nov &middot; refreshes weekly</span>
+        <span>by <b id="wfoot">YOUR AGENCY</b></span>
+      </div>
+    </div>
+
+    <div class="honest">
+      <p>That last panel is the one clients actually act on. It is not a score &mdash; it is a
+        work order. If the models are building their answer out of four directories and barely
+        touching the client&rsquo;s own site, you now know exactly which four properties to go
+        fix, in priority order, and you can bill for fixing them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. WHY A WIDGET ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Why this beats the report</div>
+    <h2>A PDF is a receipt. A widget is a presence.</h2>
+    <p>Every competitor in this category sells agencies a dashboard that spits out a monthly
+      white-label PDF. Here is what changes when the deliverable lives on a page instead.</p>
+
+    <div class="grid two">
+      <div class="cell">
+        <div class="k">It is always on</div>
+        <p>A report is read once and filed. A widget is on a page the client already opens.
+          Your work stays visible between invoices, which is the entire renewal argument.</p>
+      </div>
+      <div class="cell">
+        <div class="k">Nobody has to send it</div>
+        <p>No one on your team assembles, exports, renames and emails anything. The number
+          updates itself. Your margin stops being eaten by production time.</p>
+      </div>
+      <div class="cell">
+        <div class="k">It is current, not monthly</div>
+        <p>AI answers move week to week. A number dated the 1st is already wrong by the 10th,
+          and the client can tell.</p>
+      </div>
+      <div class="cell">
+        <div class="k">It scales without headcount</div>
+        <p>Client fifty costs the same effort as client one. That is what makes this a product
+          line rather than another service you have to staff.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. WHAT IT MEASURES ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">What is under it</div>
+    <h2>It measures the answer, not the memory.</h2>
+    <p>Most AI visibility tools ask a model what it remembers. For any local or mid-market
+      business that is a fixed zero you cannot move, and measuring it harder does not help.
+      When a real buyer asks ChatGPT the category question, the model <strong>searches the
+      web</strong> and writes the answer out of what it finds. That layer is live, and it is
+      winnable.</p>
+
+    <ul class="checks">
+      <li>Runs with the models&rsquo; native web search switched on, the way a real buyer hits them.</li>
+      <li>Separates <strong>unprompted</strong> mentions from echoes &mdash; asking &ldquo;is Acme good?&rdquo; and getting &ldquo;Acme&rdquo; back is not visibility.</li>
+      <li>Flags disclaimers, so &ldquo;I don&rsquo;t have reliable information about them&rdquo; never scores as a win.</li>
+      <li>Captures every source the models read before answering, and ranks them by influence.</li>
+      <li>Runs each prompt several times and reports the spread, because these models are not deterministic.</li>
+    </ul>
+
+    <div class="honest">
+      <p>We built the scoring engine because the off-the-shelf ones were counting substring
+        matches. Ours caught a case where a firm scored 93% on a tool that was matching a
+        homonym &mdash; the real answer was that no model had ever heard of them. A number you
+        can defend in a client meeting is the product.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. THE MATH ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The math</div>
+    <h2>What makes this a profit centre.</h2>
+    <p>One plan. No separate agency tier, no per-seat charge, no setup fee.</p>
+
+    <div class="price">
+      <div class="prow">
+        <div class="cap">Your cost</div>
+        <div class="amt">$99 <small>a month</small></div>
+        <div class="note">Includes 5 client widgets. $29 a month per additional client.
+          20% off on annual billing.</div>
+      </div>
+      <div class="prow">
+        <div class="cap">You charge</div>
+        <div class="amt">$400 to $1,200 <small>a month per client</small></div>
+        <div class="note">Standalone retainer, or folded into an existing SEO or content
+          engagement as a new line item.</div>
+      </div>
+      <div class="prow win">
+        <div class="cap">Example &middot; 5 clients</div>
+        <div class="amt">$1,901 to $5,901 <small>margin a month</small></div>
+        <div class="note">5 clients at $400 to $1,200 each is $2,000 to $6,000 in revenue,
+          minus the $99 plan. Nothing else to pay.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. ONBOARDING ============ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Getting a client live</div>
+    <h2>Under five minutes per client.</h2>
+    <div class="steps">
+      <div class="stepitem">
+        <h3>Add the client</h3>
+        <p>Domain, brand name, the category they want to win, and up to five competitors.
+          One form.</p>
+      </div>
+      <div class="stepitem">
+        <h3>Approve the prompts</h3>
+        <p>We generate the questions a real buyer would ask in that category and city.
+          Edit them, or add your own.</p>
+      </div>
+      <div class="stepitem">
+        <h3>Paste the embed</h3>
+        <p>Two lines, your accent colour, your name. First numbers land within the hour and
+          refresh weekly from then on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. FAQ ============ -->
+<section>
+  <div class="wrap narrow">
+    <div class="eyebrow">Questions</div>
+    <h2>The ones that actually come up.</h2>
+
+    <details>
+      <summary>Does GreenBrahma appear anywhere the client can see?</summary>
+      <p>No. The widget carries your name and your accent colour. The embed is served from our
+        CDN, so the script URL is visible to anyone who views source &mdash; if that matters to
+        you, we can serve it from a subdomain you own.</p>
+    </details>
+    <details>
+      <summary>Which engines does it cover?</summary>
+      <p>ChatGPT, Claude, Perplexity and Gemini, all four included at the base price. We run
+        them with web search on, which is how buyers actually use them. Memory-only baselines
+        are available alongside, labelled as such, so you can show a client the gap between
+        what the models know and what they can find.</p>
+    </details>
+    <details>
+      <summary>Can I get the data out?</summary>
+      <p>Yes. CSV export and a read API, both included. Every run is exportable with the full
+        model response, the prompt, the run number and the sources, so you can take it into
+        your own reporting if you prefer.</p>
+    </details>
+    <details>
+      <summary>What if the number does not move?</summary>
+      <p>Then you have found out early and cheaply, and the source panel tells you why. The
+        honest answer is that the widget measures; it does not fix. The fixing is the work you
+        bill for on top &mdash; schema markup, directory consistency, letting the AI crawlers in,
+        earning citations on the properties the models actually read.</p>
+    </details>
+    <details>
+      <summary>Is there a trial?</summary>
+      <p>Fourteen days, one client, everything switched on. If you want it pointed at a
+        prospect of yours rather than an existing client, that works too &mdash; it makes a
+        better pitch than a deck.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ============ 9. CTA ============ -->
+<section id="talk">
+  <div class="wrap">
+    <div class="eyebrow">Next</div>
+    <h2>Want to put it on one of yours?</h2>
+    <p>Twenty minutes, screen shared, pointed at a client or prospect you pick. You will see
+      their real numbers on the call, not a demo account.</p>
+
+    <div class="honest">
+      <p>Straight with you: this is early. The engine runs and the scoring is solid &mdash;
+        it is being used in anger on a live account right now &mdash; but the widget is being
+        packaged, and there are founding partner slots open rather than a logo wall to point
+        at. That is either the wrong time for you or exactly the right one.</p>
+    </div>
+
+    <form name="brett" method="POST" data-netlify="true" action="/thanks.html" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="brett" />
+      <p style="display:none"><label>Don&rsquo;t fill this: <input name="bot-field" /></label></p>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" required />
+      <label for="company">Agency</label>
+      <input id="company" name="company" type="text" required />
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required />
+      <label for="client">A client or prospect to point it at</label>
+      <input id="client" name="client" type="text" placeholder="domain.com" />
+      <label for="notes">Anything else? One sentence.</label>
+      <textarea id="notes" name="notes"></textarea>
+      <button type="submit">Set up the 20 minutes &rarr;</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>GREENBRAHMA</div>
+    <div style="margin-top:8px">AI-native document intelligence &middot; created by Geoff Pickering</div>
+    <div class="foot-row">
+      <a href="mailto:Geoff@greenbrahma.com">Geoff@greenbrahma.com</a>
+      <a href="/">Home</a>
+      <a href="/thesis.html">The Inference Gap</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var wdg   = document.getElementById('wdg');
+  var input = document.getElementById('agname');
+  var nameA = document.getElementById('wname');
+  var nameB = document.getElementById('wfoot');
+  var sw    = document.getElementById('sw');
+  if(!wdg || !input || !sw) return;
+
+  function setName(){
+    var v = (input.value || '').trim().toUpperCase() || 'YOUR AGENCY';
+    nameA.textContent = v;
+    nameB.textContent = v;
+  }
+  input.addEventListener('input', setName);
+
+  sw.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-c]');
+    if(!b) return;
+    wdg.style.setProperty('--wa', b.getAttribute('data-c'));
+    Array.prototype.forEach.call(sw.querySelectorAll('button'), function(x){
+      x.setAttribute('aria-pressed', String(x === b));
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
