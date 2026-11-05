@@ -4,232 +4,243 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="robots" content="noindex, nofollow" />
-<title>GreenBrahma — Resell AI visibility as a widget</title>
-<meta name="description" content="Charge $400–$1,200 a month per client for AI visibility. Pay $20. One line of code, your brand on it." />
+<title>AI visibility, as a widget — GreenBrahma</title>
+<meta name="description" content="The idea, why it is relevant to us, and how we activate it." />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Charge $400–$1,200/mo per client. Pay $20." />
-<meta property="og:description" content="A white-label AI visibility widget your clients watch every day — not a PDF they file once a month." />
+<meta property="og:title" content="AI visibility, as a widget" />
+<meta property="og:description" content="The idea, why it is relevant to us, and how we activate it." />
 
 <style>
   :root{
-    --ground:#0d0f0c;
-    --ground-2:#12140f;
-    --paper:#16190f;
-    --ink:#f2f0e9;
-    --ink-2:#cfcdc4;
-    --ink-dim:#8e8c84;
-    --green:#30730f;
+    --paper:#ffffff;
+    --paper-2:#f7f8f4;
+    --mint:#eef5e8;
+    --ink:#15180f;
+    --ink-2:#474c42;
+    --ink-dim:#777d70;
+    --green:#2d6b0e;
+    --green-deep:#1f4a09;
     --green-lit:#5cb824;
-    --rule:#2a2f22;
-    --mono:'SFMono-Regular',ui-monospace,'Menlo','Consolas','Liberation Mono',monospace;
-    --sans:'SFMono-Regular',ui-monospace,'Menlo','Consolas','Liberation Mono',monospace;
-    --sheet:#f7f6f1;--docink:#1b1d18;--docink2:#4d5049;--docdim:#83867d;--docrule:#d9d7cf;
-    --wa:#5cb824;          /* widget accent — swapped live by the white-label demo */
+    --rule:#dcded6;
+    --rule-2:#eceee7;
+    --sans:'Calibri','Carlito','Aptos','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif;
+    --code:'Consolas','Menlo','SFMono-Regular',ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
-    font-size:17.5px;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-  .narrow{max-width:760px}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:18.5px;line-height:1.68;-webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;overflow-x:hidden}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
 
-  header{border-bottom:1px solid var(--rule);padding:16px 0;position:sticky;top:0;
-    background:rgba(13,15,12,.94);backdrop-filter:blur(6px);z-index:20}
+  header{border-bottom:1px solid var(--rule);padding:17px 0;position:sticky;top:0;
+    background:rgba(255,255,255,.95);backdrop-filter:blur(8px);z-index:30}
   header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);
-    letter-spacing:.14em;font-size:14px;font-weight:600}
-  .glyph{width:20px;height:20px;flex:none}
-  .navback{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;
-    color:var(--ink-dim);text-decoration:none}
-  .navback:hover{color:var(--ink)}
+  .brand{display:flex;align-items:center;gap:11px;font-size:17px;font-weight:700;
+    letter-spacing:.01em}
+  .glyph{width:21px;height:21px;flex:none}
+  .navback{font-size:15px;color:var(--ink-dim);text-decoration:none}
+  .navback:hover{color:var(--green)}
 
-  section{padding:34px 0;border-bottom:1px solid var(--rule)}
-  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;
-    text-transform:uppercase;color:var(--green-lit);margin-bottom:14px}
-  h1{font-family:var(--mono);font-weight:600;font-size:clamp(22px,3vw,31px);
-    line-height:1.2;letter-spacing:-.025em;margin-bottom:12px;max-width:26ch}
-  h2{font-family:var(--mono);font-weight:600;font-size:clamp(19px,2.9vw,25px);
-    line-height:1.3;letter-spacing:-.02em;margin-bottom:14px}
-  h3{font-family:var(--mono);font-weight:600;font-size:17px;line-height:1.35;
-    letter-spacing:-.01em;margin-bottom:7px}
-  p{margin-bottom:14px;max-width:62ch;color:var(--ink)}
-  p.lead{font-size:18.5px;line-height:1.5;margin-bottom:18px}
-  .dim{color:var(--ink-2)}
-  strong,b{color:var(--green-lit);font-weight:600}
+  h1{font-size:clamp(30px,4.4vw,44px);font-weight:700;line-height:1.16;
+    letter-spacing:-.018em;margin-bottom:14px;max-width:20ch}
+  h2{font-size:clamp(23px,3.1vw,30px);font-weight:700;line-height:1.26;
+    letter-spacing:-.012em;margin-bottom:12px}
+  h3{font-size:20px;font-weight:700;line-height:1.35;margin-bottom:7px}
+  h4{font-size:17px;font-weight:700;margin-bottom:6px}
+  p{margin-bottom:16px;max-width:68ch;color:var(--ink)}
+  .lead{font-size:21px;line-height:1.55;color:var(--ink-2);max-width:60ch;margin-bottom:0}
+  .eyebrow{font-size:14px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--green);margin-bottom:14px}
+  strong{font-weight:700;color:var(--ink)}
+  em.g{font-style:normal;color:var(--green);font-weight:700}
+  a{color:var(--green)}
 
-  /* ---------- the ad, recreated ---------- */
-  .adcard{border:1px solid var(--green);background:var(--ground-2);padding:26px 22px;
-    margin:22px 0 6px}
-  .adlabel{font-family:var(--mono);font-size:11px;letter-spacing:.26em;
-    color:var(--ink-dim);text-align:center;margin-bottom:24px;text-transform:uppercase}
-  .math{display:grid;grid-template-columns:1fr;gap:16px;align-items:center;text-align:center}
-  @media(min-width:760px){.math{grid-template-columns:1fr 26px 1fr 26px 1fr}}
-  .mcap{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
-    color:var(--ink-dim);text-transform:uppercase;margin-bottom:6px}
-  .mnum{font-family:var(--mono);font-size:clamp(34px,6vw,46px);font-weight:600;
-    letter-spacing:-.03em;line-height:1}
-  .mnum.win{color:var(--green-lit);border-bottom:2px solid var(--green);
-    display:inline-block;padding-bottom:5px}
-  .mfoot{font-family:var(--mono);font-size:11.5px;color:var(--ink-dim);margin-top:7px}
-  .op{font-family:var(--mono);font-size:26px;color:var(--ink-dim);line-height:1}
-  .adrule{border-top:1px solid var(--rule);margin-top:24px;padding-top:18px;text-align:center}
-  .adrule .big{font-family:var(--mono);font-size:clamp(15px,2.4vw,19px);font-weight:600;
-    letter-spacing:-.01em;margin-bottom:6px}
-  .adrule .fine{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim)}
+  .intro{padding:52px 0 40px}
+
+  /* ---------- panel nav ---------- */
+  nav.jump{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    background:var(--paper-2)}
+  nav.jump .wrap{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
+    padding:0;max-width:980px}
+  @media(min-width:760px){nav.jump .wrap{grid-template-columns:1fr 1fr 1fr}}
+  nav.jump a{display:block;background:var(--paper-2);padding:17px 22px;text-decoration:none;
+    color:var(--ink);transition:background .15s}
+  nav.jump a:hover{background:var(--mint)}
+  nav.jump .n{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--green);
+    margin-bottom:3px}
+  nav.jump .t{font-size:17px;font-weight:600;line-height:1.3}
+
+  /* ---------- panels ---------- */
+  .panel{border-bottom:1px solid var(--rule);padding:52px 0 54px}
+  .panel.alt{background:var(--paper-2)}
+  .phead{display:flex;align-items:flex-start;gap:18px;margin-bottom:26px}
+  .pnum{font-size:48px;font-weight:700;line-height:.92;color:var(--green-lit);flex:none;
+    letter-spacing:-.04em}
+  .phead h2{margin-bottom:5px}
+  .phead .sub{font-size:18px;color:var(--ink-dim);line-height:1.45;max-width:54ch}
+
+  .block{margin-top:34px}
+  .block:first-of-type{margin-top:0}
+
+  /* ---------- the ad math card ---------- */
+  .adcard{border:2px solid var(--green);background:var(--paper);padding:28px 24px;
+    margin:22px 0}
+  .panel.alt .adcard{background:var(--paper)}
+  .adlabel{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--ink-dim);
+    text-align:center;margin-bottom:24px;text-transform:uppercase}
+  .math{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;text-align:center}
+  @media(min-width:760px){.math{grid-template-columns:1fr 28px 1fr 28px 1fr}}
+  .mcap{font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--ink-dim);
+    text-transform:uppercase;margin-bottom:5px}
+  .mnum{font-size:clamp(38px,6.4vw,52px);font-weight:700;letter-spacing:-.035em;line-height:1}
+  .mnum.win{color:var(--green)}
+  .mfoot{font-size:14.5px;color:var(--ink-dim);margin-top:6px}
+  .op{font-size:30px;color:var(--ink-dim);line-height:1}
+  .adrule{border-top:1px solid var(--rule);margin-top:26px;padding-top:19px;text-align:center}
+  .adrule .big{font-size:clamp(17px,2.4vw,21px);font-weight:700;margin-bottom:5px;
+    letter-spacing:-.01em}
+  .adrule .fine{font-size:15px;color:var(--ink-dim)}
+
+  /* ---------- tables ---------- */
+  table{width:100%;border-collapse:collapse;margin:18px 0 8px;font-size:17px}
+  th{text-align:left;font-weight:700;font-size:14px;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--green);padding:9px 12px;
+    border-bottom:2px solid var(--green);vertical-align:bottom}
+  th:first-child{padding-left:0}
+  td{padding:11px 12px;border-bottom:1px solid var(--rule);color:var(--ink-2);
+    vertical-align:top;line-height:1.45}
+  td:first-child{padding-left:0;color:var(--ink);font-weight:600}
+  td.win{color:var(--green);font-weight:700}
+  tr:last-child td{border-bottom:1px solid var(--rule)}
+  .tnote{font-size:15.5px;color:var(--ink-dim);line-height:1.5;max-width:64ch;margin-top:10px}
 
   /* ---------- buttons ---------- */
-  .ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:20px}
-  .btn{display:inline-block;background:var(--green);color:var(--ink);font-family:var(--mono);
-    font-size:15px;letter-spacing:.06em;border:none;padding:15px 26px;cursor:pointer;
-    text-decoration:none;transition:background .15s;min-height:48px;line-height:1.25}
-  .btn:hover{background:var(--green-lit);color:var(--ground)}
-  .btn.ghost{background:transparent;border:1px solid var(--rule);color:var(--ink)}
-  .btn.ghost:hover{background:transparent;border-color:var(--green-lit);color:var(--green-lit)}
-
-  /* ---------- generic grid cards ---------- */
-  .grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
-    border:1px solid var(--rule);margin-top:20px}
-  @media(min-width:720px){.grid.two{grid-template-columns:1fr 1fr}
-    .grid.three{grid-template-columns:1fr 1fr 1fr}}
-  .cell{background:var(--ground);padding:19px 20px}
-  .cell .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;
-    color:var(--green-lit);margin-bottom:8px;text-transform:uppercase}
-  .cell p{font-size:16px;line-height:1.52;margin:0;color:var(--ink)}
+  .ctas{display:flex;flex-wrap:wrap;gap:13px;align-items:center;margin-top:26px}
+  .btn{display:inline-block;background:var(--green);color:#fff;font-size:17px;font-weight:600;
+    border:2px solid var(--green);padding:14px 28px;cursor:pointer;text-decoration:none;
+    transition:background .15s,border-color .15s;min-height:50px;line-height:1.3}
+  .btn:hover{background:var(--green-deep);border-color:var(--green-deep);color:#fff}
+  .btn.ghost{background:transparent;color:var(--green);border-color:var(--rule)}
+  .btn.ghost:hover{background:var(--mint);border-color:var(--green);color:var(--green)}
 
   /* ---------- code ---------- */
-  pre{background:var(--ground-2);border:1px solid var(--rule);padding:17px 18px;
-    overflow-x:auto;margin:16px 0;font-family:var(--mono);font-size:13.5px;
-    line-height:1.62;color:var(--ink-2)}
-  pre .t{color:var(--green-lit)}
-  pre .a{color:var(--ink)}
-  pre .s{color:#c9a227}
+  pre{background:var(--paper-2);border:1px solid var(--rule);border-left:3px solid var(--green);
+    padding:18px 20px;overflow-x:auto;margin:18px 0;font-family:var(--code);
+    font-size:14.5px;line-height:1.7;color:var(--ink-2)}
+  .panel.alt pre{background:var(--paper)}
+  pre .t{color:var(--green)}
+  pre .s{color:#9a6b12}
+
+  /* ---------- white-label lab ---------- */
+  .lab{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;margin:20px 0 18px;
+    padding:17px 19px;background:var(--mint);border:1px solid var(--rule)}
+  .lab .f{flex:1 1 230px}
+  .lab label{display:block;font-size:13.5px;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink-dim);margin-bottom:7px}
+  .lab input{width:100%;background:#fff;border:1px solid var(--rule);color:var(--ink);
+    font-family:var(--sans);font-size:17px;padding:11px 13px;border-radius:2px}
+  .lab input:focus{outline:none;border-color:var(--green)}
+  .sw{display:flex;gap:9px}
+  .sw button{width:38px;height:38px;border:2px solid var(--rule);cursor:pointer;padding:0;
+    background:#fff;position:relative;border-radius:2px}
+  .sw button i{position:absolute;inset:4px;display:block;border-radius:1px}
+  .sw button[aria-pressed="true"]{border-color:var(--ink)}
+  .sw button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 
   /* ---------- the widget mockup ---------- */
-  .lab{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin:18px 0 16px;
-    padding:15px 16px;border:1px solid var(--rule);background:var(--ground-2)}
-  .lab .f{flex:1 1 220px}
-  .lab label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.15em;
-    text-transform:uppercase;color:var(--ink-dim);margin-bottom:7px}
-  .lab input{width:100%;background:var(--ground);border:1px solid var(--rule);color:var(--ink);
-    font-family:var(--mono);font-size:15px;padding:11px 13px;border-radius:0;
-    letter-spacing:.08em;text-transform:uppercase}
-  .lab input:focus{outline:none;border-color:var(--green-lit)}
-  .sw{display:flex;gap:9px}
-  .sw button{width:36px;height:36px;border:1px solid var(--rule);cursor:pointer;padding:0;
-    background:transparent;position:relative}
-  .sw button i{position:absolute;inset:5px;display:block}
-  .sw button[aria-pressed="true"]{border-color:var(--ink)}
-  .sw button:focus-visible{outline:2px solid var(--green-lit);outline-offset:2px}
-
-  .widget{border:1px solid var(--rule);background:var(--ground-2);
-    box-shadow:0 14px 40px rgba(0,0,0,.5);max-width:560px}
+  .widget{--wa:#0e7c86;border:1px solid #d7dad2;background:#fff;max-width:580px;
+    box-shadow:0 2px 14px rgba(21,24,15,.07);border-radius:3px}
   .w-top{display:flex;align-items:center;justify-content:space-between;gap:12px;
-    padding:14px 17px;border-bottom:1px solid var(--rule)}
-  .w-brand{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12.5px;
-    letter-spacing:.14em;font-weight:600;color:var(--ink)}
-  .w-dot{width:15px;height:15px;background:var(--wa);flex:none;
+    padding:15px 19px;border-bottom:1px solid var(--rule-2)}
+  .w-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
+  .w-dot{width:16px;height:16px;background:var(--wa);flex:none;
     clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
-  .w-tag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--ink-dim);
-    border:1px solid var(--rule);padding:3px 7px}
-  .w-body{padding:19px 17px 16px}
-  .w-headline{display:flex;align-items:flex-end;gap:13px;flex-wrap:wrap}
-  .w-big{font-family:var(--mono);font-size:50px;font-weight:600;letter-spacing:-.04em;
-    line-height:.92;color:var(--wa)}
-  .w-delta{font-family:var(--mono);font-size:13px;color:var(--wa);padding-bottom:5px}
-  .w-what{font-family:var(--mono);font-size:12px;letter-spacing:.13em;color:var(--ink-dim);
-    text-transform:uppercase;margin-top:11px}
-  .w-sub{font-size:14px;color:var(--ink-2);line-height:1.5;margin-top:9px;max-width:46ch}
+  .w-tag{font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--ink-dim);
+    border:1px solid var(--rule);padding:3px 8px;border-radius:2px}
+  .w-body{padding:21px 19px 18px}
+  .w-headline{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+  .w-big{font-size:54px;font-weight:700;letter-spacing:-.04em;line-height:.9;color:var(--wa)}
+  .w-delta{font-size:15px;font-weight:600;color:var(--wa);padding-bottom:6px}
+  .w-what{font-size:13.5px;font-weight:700;letter-spacing:.1em;color:var(--ink-dim);
+    text-transform:uppercase;margin-top:12px}
+  .w-sub{font-size:15.5px;color:var(--ink-2);line-height:1.5;margin-top:8px;max-width:48ch}
 
-  .w-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule);
-    border:1px solid var(--rule);margin-top:17px}
-  .w-stat{background:var(--ground-2);padding:11px 12px}
-  .w-stat .n{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:-.02em}
-  .w-stat .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;color:var(--ink-dim);
-    text-transform:uppercase;margin-top:4px;line-height:1.3}
+  .w-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule-2);
+    border:1px solid var(--rule-2);margin-top:19px}
+  .w-stat{background:#fff;padding:12px 13px}
+  .w-stat .n{font-size:21px;font-weight:700;letter-spacing:-.02em}
+  .w-stat .l{font-size:11px;font-weight:700;letter-spacing:.09em;color:var(--ink-dim);
+    text-transform:uppercase;margin-top:3px;line-height:1.3}
 
-  .w-sec{margin-top:19px;padding-top:15px;border-top:1px solid var(--rule)}
-  .w-sec h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--ink-dim);
-    text-transform:uppercase;font-weight:600;margin-bottom:11px}
-  .eng{display:flex;align-items:center;gap:11px;margin-bottom:9px}
-  .eng .nm{font-family:var(--mono);font-size:12.5px;width:92px;flex:none;color:var(--ink-2)}
-  .eng .track{flex:1;height:7px;background:var(--rule);position:relative}
-  .eng .fill{position:absolute;left:0;top:0;bottom:0;background:var(--wa)}
-  .eng .pc{font-family:var(--mono);font-size:12px;width:38px;text-align:right;flex:none;
-    color:var(--ink);font-variant-numeric:tabular-nums}
+  .w-sec{margin-top:20px;padding-top:16px;border-top:1px solid var(--rule-2)}
+  .w-sec h5{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--ink-dim);
+    text-transform:uppercase;margin-bottom:12px}
+  .eng{display:flex;align-items:center;gap:12px;margin-bottom:9px}
+  .eng .nm{font-size:15px;width:96px;flex:none;color:var(--ink-2)}
+  .eng .track{flex:1;height:8px;background:var(--rule-2);position:relative;border-radius:4px}
+  .eng .fill{position:absolute;left:0;top:0;bottom:0;background:var(--wa);border-radius:4px}
+  .eng .pc{font-size:15px;width:42px;text-align:right;flex:none;font-weight:600;
+    font-variant-numeric:tabular-nums}
 
-  .src{display:flex;align-items:baseline;gap:10px;margin-bottom:7px;font-family:var(--mono);
-    font-size:12.5px}
-  .src .r{color:var(--ink-dim);width:17px;flex:none}
+  .src{display:flex;align-items:baseline;gap:11px;margin-bottom:8px;font-size:15px}
+  .src .r{color:var(--ink-dim);width:16px;flex:none}
   .src .d{color:var(--ink-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .src .v{color:var(--ink);font-variant-numeric:tabular-nums}
-  .src.me .d{color:var(--wa)}
-  .src.me .r{color:var(--wa)}
+  .src .v{font-weight:600;font-variant-numeric:tabular-nums}
+  .src.me .d,.src.me .r,.src.me .v{color:var(--wa);font-weight:700}
 
-  .w-foot{border-top:1px solid var(--rule);padding:11px 17px;font-family:var(--mono);
-    font-size:10.5px;letter-spacing:.09em;color:var(--ink-dim);display:flex;
-    justify-content:space-between;gap:10px;flex-wrap:wrap}
-  .w-foot b{color:var(--wa);font-weight:600}
+  .w-foot{border-top:1px solid var(--rule-2);padding:12px 19px;font-size:13px;
+    color:var(--ink-dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .w-foot b{color:var(--wa)}
 
-  /* ---------- pricing block ---------- */
-  .price{border:1px solid var(--rule);background:var(--ground-2);padding:22px;margin-top:20px}
-  .prow{padding:15px 0;border-bottom:1px solid var(--rule)}
-  .prow:last-child{border-bottom:none;padding-bottom:3px}
-  .prow .cap{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;color:var(--ink-dim);
-    text-transform:uppercase;margin-bottom:7px}
-  .prow .amt{font-family:var(--mono);font-size:clamp(25px,4.4vw,33px);font-weight:600;
-    letter-spacing:-.03em;line-height:1.08}
-  .prow .amt small{font-size:16px;font-weight:400;letter-spacing:0;color:var(--ink-2)}
-  .prow .note{font-size:14.5px;color:var(--ink-2);line-height:1.5;margin-top:7px;max-width:58ch}
-  .prow.win .amt{color:var(--green-lit)}
+  /* ---------- callout ---------- */
+  .callout{border-left:4px solid var(--green-lit);background:var(--mint);padding:18px 22px;
+    margin:24px 0}
+  .panel.alt .callout{background:#fff;border-color:var(--green-lit)}
+  .callout p{margin:0;color:var(--ink-2);font-size:17.5px;line-height:1.58}
+  .callout p + p{margin-top:11px}
+  .callout h4{color:var(--ink)}
 
-  /* ---------- checklist ---------- */
-  ul.checks{list-style:none;margin-top:16px}
-  ul.checks li{position:relative;padding-left:26px;margin-bottom:12px;font-size:16.5px;
-    line-height:1.52;max-width:66ch}
-  ul.checks li:before{content:"\2713";position:absolute;left:0;top:0;color:var(--green-lit);
-    font-family:var(--mono);font-weight:600}
+  /* ---------- lists ---------- */
+  ul.checks{list-style:none;margin:16px 0 8px}
+  ul.checks li{position:relative;padding-left:30px;margin-bottom:13px;line-height:1.56;
+    max-width:70ch;color:var(--ink-2)}
+  ul.checks li:before{content:"\2713";position:absolute;left:2px;top:0;color:var(--green);
+    font-weight:700}
+  ul.checks li strong{color:var(--ink)}
 
-  /* ---------- numbered steps ---------- */
-  .steps{counter-reset:s;margin-top:18px}
-  .stepitem{counter-increment:s;position:relative;padding-left:46px;margin-bottom:18px}
-  .stepitem:before{content:counter(s);position:absolute;left:0;top:-2px;
-    font-family:var(--mono);font-size:25px;font-weight:600;color:var(--green-lit);
-    letter-spacing:-.03em}
-  .stepitem p{margin:0;font-size:16px;color:var(--ink-2);line-height:1.52}
+  .steps{counter-reset:s;margin-top:20px}
+  .stepitem{counter-increment:s;position:relative;padding-left:52px;margin-bottom:22px}
+  .stepitem:before{content:counter(s);position:absolute;left:0;top:-4px;font-size:30px;
+    font-weight:700;color:var(--green-lit);letter-spacing:-.03em;line-height:1}
+  .stepitem p{margin:0;color:var(--ink-2);font-size:17px}
 
-  /* ---------- faq ---------- */
-  details{border-bottom:1px solid var(--rule);padding:15px 0}
-  details summary{cursor:pointer;font-family:var(--mono);font-size:16px;font-weight:600;
-    letter-spacing:-.01em;list-style:none;display:flex;justify-content:space-between;
-    gap:14px;align-items:flex-start;color:var(--ink)}
-  details summary::-webkit-details-marker{display:none}
-  details summary:after{content:"+";color:var(--green-lit);font-family:var(--mono);flex:none}
-  details[open] summary:after{content:"\2212"}
-  details summary:focus-visible{outline:2px solid var(--green-lit);outline-offset:3px}
-  details p{margin:11px 0 0;font-size:16px;color:var(--ink-2);line-height:1.55;max-width:68ch}
-
-  /* ---------- honest note ---------- */
-  .honest{border-left:2px solid var(--green);padding:4px 0 4px 20px;margin-top:18px}
-  .honest p{color:var(--ink-2);font-size:16px;line-height:1.55}
+  .cards{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
+    border:1px solid var(--rule);margin-top:20px}
+  @media(min-width:720px){.cards.two{grid-template-columns:1fr 1fr}}
+  .card{background:var(--paper);padding:20px 22px}
+  .panel.alt .card{background:var(--paper)}
+  .card h4{color:var(--green);font-size:16px;letter-spacing:.01em}
+  .card p{margin:0;font-size:16.5px;color:var(--ink-2);line-height:1.52}
 
   /* ---------- form ---------- */
-  form{margin-top:22px;max-width:560px}
-  form label{display:block;font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--ink-dim);margin:18px 0 7px}
-  form input,form textarea{width:100%;background:var(--ground-2);border:1px solid var(--rule);
-    color:var(--ink);font-family:var(--mono);font-size:16px;padding:13px 15px;border-radius:0}
-  form input:focus,form textarea:focus{outline:none;border-color:var(--green-lit)}
-  form textarea{resize:vertical;min-height:84px}
-  form button[type=submit]{margin-top:24px;background:var(--green);color:var(--ink);
-    font-family:var(--mono);font-size:15px;letter-spacing:.08em;border:none;
-    padding:16px 30px;cursor:pointer;transition:background .15s;min-height:48px}
-  form button[type=submit]:hover{background:var(--green-lit);color:var(--ground)}
+  form{margin-top:26px;max-width:580px}
+  form label{display:block;font-size:14px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-dim);margin:20px 0 7px}
+  form input,form textarea{width:100%;background:#fff;border:1px solid var(--rule);
+    color:var(--ink);font-family:var(--sans);font-size:17px;padding:13px 15px;border-radius:2px}
+  form input:focus,form textarea:focus{outline:none;border-color:var(--green)}
+  form textarea{resize:vertical;min-height:92px;line-height:1.55}
+  form button[type=submit]{margin-top:26px;background:var(--green);color:#fff;font-size:17px;
+    font-weight:600;font-family:var(--sans);border:2px solid var(--green);padding:15px 32px;
+    cursor:pointer;transition:background .15s;min-height:50px}
+  form button[type=submit]:hover{background:var(--green-deep);border-color:var(--green-deep)}
 
-  footer{padding:38px 0 54px;color:var(--ink-dim);font-family:var(--mono);
-    font-size:13px;letter-spacing:.04em}
+  footer{padding:40px 0 56px;color:var(--ink-dim);font-size:15.5px}
   footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
-  .foot-row{display:flex;gap:24px;flex-wrap:wrap;margin-top:12px}
-  ::selection{background:var(--green);color:var(--ink)}
+  footer a:hover{color:var(--green);border-color:var(--green)}
+  .foot-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:12px}
+  ::selection{background:#d6ecc4;color:var(--ink)}
 </style>
 </head>
 <body>
@@ -237,354 +248,407 @@
 <header>
   <div class="wrap">
     <div class="brand">
-      <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="#5cb824" stroke-width="1.6">
+      <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="#2d6b0e" stroke-width="1.8">
         <rect x="3" y="3" width="18" height="18"/>
         <path d="M7 12 L11 12 M11 8 L11 16 M14 8 L17 8 L17 16 L14 16"/>
       </svg>
-      GREENBRAHMA
+      GreenBrahma
     </div>
-    <a class="navback" href="/">HOME &rarr;</a>
+    <a class="navback" href="/">Home &rarr;</a>
   </div>
 </header>
 
-<!-- ============ 1. THE OFFER ============ -->
-<section>
+<section class="intro">
   <div class="wrap">
-    <div class="eyebrow">For agencies &middot; prepared for Brett</div>
-    <h1>Charge $400&ndash;$1,200 a month per client. Pay $20.</h1>
-    <p class="lead">Add AI visibility to what you already sell. One line of code on the
-      client&rsquo;s site, your brand on the widget, and a number that moves every week
-      instead of a PDF they open once a month.</p>
-
-    <div class="adcard">
-      <div class="adlabel">AI visibility pricing &middot; agency math</div>
-      <div class="math">
-        <div>
-          <div class="mcap">Charge client</div>
-          <div class="mnum">$800</div>
-          <div class="mfoot">per client / month</div>
-        </div>
-        <div class="op" aria-hidden="true">&minus;</div>
-        <div>
-          <div class="mcap">Pay GreenBrahma</div>
-          <div class="mnum">$20</div>
-          <div class="mfoot">$99/mo &divide; 5 clients</div>
-        </div>
-        <div class="op" aria-hidden="true">=</div>
-        <div>
-          <div class="mcap">Your margin</div>
-          <div class="mnum win">$780</div>
-          <div class="mfoot">kept per client / month</div>
-        </div>
-      </div>
-      <div class="adrule">
-        <div class="big">Bill clients $400&ndash;$1,200/mo for AI visibility. Pay $20.</div>
-        <div class="fine">$99/mo covers 5 client widgets &middot; $29/mo each additional
-          &middot; 20% off annual</div>
-      </div>
-    </div>
-
-    <div class="ctas">
-      <a class="btn" href="#talk">Book 20 minutes &rarr;</a>
-      <a class="btn ghost" href="#widget">See the widget first</a>
-    </div>
+    <div class="eyebrow">Prepared for Brett &middot; November 2026</div>
+    <h1>AI visibility, sold as a widget.</h1>
+    <p class="lead">Buyers have stopped searching and started asking. Most businesses are
+      invisible in the answer, nobody is measuring it honestly, and the agencies who serve
+      those businesses have no product to sell them. That is the opening.</p>
   </div>
 </section>
 
-<!-- ============ 2. WHAT IT IS ============ -->
-<section>
+<nav class="jump">
   <div class="wrap">
-    <div class="eyebrow">The product</div>
-    <h2>It is a widget, not a report.</h2>
-    <p>Your developer pastes two lines into the client&rsquo;s site, their portal, or your own
-      dashboard. It renders a live AI visibility scorecard under <strong>your</strong> name.
-      No login for the client. No monthly send. No GreenBrahma anywhere on it.</p>
-
-<pre><span class="t">&lt;script</span> <span class="a">src</span>=<span class="s">"https://cdn.greenbrahma.com/bs.js"</span>
-        <span class="a">data-site</span>=<span class="s">"acme-dental"</span>
-        <span class="a">data-key</span>=<span class="s">"pk_live_8f2c&hellip;"</span>
-        <span class="a">data-accent</span>=<span class="s">"#0e7c86"</span><span class="t">&gt;&lt;/script&gt;</span>
-<span class="t">&lt;div</span> <span class="a">id</span>=<span class="s">"brahmascore"</span><span class="t">&gt;&lt;/div&gt;</span></pre>
-
-    <p class="dim">That is the whole integration. Everything else &mdash; the prompts, the model
-      runs, the citation parsing, the scoring &mdash; happens on our side and refreshes on its
-      own.</p>
+    <a href="#idea"><div class="n">01</div><div class="t">What is the idea</div></a>
+    <a href="#us"><div class="n">02</div><div class="t">How is it relevant to us</div></a>
+    <a href="#activate"><div class="n">03</div><div class="t">How do we activate it</div></a>
   </div>
-</section>
+</nav>
 
-<!-- ============ 3. THE WIDGET ITSELF ============ -->
-<section id="widget">
+<!-- ===================== 01 ===================== -->
+<section class="panel" id="idea">
   <div class="wrap">
-    <div class="eyebrow">White label</div>
-    <h2>Put your name on it. Watch it change.</h2>
-    <p>Type an agency name and pick an accent. The widget below is the real component,
-      re-skinned live &mdash; this is exactly how white-labelling works in production.</p>
-
-    <div class="lab">
-      <div class="f">
-        <label for="agname">Agency name</label>
-        <input id="agname" type="text" value="YOUR AGENCY" maxlength="22"
-               autocomplete="off" spellcheck="false" />
-      </div>
+    <div class="phead">
+      <div class="pnum">01</div>
       <div>
-        <label>Accent</label>
-        <div class="sw" id="sw">
-          <button type="button" data-c="#0e7c86" aria-pressed="true" aria-label="Teal accent"><i style="background:#0e7c86"></i></button>
-          <button type="button" data-c="#c9772a" aria-pressed="false" aria-label="Amber accent"><i style="background:#c9772a"></i></button>
-          <button type="button" data-c="#4a6cf0" aria-pressed="false" aria-label="Blue accent"><i style="background:#4a6cf0"></i></button>
-          <button type="button" data-c="#5cb824" aria-pressed="false" aria-label="Green accent"><i style="background:#5cb824"></i></button>
+        <h2>What is the idea</h2>
+        <div class="sub">A live scorecard of how often AI answers name a business, embedded on
+          a page, under somebody else&rsquo;s brand.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>The problem it names</h3>
+      <p>When someone asks ChatGPT for the best personal injury lawyer in Kansas City, or the
+        best commercial roofer, the model goes and reads the open web and writes an answer
+        naming three or four businesses. Everyone else is invisible, and has no idea.</p>
+      <p>There is no rank to check. No console, no position report, nothing in Google
+        Analytics. A business can be doing well in search and simply not exist in the answer
+        a buyer actually reads.</p>
+    </div>
+
+    <div class="block">
+      <h3>What we built</h3>
+      <p>An engine that asks the models the questions a real buyer would ask, with their web
+        search switched on, and scores what comes back. It reports four things that matter:</p>
+      <ul class="checks">
+        <li><strong>Unprompted mention rate.</strong> How often the business is named when the
+          question never mentions it. Asking &ldquo;is Acme good?&rdquo; and getting
+          &ldquo;Acme&rdquo; back is an echo, not visibility, and most tools count it anyway.</li>
+        <li><strong>Average position</strong> in the list the model returns, and share of
+          voice against named competitors.</li>
+        <li><strong>The sources the models read</strong> before answering, ranked by how much
+          they influenced the answer.</li>
+        <li><strong>Spread across repeat runs</strong>, because these models are not
+          deterministic and a single run is not a measurement.</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>The delivery: a widget, not a report</h3>
+      <p>Two lines of code on a page. It renders a live scorecard under whoever is reselling
+        it. No login for the end client, no monthly export, no GreenBrahma anywhere on it.</p>
+
+<pre><span class="t">&lt;script</span> src=<span class="s">"https://cdn.greenbrahma.com/bs.js"</span>
+        data-site=<span class="s">"acme-dental"</span>
+        data-accent=<span class="s">"#0e7c86"</span><span class="t">&gt;&lt;/script&gt;</span>
+<span class="t">&lt;div</span> id=<span class="s">"brahmascore"</span><span class="t">&gt;&lt;/div&gt;</span></pre>
+
+      <p>Everything else &mdash; the prompts, the model runs, the citation parsing, the
+        scoring &mdash; happens on our side and refreshes on its own.</p>
+    </div>
+
+    <div class="block">
+      <h3>See it re-skin</h3>
+      <p>Type a name and pick an accent. This is the real component, white-labelling live.</p>
+
+      <div class="lab">
+        <div class="f">
+          <label for="agname">Reseller name</label>
+          <input id="agname" type="text" value="Your Agency" maxlength="24"
+                 autocomplete="off" spellcheck="false" />
+        </div>
+        <div>
+          <label>Accent</label>
+          <div class="sw" id="sw">
+            <button type="button" data-c="#0e7c86" aria-pressed="true" aria-label="Teal"><i style="background:#0e7c86"></i></button>
+            <button type="button" data-c="#b4621c" aria-pressed="false" aria-label="Amber"><i style="background:#b4621c"></i></button>
+            <button type="button" data-c="#3a55c4" aria-pressed="false" aria-label="Blue"><i style="background:#3a55c4"></i></button>
+            <button type="button" data-c="#2d6b0e" aria-pressed="false" aria-label="Green"><i style="background:#2d6b0e"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="widget" id="wdg">
+        <div class="w-top">
+          <div class="w-brand"><span class="w-dot"></span><span id="wname">Your Agency</span></div>
+          <div class="w-tag">SAMPLE DATA</div>
+        </div>
+        <div class="w-body">
+          <div class="w-headline">
+            <div class="w-big">34%</div>
+            <div class="w-delta">&uarr; 11 pts vs. October</div>
+          </div>
+          <div class="w-what">Unprompted mention rate</div>
+          <div class="w-sub">How often the models name this business when a buyer asks the
+            category question and never says the brand.</div>
+
+          <div class="w-stats">
+            <div class="w-stat"><div class="n">#2.4</div><div class="l">Avg position</div></div>
+            <div class="w-stat"><div class="n">19%</div><div class="l">Share of voice</div></div>
+            <div class="w-stat"><div class="n">4</div><div class="l">Engines</div></div>
+          </div>
+
+          <div class="w-sec">
+            <h5>By engine</h5>
+            <div class="eng"><span class="nm">ChatGPT</span><span class="track"><span class="fill" style="width:47%"></span></span><span class="pc">47%</span></div>
+            <div class="eng"><span class="nm">Claude</span><span class="track"><span class="fill" style="width:38%"></span></span><span class="pc">38%</span></div>
+            <div class="eng"><span class="nm">Perplexity</span><span class="track"><span class="fill" style="width:29%"></span></span><span class="pc">29%</span></div>
+            <div class="eng"><span class="nm">Gemini</span><span class="track"><span class="fill" style="width:21%"></span></span><span class="pc">21%</span></div>
+          </div>
+
+          <div class="w-sec">
+            <h5>What the models read before answering</h5>
+            <div class="src"><span class="r">1</span><span class="d">directory-site.com</span><span class="v">41%</span></div>
+            <div class="src"><span class="r">2</span><span class="d">reviews-aggregator.com</span><span class="v">28%</span></div>
+            <div class="src"><span class="r">3</span><span class="d">local-news-outlet.com</span><span class="v">16%</span></div>
+            <div class="src me"><span class="r">4</span><span class="d">theclient.com &mdash; own site</span><span class="v">9%</span></div>
+            <div class="src"><span class="r">5</span><span class="d">industry-association.org</span><span class="v">6%</span></div>
+          </div>
+        </div>
+        <div class="w-foot">
+          <span>Updated 5 Nov &middot; refreshes weekly</span>
+          <span>by <b id="wfoot">Your Agency</b></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h4>That last panel is the product</h4>
+        <p>It is not a score. It is a work order. If the models are building their answer out
+          of four directories and barely touching the client&rsquo;s own site, you now know
+          exactly which four properties to go fix, in priority order &mdash; and that fixing
+          is billable work on top of the subscription.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 02 ===================== -->
+<section class="panel alt" id="us">
+  <div class="wrap">
+    <div class="phead">
+      <div class="pnum">02</div>
+      <div>
+        <h2>How is it relevant to us</h2>
+        <div class="sub">Someone else has already proved people pay for this. They are selling
+          the weaker version, and we have the harder half built.</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>The demand is already validated</h3>
+      <p>A company called Ayzeo is running paid LinkedIn ads at agencies right now, selling
+        exactly this category. Their pitch is not a feature list &mdash; it is arithmetic:
+        charge the client $1,000, pay us $49, keep $951. They have a logo wall, founding
+        partners and a booked demo calendar.</p>
+      <p>That matters more than any market report. We are not guessing whether agencies will
+        pay for AI visibility. Somebody is spending money to find out and has kept spending.</p>
+    </div>
+
+    <div class="block">
+      <h3>Our economics against theirs</h3>
+
+      <table>
+        <thead>
+          <tr><th>&nbsp;</th><th>Ayzeo</th><th>GreenBrahma</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Wholesale plan</td><td>$149 / mo</td><td>$99 / mo</td></tr>
+          <tr><td>Clients included</td><td>3</td><td>5</td></tr>
+          <tr><td>Each additional client</td><td>$49 / mo</td><td>$29 / mo</td></tr>
+          <tr><td>Effective cost per client</td><td>$49.67</td><td>$19.80</td></tr>
+          <tr><td>Retail per client</td><td>$500&ndash;$1,500 / mo</td><td>$400&ndash;$1,200 / mo</td></tr>
+          <tr><td>Margin at included count</td><td>$1,351&ndash;$4,351 / mo</td><td class="win">$1,901&ndash;$5,901 / mo</td></tr>
+        </tbody>
+      </table>
+      <p class="tnote">Lower cost, more clients included, bigger headline margin &mdash; beating
+        them on the exact axis they chose to compete on.</p>
+
+      <div class="adcard">
+        <div class="adlabel">The reseller pitch, in one line</div>
+        <div class="math">
+          <div>
+            <div class="mcap">Charge client</div>
+            <div class="mnum">$800</div>
+            <div class="mfoot">per client / month</div>
+          </div>
+          <div class="op" aria-hidden="true">&minus;</div>
+          <div>
+            <div class="mcap">Pay GreenBrahma</div>
+            <div class="mnum">$20</div>
+            <div class="mfoot">$99/mo &divide; 5 clients</div>
+          </div>
+          <div class="op" aria-hidden="true">=</div>
+          <div>
+            <div class="mcap">Kept</div>
+            <div class="mnum win">$780</div>
+            <div class="mfoot">per client / month</div>
+          </div>
+        </div>
+        <div class="adrule">
+          <div class="big">Five clients is roughly $2,000 to $6,000 a month in revenue
+            against a $99 bill.</div>
+          <div class="fine">$29/mo for each client beyond five &middot; 20% off annual</div>
         </div>
       </div>
     </div>
 
-    <div class="widget" style="--wa:#0e7c86" id="wdg">
-      <div class="w-top">
-        <div class="w-brand"><span class="w-dot"></span><span id="wname">YOUR AGENCY</span></div>
-        <div class="w-tag">SAMPLE DATA</div>
-      </div>
+    <div class="block">
+      <h3>Where they are beatable</h3>
+      <p>Everyone in this category ships agencies a dashboard that produces a monthly
+        white-label PDF. That is the weak point.</p>
 
-      <div class="w-body">
-        <div class="w-headline">
-          <div class="w-big">34%</div>
-          <div class="w-delta">&uarr; 11 pts vs. October</div>
+      <table>
+        <thead>
+          <tr><th>&nbsp;</th><th>Monthly PDF</th><th>Embedded widget</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Where it lives</td><td>An attachment, read once and filed</td><td>A page the client already opens</td></tr>
+          <tr><td>Who produces it</td><td>Someone on the team, every month</td><td>Nobody &mdash; it renders itself</td></tr>
+          <tr><td>How current</td><td>Dated the 1st, wrong by the 10th</td><td>Refreshes weekly</td></tr>
+          <tr><td>Cost of client fifty</td><td>Fifty times the production time</td><td>Same as client one</td></tr>
+          <tr><td>Renewal argument</td><td>Remembered at invoice time</td><td>Visible between invoices</td></tr>
+        </tbody>
+      </table>
+      <p class="tnote">A PDF is a receipt. A widget is a presence. That is the whole
+        positioning, and it is defensible because it is structural rather than a feature they
+        can copy next sprint.</p>
+    </div>
+
+    <div class="block">
+      <h3>The part that is genuinely hard, and done</h3>
+      <p>Anyone can call four APIs. The hard part is scoring the answers honestly, and the
+        off-the-shelf tools do not.</p>
+      <div class="callout">
+        <p>We tested a firm whose domain shares a word with an unrelated Spanish term. A
+          commercial tool reported <strong>93% mention rate</strong> and 86% share of voice.
+          The real answer was that no model had ever heard of them &mdash; it was matching
+          the wrong word entirely.</p>
+        <p>Our engine caught it. It separates unprompted mentions from echoes, detects
+          &ldquo;I don&rsquo;t have reliable information about them&rdquo; so a disclaimer
+          never scores as a win, and runs every prompt several times to report the spread. A
+          number that survives a client meeting is the product.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>What each of us brings</h3>
+      <div class="cards two">
+        <div class="card">
+          <h4>GreenBrahma</h4>
+          <p>The engine, the scoring, the widget, the infrastructure and the roadmap. Already
+            running, already in use on a live account.</p>
         </div>
-        <div class="w-what">Unprompted mention rate</div>
-        <div class="w-sub">How often the models name this business when a buyer asks the
-          category question and never says the brand.</div>
-
-        <div class="w-stats">
-          <div class="w-stat"><div class="n">#2.4</div><div class="l">Avg position</div></div>
-          <div class="w-stat"><div class="n">19%</div><div class="l">Share of voice</div></div>
-          <div class="w-stat"><div class="n">4</div><div class="l">Engines</div></div>
-        </div>
-
-        <div class="w-sec">
-          <h4>By engine</h4>
-          <div class="eng"><span class="nm">ChatGPT</span><span class="track"><span class="fill" style="width:47%"></span></span><span class="pc">47%</span></div>
-          <div class="eng"><span class="nm">Claude</span><span class="track"><span class="fill" style="width:38%"></span></span><span class="pc">38%</span></div>
-          <div class="eng"><span class="nm">Perplexity</span><span class="track"><span class="fill" style="width:29%"></span></span><span class="pc">29%</span></div>
-          <div class="eng"><span class="nm">Gemini</span><span class="track"><span class="fill" style="width:21%"></span></span><span class="pc">21%</span></div>
-        </div>
-
-        <div class="w-sec">
-          <h4>What the models read before answering</h4>
-          <div class="src"><span class="r">1</span><span class="d">directory-site.com</span><span class="v">41%</span></div>
-          <div class="src"><span class="r">2</span><span class="d">reviews-aggregator.com</span><span class="v">28%</span></div>
-          <div class="src"><span class="r">3</span><span class="d">local-news-outlet.com</span><span class="v">16%</span></div>
-          <div class="src me"><span class="r">4</span><span class="d">yourclient.com &mdash; own site</span><span class="v">9%</span></div>
-          <div class="src"><span class="r">5</span><span class="d">industry-association.org</span><span class="v">6%</span></div>
+        <div class="card">
+          <h4>Brett</h4>
+          <p>The agency relationships, the pricing instinct, and the read on what a reseller
+            will actually put in front of a client. That is the half we do not have.</p>
         </div>
       </div>
-
-      <div class="w-foot">
-        <span>Updated 4 Nov &middot; refreshes weekly</span>
-        <span>by <b id="wfoot">YOUR AGENCY</b></span>
-      </div>
-    </div>
-
-    <div class="honest">
-      <p>That last panel is the one clients actually act on. It is not a score &mdash; it is a
-        work order. If the models are building their answer out of four directories and barely
-        touching the client&rsquo;s own site, you now know exactly which four properties to go
-        fix, in priority order, and you can bill for fixing them.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ 4. WHY A WIDGET ============ -->
-<section>
+<!-- ===================== 03 ===================== -->
+<section class="panel" id="activate">
   <div class="wrap">
-    <div class="eyebrow">Why this beats the report</div>
-    <h2>A PDF is a receipt. A widget is a presence.</h2>
-    <p>Every competitor in this category sells agencies a dashboard that spits out a monthly
-      white-label PDF. Here is what changes when the deliverable lives on a page instead.</p>
-
-    <div class="grid two">
-      <div class="cell">
-        <div class="k">It is always on</div>
-        <p>A report is read once and filed. A widget is on a page the client already opens.
-          Your work stays visible between invoices, which is the entire renewal argument.</p>
-      </div>
-      <div class="cell">
-        <div class="k">Nobody has to send it</div>
-        <p>No one on your team assembles, exports, renames and emails anything. The number
-          updates itself. Your margin stops being eaten by production time.</p>
-      </div>
-      <div class="cell">
-        <div class="k">It is current, not monthly</div>
-        <p>AI answers move week to week. A number dated the 1st is already wrong by the 10th,
-          and the client can tell.</p>
-      </div>
-      <div class="cell">
-        <div class="k">It scales without headcount</div>
-        <p>Client fifty costs the same effort as client one. That is what makes this a product
-          line rather than another service you have to staff.</p>
+    <div class="phead">
+      <div class="pnum">03</div>
+      <div>
+        <h2>How do we activate the idea</h2>
+        <div class="sub">Prove it on one real account, package what worked, then sell the
+          package. In that order.</div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ============ 5. WHAT IT MEASURES ============ -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow">What is under it</div>
-    <h2>It measures the answer, not the memory.</h2>
-    <p>Most AI visibility tools ask a model what it remembers. For any local or mid-market
-      business that is a fixed zero you cannot move, and measuring it harder does not help.
-      When a real buyer asks ChatGPT the category question, the model <strong>searches the
-      web</strong> and writes the answer out of what it finds. That layer is live, and it is
-      winnable.</p>
-
-    <ul class="checks">
-      <li>Runs with the models&rsquo; native web search switched on, the way a real buyer hits them.</li>
-      <li>Separates <strong>unprompted</strong> mentions from echoes &mdash; asking &ldquo;is Acme good?&rdquo; and getting &ldquo;Acme&rdquo; back is not visibility.</li>
-      <li>Flags disclaimers, so &ldquo;I don&rsquo;t have reliable information about them&rdquo; never scores as a win.</li>
-      <li>Captures every source the models read before answering, and ranks them by influence.</li>
-      <li>Runs each prompt several times and reports the spread, because these models are not deterministic.</li>
-    </ul>
-
-    <div class="honest">
-      <p>We built the scoring engine because the off-the-shelf ones were counting substring
-        matches. Ours caught a case where a firm scored 93% on a tool that was matching a
-        homonym &mdash; the real answer was that no model had ever heard of them. A number you
-        can defend in a client meeting is the product.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 6. THE MATH ============ -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow">The math</div>
-    <h2>What makes this a profit centre.</h2>
-    <p>One plan. No separate agency tier, no per-seat charge, no setup fee.</p>
-
-    <div class="price">
-      <div class="prow">
-        <div class="cap">Your cost</div>
-        <div class="amt">$99 <small>a month</small></div>
-        <div class="note">Includes 5 client widgets. $29 a month per additional client.
-          20% off on annual billing.</div>
-      </div>
-      <div class="prow">
-        <div class="cap">You charge</div>
-        <div class="amt">$400 to $1,200 <small>a month per client</small></div>
-        <div class="note">Standalone retainer, or folded into an existing SEO or content
-          engagement as a new line item.</div>
-      </div>
-      <div class="prow win">
-        <div class="cap">Example &middot; 5 clients</div>
-        <div class="amt">$1,901 to $5,901 <small>margin a month</small></div>
-        <div class="note">5 clients at $400 to $1,200 each is $2,000 to $6,000 in revenue,
-          minus the $99 plan. Nothing else to pay.</div>
+    <div class="block">
+      <h3>Where we actually are</h3>
+      <div class="callout">
+        <p>Straight about this: the engine runs and the scoring is solid, and it is being used
+          in anger on a live account right now. The widget is being packaged. There is no logo
+          wall and there are no founding partners yet &mdash; there are open slots and a
+          working product.</p>
+        <p>That is either the wrong moment to look at this or exactly the right one, and which
+          it is depends on whether we want to be early or safe.</p>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ============ 7. ONBOARDING ============ -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow">Getting a client live</div>
-    <h2>Under five minutes per client.</h2>
-    <div class="steps">
-      <div class="stepitem">
-        <h3>Add the client</h3>
-        <p>Domain, brand name, the category they want to win, and up to five competitors.
-          One form.</p>
+    <div class="block">
+      <h3>Getting one client live</h3>
+      <div class="steps">
+        <div class="stepitem">
+          <h4>Add the client</h4>
+          <p>Domain, brand name, the category they want to win, up to five competitors. One
+            form.</p>
+        </div>
+        <div class="stepitem">
+          <h4>Approve the prompts</h4>
+          <p>We generate the questions a real buyer would ask in that category and that city.
+            Edit them or add your own.</p>
+        </div>
+        <div class="stepitem">
+          <h4>Paste the embed</h4>
+          <p>Two lines, your accent, your name. First numbers land within the hour and refresh
+            weekly from then on.</p>
+        </div>
       </div>
-      <div class="stepitem">
-        <h3>Approve the prompts</h3>
-        <p>We generate the questions a real buyer would ask in that category and city.
-          Edit them, or add your own.</p>
-      </div>
-      <div class="stepitem">
-        <h3>Paste the embed</h3>
-        <p>Two lines, your accent colour, your name. First numbers land within the hour and
-          refresh weekly from then on.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 8. FAQ ============ -->
-<section>
-  <div class="wrap narrow">
-    <div class="eyebrow">Questions</div>
-    <h2>The ones that actually come up.</h2>
-
-    <details>
-      <summary>Does GreenBrahma appear anywhere the client can see?</summary>
-      <p>No. The widget carries your name and your accent colour. The embed is served from our
-        CDN, so the script URL is visible to anyone who views source &mdash; if that matters to
-        you, we can serve it from a subdomain you own.</p>
-    </details>
-    <details>
-      <summary>Which engines does it cover?</summary>
-      <p>ChatGPT, Claude, Perplexity and Gemini, all four included at the base price. We run
-        them with web search on, which is how buyers actually use them. Memory-only baselines
-        are available alongside, labelled as such, so you can show a client the gap between
-        what the models know and what they can find.</p>
-    </details>
-    <details>
-      <summary>Can I get the data out?</summary>
-      <p>Yes. CSV export and a read API, both included. Every run is exportable with the full
-        model response, the prompt, the run number and the sources, so you can take it into
-        your own reporting if you prefer.</p>
-    </details>
-    <details>
-      <summary>What if the number does not move?</summary>
-      <p>Then you have found out early and cheaply, and the source panel tells you why. The
-        honest answer is that the widget measures; it does not fix. The fixing is the work you
-        bill for on top &mdash; schema markup, directory consistency, letting the AI crawlers in,
-        earning citations on the properties the models actually read.</p>
-    </details>
-    <details>
-      <summary>Is there a trial?</summary>
-      <p>Fourteen days, one client, everything switched on. If you want it pointed at a
-        prospect of yours rather than an existing client, that works too &mdash; it makes a
-        better pitch than a deck.</p>
-    </details>
-  </div>
-</section>
-
-<!-- ============ 9. CTA ============ -->
-<section id="talk">
-  <div class="wrap">
-    <div class="eyebrow">Next</div>
-    <h2>Want to put it on one of yours?</h2>
-    <p>Twenty minutes, screen shared, pointed at a client or prospect you pick. You will see
-      their real numbers on the call, not a demo account.</p>
-
-    <div class="honest">
-      <p>Straight with you: this is early. The engine runs and the scoring is solid &mdash;
-        it is being used in anger on a live account right now &mdash; but the widget is being
-        packaged, and there are founding partner slots open rather than a logo wall to point
-        at. That is either the wrong time for you or exactly the right one.</p>
+      <p class="tnote">Under five minutes per client once the account exists. That is what
+        makes this a product line rather than another service we would have to staff.</p>
     </div>
 
-    <form name="brett" method="POST" data-netlify="true" action="/thanks.html" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="brett" />
-      <p style="display:none"><label>Don&rsquo;t fill this: <input name="bot-field" /></label></p>
-      <label for="name">Name</label>
-      <input id="name" name="name" type="text" required />
-      <label for="company">Agency</label>
-      <input id="company" name="company" type="text" required />
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" required />
-      <label for="client">A client or prospect to point it at</label>
-      <input id="client" name="client" type="text" placeholder="domain.com" />
-      <label for="notes">Anything else? One sentence.</label>
-      <textarea id="notes" name="notes"></textarea>
-      <button type="submit">Set up the 20 minutes &rarr;</button>
-    </form>
+    <div class="block">
+      <h3>The first ninety days</h3>
+      <table>
+        <thead>
+          <tr><th>Phase</th><th>What happens</th><th>What it proves</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Weeks 1&ndash;2</td>
+            <td>Point it at two or three of Brett&rsquo;s real clients and run it for free.</td>
+            <td>Whether the numbers are interesting enough that a client leans in.</td>
+          </tr>
+          <tr>
+            <td>Weeks 3&ndash;6</td>
+            <td>Pick the one with the worst score. Do the fixing work. Watch the widget.</td>
+            <td>Whether we can actually move the number, which is the entire retainer story.</td>
+          </tr>
+          <tr>
+            <td>Weeks 7&ndash;12</td>
+            <td>Price it, put it in front of five more, take the first paying reseller.</td>
+            <td>Whether an agency pays without us in the room.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="tnote">The second phase is the one that matters. Measuring is easy to sell once
+        and hard to renew. Moving the number is the business.</p>
+    </div>
+
+    <div class="block">
+      <h3>What I need from you</h3>
+      <ul class="checks">
+        <li><strong>Two or three client domains</strong> we can point it at this week, free,
+          no commitment.</li>
+        <li><strong>A read on the price.</strong> The $400&ndash;$1,200 range is my estimate
+          against what Ayzeo advertises, not a number either of us has tested.</li>
+        <li><strong>An honest reaction to the widget.</strong> Would you put it in front of a
+          client as it stands, or is something missing?</li>
+      </ul>
+    </div>
+
+    <div class="block">
+      <h3>Next step</h3>
+      <p>Twenty minutes, screen shared, pointed at a client or prospect you pick. You will see
+        their real numbers on the call, not a demo account.</p>
+
+      <form name="brett" method="POST" data-netlify="true" action="/thanks.html" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="brett" />
+        <p style="display:none"><label>Don&rsquo;t fill this: <input name="bot-field" /></label></p>
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" required />
+        <label for="company">Agency</label>
+        <input id="company" name="company" type="text" required />
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required />
+        <label for="client">A client or prospect to point it at</label>
+        <input id="client" name="client" type="text" placeholder="domain.com" />
+        <label for="notes">Reactions, objections, anything</label>
+        <textarea id="notes" name="notes"></textarea>
+        <button type="submit">Set up the twenty minutes</button>
+      </form>
+
+      <div class="ctas">
+        <a class="btn ghost" href="mailto:Geoff@greenbrahma.com?subject=AI%20visibility%20widget">Or just email me</a>
+      </div>
+    </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <div>GREENBRAHMA</div>
-    <div style="margin-top:8px">AI-native document intelligence &middot; created by Geoff Pickering</div>
+    <div><strong>GreenBrahma</strong></div>
+    <div style="margin-top:6px">AI-native document intelligence &middot; created by Geoff Pickering</div>
     <div class="foot-row">
       <a href="mailto:Geoff@greenbrahma.com">Geoff@greenbrahma.com</a>
       <a href="/">Home</a>
@@ -602,12 +666,11 @@
   var sw    = document.getElementById('sw');
   if(!wdg || !input || !sw) return;
 
-  function setName(){
-    var v = (input.value || '').trim().toUpperCase() || 'YOUR AGENCY';
+  input.addEventListener('input', function(){
+    var v = (input.value || '').trim() || 'Your Agency';
     nameA.textContent = v;
     nameB.textContent = v;
-  }
-  input.addEventListener('input', setName);
+  });
 
   sw.addEventListener('click', function(e){
     var b = e.target.closest('button[data-c]');
