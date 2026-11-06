@@ -25,11 +25,11 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{background:var(--paper);color:var(--ink);font-family:var(--sans);
-    font-size:18.5px;line-height:1.68;-webkit-font-smoothing:antialiased;
+    font-size:18px;line-height:1.52;-webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;overflow-x:hidden}
   .wrap{max-width:980px;margin:0 auto;padding:0 24px}
 
-  header{border-bottom:1px solid var(--rule);padding:17px 0;position:sticky;top:0;
+  header{border-bottom:1px solid var(--rule);padding:12px 0;position:sticky;top:0;
     background:rgba(255,255,255,.95);backdrop-filter:blur(8px);z-index:40}
   header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
   .brand{display:flex;align-items:center;gap:11px;font-size:17px;font-weight:700;
@@ -38,49 +38,49 @@
   .navback{font-size:15px;color:var(--ink-dim);text-decoration:none}
   .navback:hover{color:var(--green)}
 
-  h1{font-size:clamp(30px,4.4vw,44px);font-weight:700;line-height:1.16;
-    letter-spacing:-.018em;margin-bottom:14px;max-width:20ch}
-  h2{font-size:clamp(23px,3.1vw,30px);font-weight:700;line-height:1.26;
-    letter-spacing:-.012em;margin-bottom:12px}
-  h3{font-size:20px;font-weight:700;line-height:1.35;margin-bottom:7px}
+  h1{font-size:clamp(28px,4vw,40px);font-weight:700;line-height:1.12;
+    letter-spacing:-.018em;margin-bottom:10px;max-width:20ch}
+  h2{font-size:clamp(22px,2.9vw,27px);font-weight:700;line-height:1.22;
+    letter-spacing:-.012em;margin-bottom:8px}
+  h3{font-size:19px;font-weight:700;line-height:1.3;margin-bottom:5px}
   h4{font-size:17px;font-weight:700;margin-bottom:6px}
-  p{margin-bottom:16px;max-width:68ch;color:var(--ink)}
-  .lead{font-size:21px;line-height:1.55;color:var(--ink-2);max-width:60ch;margin-bottom:0}
-  .eyebrow{font-size:14px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
-    color:var(--green);margin-bottom:14px}
+  p{margin-bottom:11px;max-width:68ch;color:var(--ink)}
+  .lead{font-size:19.5px;line-height:1.45;color:var(--ink-2);max-width:60ch;margin-bottom:0}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--green);margin-bottom:10px}
   strong{font-weight:700;color:var(--ink)}
   em.g{font-style:normal;color:var(--green);font-weight:700}
   a{color:var(--green)}
 
-  .intro{padding:52px 0 40px}
+  .intro{padding:34px 0 26px}
 
   nav.jump{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
     background:var(--paper-2)}
   nav.jump .wrap{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
     padding:0;max-width:980px}
   @media(min-width:760px){nav.jump .wrap{grid-template-columns:1fr 1fr 1fr}}
-  nav.jump a{display:block;background:var(--paper-2);padding:17px 22px;text-decoration:none;
+  nav.jump a{display:block;background:var(--paper-2);padding:12px 18px;text-decoration:none;
     color:var(--ink);transition:background .15s}
   nav.jump a:hover{background:var(--mint)}
   nav.jump .n{font-size:13px;font-weight:700;letter-spacing:.14em;color:var(--green);
     margin-bottom:3px}
   nav.jump .t{font-size:17px;font-weight:600;line-height:1.3}
 
-  .panel{border-bottom:1px solid var(--rule);padding:52px 0 54px}
+  .panel{border-bottom:1px solid var(--rule);padding:32px 0 34px}
   .panel.alt{background:var(--paper-2)}
-  .phead{display:flex;align-items:flex-start;gap:18px;margin-bottom:26px}
-  .pnum{font-size:48px;font-weight:700;line-height:.92;color:var(--green-lit);flex:none;
+  .phead{display:flex;align-items:flex-start;gap:15px;margin-bottom:18px}
+  .pnum{font-size:40px;font-weight:700;line-height:.92;color:var(--green-lit);flex:none;
     letter-spacing:-.04em}
   .phead h2{margin-bottom:5px}
   .phead .sub{font-size:18px;color:var(--ink-dim);line-height:1.45;max-width:54ch}
 
-  .block{margin-top:34px}
+  .block{margin-top:24px}
   .block:first-of-type{margin-top:0}
 
-  .adcard{border:2px solid var(--green);background:var(--paper);padding:28px 24px;margin:22px 0}
-  .adlabel{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--ink-dim);
-    text-align:center;margin-bottom:24px;text-transform:uppercase}
-  .math{display:grid;grid-template-columns:1fr;gap:18px;align-items:center;text-align:center}
+  .adcard{border:2px solid var(--green);background:var(--paper);padding:20px 18px;margin:16px 0}
+  .adlabel{font-size:12.5px;font-weight:700;letter-spacing:.2em;color:var(--ink-dim);
+    text-align:center;margin-bottom:16px;text-transform:uppercase}
+  .math{display:grid;grid-template-columns:1fr;gap:13px;align-items:center;text-align:center}
   @media(min-width:760px){.math{grid-template-columns:1fr 28px 1fr 28px 1fr}}
   .mcap{font-size:13px;font-weight:700;letter-spacing:.1em;color:var(--ink-dim);
     text-transform:uppercase;margin-bottom:5px}
@@ -88,26 +88,26 @@
   .mnum.win{color:var(--green)}
   .mfoot{font-size:14.5px;color:var(--ink-dim);margin-top:6px}
   .op{font-size:30px;color:var(--ink-dim);line-height:1}
-  .adrule{border-top:1px solid var(--rule);margin-top:26px;padding-top:19px;text-align:center}
+  .adrule{border-top:1px solid var(--rule);margin-top:18px;padding-top:14px;text-align:center}
   .adrule .big{font-size:clamp(17px,2.4vw,21px);font-weight:700;margin-bottom:5px;
     letter-spacing:-.01em}
   .adrule .fine{font-size:15px;color:var(--ink-dim)}
 
-  table{width:100%;border-collapse:collapse;margin:18px 0 8px;font-size:17px}
-  th{text-align:left;font-weight:700;font-size:14px;letter-spacing:.07em;
-    text-transform:uppercase;color:var(--green);padding:9px 12px;
+  table{width:100%;border-collapse:collapse;margin:13px 0 6px;font-size:16.5px}
+  th{text-align:left;font-weight:700;font-size:13px;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--green);padding:7px 11px;
     border-bottom:2px solid var(--green);vertical-align:bottom}
   th:first-child{padding-left:0}
-  td{padding:11px 12px;border-bottom:1px solid var(--rule);color:var(--ink-2);
-    vertical-align:top;line-height:1.45}
+  td{padding:8px 11px;border-bottom:1px solid var(--rule);color:var(--ink-2);
+    vertical-align:top;line-height:1.38}
   td:first-child{padding-left:0;color:var(--ink);font-weight:600}
   td.win{color:var(--green);font-weight:700}
-  .tnote{font-size:15.5px;color:var(--ink-dim);line-height:1.5;max-width:64ch;margin-top:10px}
+  .tnote{font-size:15px;color:var(--ink-dim);line-height:1.42;max-width:64ch;margin-top:8px}
 
-  .ctas{display:flex;flex-wrap:wrap;gap:13px;align-items:center;margin-top:26px}
-  .btn{display:inline-block;background:var(--green);color:#fff;font-size:17px;font-weight:600;
-    font-family:var(--sans);border:2px solid var(--green);padding:14px 28px;cursor:pointer;
-    text-decoration:none;transition:background .15s,border-color .15s;min-height:50px;
+  .ctas{display:flex;flex-wrap:wrap;gap:11px;align-items:center;margin-top:18px}
+  .btn{display:inline-block;background:var(--green);color:#fff;font-size:16.5px;font-weight:600;
+    font-family:var(--sans);border:2px solid var(--green);padding:11px 22px;cursor:pointer;
+    text-decoration:none;transition:background .15s,border-color .15s;min-height:44px;
     line-height:1.3}
   .btn:hover{background:var(--green-deep);border-color:var(--green-deep);color:#fff}
   .btn.ghost{background:transparent;color:var(--green);border-color:var(--rule)}
@@ -115,13 +115,13 @@
   .btn:disabled{opacity:.35;cursor:not-allowed}
 
   pre{background:var(--paper-2);border:1px solid var(--rule);border-left:3px solid var(--green);
-    padding:18px 20px;overflow-x:auto;margin:18px 0;font-family:var(--code);
+    padding:13px 15px;overflow-x:auto;margin:13px 0;font-family:var(--code);
     font-size:14.5px;line-height:1.7;color:var(--ink-2)}
   pre .t{color:var(--green)}
   pre .s{color:#9a6b12}
 
-  .lab{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;margin:20px 0 18px;
-    padding:17px 19px;background:var(--mint);border:1px solid var(--rule)}
+  .lab{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin:15px 0 13px;
+    padding:13px 15px;background:var(--mint);border:1px solid var(--rule)}
   .lab .f{flex:1 1 230px}
   .lab label{display:block;font-size:13.5px;font-weight:700;letter-spacing:.1em;
     text-transform:uppercase;color:var(--ink-dim);margin-bottom:7px}
@@ -138,13 +138,13 @@
   .widget{border:1px solid #d7dad2;background:#fff;max-width:580px;
     box-shadow:0 2px 14px rgba(21,24,15,.07);border-radius:3px}
   .w-top{display:flex;align-items:center;justify-content:space-between;gap:12px;
-    padding:15px 19px;border-bottom:1px solid var(--rule-2)}
+    padding:11px 16px;border-bottom:1px solid var(--rule-2)}
   .w-brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:700}
   .w-dot{width:16px;height:16px;background:var(--wa);flex:none;
     clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}
   .w-tag{font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--ink-dim);
     border:1px solid var(--rule);padding:3px 8px;border-radius:2px}
-  .w-body{padding:21px 19px 18px}
+  .w-body{padding:16px 16px 14px}
   .w-headline{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
   .w-big{font-size:54px;font-weight:700;letter-spacing:-.04em;line-height:.9;color:var(--wa)}
   .w-delta{font-size:15px;font-weight:600;color:var(--wa);padding-bottom:6px}
@@ -152,12 +152,12 @@
     text-transform:uppercase;margin-top:12px}
   .w-sub{font-size:15.5px;color:var(--ink-2);line-height:1.5;margin-top:8px;max-width:48ch}
   .w-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--rule-2);
-    border:1px solid var(--rule-2);margin-top:19px}
+    border:1px solid var(--rule-2);margin-top:14px}
   .w-stat{background:#fff;padding:12px 13px}
   .w-stat .n{font-size:21px;font-weight:700;letter-spacing:-.02em}
   .w-stat .l{font-size:11px;font-weight:700;letter-spacing:.09em;color:var(--ink-dim);
     text-transform:uppercase;margin-top:3px;line-height:1.3}
-  .w-sec{margin-top:20px;padding-top:16px;border-top:1px solid var(--rule-2)}
+  .w-sec{margin-top:15px;padding-top:12px;border-top:1px solid var(--rule-2)}
   .w-sec h5{font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--ink-dim);
     text-transform:uppercase;margin-bottom:12px}
   .eng{display:flex;align-items:center;gap:12px;margin-bottom:9px}
@@ -175,39 +175,39 @@
     color:var(--ink-dim);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
   .w-foot b{color:var(--wa)}
 
-  .callout{border-left:4px solid var(--green-lit);background:var(--mint);padding:18px 22px;
-    margin:24px 0}
+  .callout{border-left:4px solid var(--green-lit);background:var(--mint);padding:13px 17px;
+    margin:16px 0}
   .panel.alt .callout{background:#fff;border-color:var(--green-lit)}
-  .callout p{margin:0;color:var(--ink-2);font-size:17.5px;line-height:1.58}
+  .callout p{margin:0;color:var(--ink-2);font-size:16.5px;line-height:1.48}
   .callout p + p{margin-top:11px}
   .callout h4{color:var(--ink)}
 
   ul.checks{list-style:none;margin:16px 0 8px}
-  ul.checks li{position:relative;padding-left:30px;margin-bottom:13px;line-height:1.56;
+  ul.checks li{position:relative;padding-left:28px;margin-bottom:9px;line-height:1.45;
     max-width:70ch;color:var(--ink-2)}
   ul.checks li:before{content:"\2713";position:absolute;left:2px;top:0;color:var(--green);
     font-weight:700}
   ul.checks li strong{color:var(--ink)}
 
   .steps{counter-reset:s;margin-top:20px}
-  .stepitem{counter-increment:s;position:relative;padding-left:52px;margin-bottom:22px}
+  .stepitem{counter-increment:s;position:relative;padding-left:46px;margin-bottom:15px}
   .stepitem:before{content:counter(s);position:absolute;left:0;top:-4px;font-size:30px;
     font-weight:700;color:var(--green-lit);letter-spacing:-.03em;line-height:1}
   .stepitem p{margin:0;color:var(--ink-2);font-size:17px}
 
   .cards{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
-    border:1px solid var(--rule);margin-top:20px}
+    border:1px solid var(--rule);margin-top:14px}
   @media(min-width:720px){.cards.two{grid-template-columns:1fr 1fr}}
-  .card{background:var(--paper);padding:20px 22px}
+  .card{background:var(--paper);padding:15px 18px}
   .card h4{color:var(--green);font-size:16px;letter-spacing:.01em}
-  .card p{margin:0;font-size:16.5px;color:var(--ink-2);line-height:1.52}
+  .card p{margin:0;font-size:16px;color:var(--ink-2);line-height:1.45}
 
   /* ================= walkthrough ================= */
-  .walk{border:1px solid var(--rule);margin-top:22px;background:var(--paper)}
+  .walk{border:1px solid var(--rule);margin-top:16px;background:var(--paper)}
   .picker{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
     border-bottom:1px solid var(--rule)}
   @media(min-width:720px){.picker{grid-template-columns:1fr 1fr}}
-  .svc{display:block;background:var(--paper-2);padding:16px 22px;border:none;cursor:pointer;
+  .svc{display:block;background:var(--paper-2);padding:12px 18px;border:none;cursor:pointer;
     text-align:left;font-family:var(--sans);transition:background .14s;width:100%}
   .svc:hover{background:var(--mint)}
   .svc[aria-pressed="true"]{background:var(--paper);box-shadow:inset 0 -3px 0 var(--green)}
@@ -216,7 +216,7 @@
   .svc .t{font-size:18px;font-weight:700;line-height:1.25}
   .svc .d{font-size:15px;color:var(--ink-dim);line-height:1.4;margin-top:3px}
 
-  .walkbody{padding:24px 22px 22px}
+  .walkbody{padding:17px 18px 17px}
   .sbar{display:flex;flex-wrap:wrap;gap:8px}
   .sbtn{font-family:var(--sans);font-size:15px;font-weight:600;background:var(--paper);
     border:1px solid var(--rule);color:var(--ink-2);padding:9px 15px;cursor:pointer;
@@ -225,41 +225,41 @@
   .sbtn[aria-current="true"]{background:var(--green);border-color:var(--green);color:#fff}
   .sbtn .k{opacity:.75;margin-right:7px;font-variant-numeric:tabular-nums}
   .sbtn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
-  .progress{height:3px;background:var(--rule-2);margin:14px 0 26px;position:relative}
+  .progress{height:3px;background:var(--rule-2);margin:11px 0 18px;position:relative}
   .progress i{position:absolute;left:0;top:0;bottom:0;background:var(--green-lit);
     transition:width .3s ease}
 
   .step{display:none}
   .step.on{display:block;animation:fade .25s ease}
   @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-  .step-head{margin-bottom:20px}
+  .step-head{margin-bottom:14px}
   .step-head .tag{font-size:13px;font-weight:700;letter-spacing:.13em;color:var(--green);
     text-transform:uppercase;margin-bottom:7px}
-  .step-head h3{font-size:24px;margin-bottom:8px}
-  .step-head p{color:var(--ink-2);font-size:17.5px;margin-bottom:0;max-width:64ch}
+  .step-head h3{font-size:22px;margin-bottom:5px}
+  .step-head p{color:var(--ink-2);font-size:16.5px;margin-bottom:0;max-width:64ch}
   .exlabel{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;
     text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--rule);
     padding:4px 10px;border-radius:2px;margin-bottom:12px;background:var(--paper-2)}
-  .wnav{display:flex;gap:12px;align-items:center;margin-top:28px;padding-top:20px;
+  .wnav{display:flex;gap:11px;align-items:center;margin-top:20px;padding-top:15px;
     border-top:1px solid var(--rule);flex-wrap:wrap}
   .navhint{font-size:15px;color:var(--ink-dim)}
 
-  .ex{border:1px solid var(--rule);background:var(--paper-2);padding:20px 22px;border-radius:3px}
+  .ex{border:1px solid var(--rule);background:var(--paper-2);padding:15px 17px;border-radius:3px}
   .ex.plain{background:var(--paper)}
   .ex + .ex{margin-top:14px}
-  .field{margin-bottom:15px}
+  .field{margin-bottom:11px}
   .field:last-child{margin-bottom:0}
   .field label{display:block;font-size:13px;font-weight:700;letter-spacing:.09em;
     text-transform:uppercase;color:var(--ink-dim);margin-bottom:5px}
-  .field .v{background:#fff;border:1px solid var(--rule);padding:11px 13px;font-size:17px;
+  .field .v{background:#fff;border:1px solid var(--rule);padding:9px 12px;font-size:16.5px;
     border-radius:2px}
   .field .v.muted{color:var(--ink-dim)}
   .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}
   .chip{font-size:14.5px;background:#fff;border:1px solid var(--rule);padding:6px 11px;
     border-radius:2px;color:var(--ink-2)}
   .plist{list-style:none}
-  .plist li{display:flex;gap:11px;align-items:flex-start;padding:11px 0;
-    border-bottom:1px solid var(--rule-2);font-size:16.5px;line-height:1.45}
+  .plist li{display:flex;gap:11px;align-items:flex-start;padding:8px 0;
+    border-bottom:1px solid var(--rule-2);font-size:16px;line-height:1.38}
   .plist li:last-child{border-bottom:none}
   .plist .tick{color:var(--green);font-weight:700;flex:none}
   .plist .q{display:block;font-size:14px;color:var(--ink-dim);margin-top:2px}
@@ -267,7 +267,7 @@
   .ans:last-child{margin-bottom:0}
   .ans .who{display:flex;align-items:center;justify-content:space-between;gap:10px;
     padding:10px 15px;border-bottom:1px solid var(--rule-2);font-size:14.5px;font-weight:700}
-  .ans .body{padding:14px 15px;font-size:16px;line-height:1.55;color:var(--ink-2)}
+  .ans .body{padding:11px 14px;font-size:15.5px;line-height:1.45;color:var(--ink-2)}
   .ans .body mark{background:#d6ecc4;color:var(--ink);padding:1px 3px;font-weight:600}
   .ans .body mark.bad{background:#f3dcd8}
   .verdict{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
@@ -279,19 +279,19 @@
     text-transform:uppercase;color:var(--green);padding:8px 11px;
     border-bottom:2px solid var(--green)}
   .wo th:first-child,.wo td:first-child{padding-left:0}
-  .wo td{padding:11px;border-bottom:1px solid var(--rule);color:var(--ink-2);
-    vertical-align:top;line-height:1.45;font-weight:400}
+  .wo td{padding:8px 10px;border-bottom:1px solid var(--rule);color:var(--ink-2);
+    vertical-align:top;line-height:1.38;font-weight:400}
   .wo td b{color:var(--ink)}
   .wo tr.me td{color:var(--green);font-weight:600}
   .panes{display:grid;grid-template-columns:1fr;gap:14px}
   @media(min-width:860px){.panes{grid-template-columns:1fr 1fr}}
   .pane{border:1px solid var(--rule);background:#fff;display:flex;flex-direction:column;
     border-radius:3px;overflow:hidden}
-  .pane-head{font-size:13px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
-    color:var(--green);padding:12px 16px;border-bottom:1px solid var(--rule-2);
+  .pane-head{font-size:12.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--green);padding:9px 14px;border-bottom:1px solid var(--rule-2);
     background:var(--paper-2)}
-  .sheet{background:var(--sheet);color:var(--docink);font-family:var(--doc);padding:20px;
-    flex:1;min-height:300px}
+  .sheet{background:var(--sheet);color:var(--docink);font-family:var(--doc);padding:16px;
+    flex:1;min-height:270px}
   .d-kick{font-size:10.5px;font-weight:700;letter-spacing:.13em;color:var(--green);
     margin-bottom:9px}
   .d-title{font-size:19px;font-weight:700;line-height:1.28;margin-bottom:5px}
@@ -314,8 +314,8 @@
   .machine .flat{border:1px dashed #c3c6bc;padding:9px 11px;margin:10px 0;
     font-family:var(--code);font-size:12px;color:var(--green);line-height:1.5}
   .fails,.fixes{list-style:none;margin-top:4px}
-  .fails li,.fixes li{position:relative;padding-left:28px;margin-bottom:12px;font-size:16.5px;
-    line-height:1.5;color:var(--ink-2)}
+  .fails li,.fixes li{position:relative;padding-left:26px;margin-bottom:9px;font-size:16px;
+    line-height:1.42;color:var(--ink-2)}
   .fails li:before{content:"\00D7";position:absolute;left:4px;top:-1px;color:#9c4433;
     font-weight:700;font-size:19px}
   .fixes li:before{content:"\2713";position:absolute;left:4px;top:0;color:var(--green);
@@ -325,19 +325,19 @@
   .score .big{font-size:60px;font-weight:700;letter-spacing:-.04em;line-height:1;color:#9c4433}
   .score .meta{font-size:16.5px;color:var(--ink-2);line-height:1.45;max-width:38ch}
 
-  form{margin-top:26px;max-width:580px}
-  form label{display:block;font-size:14px;font-weight:700;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--ink-dim);margin:20px 0 7px}
+  form{margin-top:18px;max-width:580px}
+  form label{display:block;font-size:13px;font-weight:700;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--ink-dim);margin:14px 0 5px}
   form input,form textarea{width:100%;background:#fff;border:1px solid var(--rule);
-    color:var(--ink);font-family:var(--sans);font-size:17px;padding:13px 15px;border-radius:2px}
+    color:var(--ink);font-family:var(--sans);font-size:16.5px;padding:10px 13px;border-radius:2px}
   form input:focus,form textarea:focus{outline:none;border-color:var(--green)}
   form textarea{resize:vertical;min-height:92px;line-height:1.55}
-  form button[type=submit]{margin-top:26px;background:var(--green);color:#fff;font-size:17px;
-    font-weight:600;font-family:var(--sans);border:2px solid var(--green);padding:15px 32px;
-    cursor:pointer;transition:background .15s;min-height:50px}
+  form button[type=submit]{margin-top:18px;background:var(--green);color:#fff;font-size:16.5px;
+    font-weight:600;font-family:var(--sans);border:2px solid var(--green);padding:12px 26px;
+    cursor:pointer;transition:background .15s;min-height:44px}
   form button[type=submit]:hover{background:var(--green-deep);border-color:var(--green-deep)}
 
-  footer{padding:40px 0 56px;color:var(--ink-dim);font-size:15.5px}
+  footer{padding:26px 0 34px;color:var(--ink-dim);font-size:15.5px}
   footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
   footer a:hover{color:var(--green);border-color:var(--green)}
   .foot-row{display:flex;gap:26px;flex-wrap:wrap;margin-top:12px}
@@ -362,14 +362,54 @@
 <section class="intro">
   <div class="wrap">
     <div class="eyebrow">Prepared for Brett &middot; November 2026</div>
-    <h1>Two services. One embed. Built to be resold.</h1>
-    <p class="lead">Buyers have stopped searching and started asking. Most businesses are
-      invisible in the answer, the documents they feed their own AI are half-unreadable, and
-      the agencies who serve them have nothing to sell against either problem. That is the
-      opening.</p>
+    <h1>Three clients. $1,701 a month. Income nobody can lay off.</h1>
+    <p class="lead">A salary is one reorganisation away from gone, and marketing leadership is
+      what gets cut first &mdash; the expensive people with the long r&eacute;sum&eacute;s.
+      The problem is never the day it happens. It is the nine months afterwards with nothing
+      coming in.</p>
+
+    <p>Consulting is the usual answer, and consulting is just another job with worse benefits.
+      You still trade hours for money, and it still stops the week you stop.</p>
+
+    <p>White-labelling is the other move. You do not build a company. You put your name on a
+      platform somebody else builds, maintains and pays to run, sell it to people who already
+      take your calls, and keep the margin every month whether you worked that week or not.</p>
+
+    <div class="adcard">
+      <div class="adlabel">The modest version</div>
+      <div class="math">
+        <div>
+          <div class="mcap">You bill</div>
+          <div class="mnum">$1,800</div>
+          <div class="mfoot">3 clients at $600 a month</div>
+        </div>
+        <div class="op" aria-hidden="true">&minus;</div>
+        <div>
+          <div class="mcap">You pay</div>
+          <div class="mnum">$99</div>
+          <div class="mfoot">the whole platform, 5 client slots</div>
+        </div>
+        <div class="op" aria-hidden="true">=</div>
+        <div>
+          <div class="mcap">You keep</div>
+          <div class="mnum win">$1,701</div>
+          <div class="mfoot">every month &middot; $20,412 a year</div>
+        </div>
+      </div>
+      <div class="adrule">
+        <div class="big">Three clients at the middle of the range &mdash; not the ceiling.</div>
+        <div class="fine">The ceiling on the included plan is five clients at $1,200, which is
+          $5,901 a month. This is deliberately the unambitious number.</div>
+      </div>
+    </div>
+
+    <p>Being straight about it: this is not passive income. You have to sell it and you have to
+      service it. What it is not is money that depends on somebody else keeping you on a
+      payroll &mdash; and the cost of finding out whether it works is $99 a month.</p>
+
     <div class="ctas">
-      <a class="btn" href="#walkthrough">Walk through both services &rarr;</a>
-      <a class="btn ghost" href="#us">Why it matters to us</a>
+      <a class="btn" href="#idea">See the plan and the product &rarr;</a>
+      <a class="btn ghost" href="#walkthrough">Walk through both services</a>
     </div>
   </div>
 </section>
