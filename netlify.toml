@@ -1,2 +1,8 @@
 [build]
   publish = "."
+
+[[redirects]]
+  from = "/demo"
+  to = "/brett#walkthrough"
+  status = 301
+  force = true
