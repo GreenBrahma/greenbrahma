@@ -4,6 +4,10 @@
   "main": "worker/index.js",
   "compatibility_date": "2026-11-01",
   "workers_dev": true,
+  "routes": [
+    { "pattern": "greenbrahma.com", "custom_domain": true },
+    { "pattern": "www.greenbrahma.com", "custom_domain": true }
+  ],
   "observability": { "enabled": true },
   "assets": {
     "directory": ".",
