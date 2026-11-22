@@ -1,554 +1,299 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>GreenBrahma — Make your templates readable by AI</title>
-<meta name="description" content="Your Word and PowerPoint templates look fine to a person and mean almost nothing to a machine. See what an AI model actually receives." />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="Your template looks fine. Your AI can't read it." />
-<meta property="og:description" content="Every word survives. Every meaning does not. See what an AI model actually receives from your document." />
-
-<style>
-  :root{
-    --ground:#0d0f0c;
-    --ground-2:#12140f;
-    --paper:#16190f;
-    --ink:#f2f0e9;
-    --ink-2:#cfcdc4;
-    --ink-dim:#8e8c84;
-    --green:#30730f;
-    --green-lit:#5cb824;
-    --rule:#2a2f22;
-    --mono:'SFMono-Regular',ui-monospace,'Menlo','Consolas','Liberation Mono',monospace;
-    --doc:'Aptos','Calibri','Segoe UI','Helvetica Neue',Arial,sans-serif;
-    --sheet:#f7f6f1;--docink:#1b1d18;--docink2:#4d5049;--docdim:#83867d;--docrule:#d9d7cf;
-    --sans:'SFMono-Regular',ui-monospace,'Menlo','Consolas','Liberation Mono',monospace;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--ground);color:var(--ink);font-family:var(--sans);
-    font-size:17.5px;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
-  .dim{color:var(--ink-2)}
-
-  header{border-bottom:1px solid var(--rule);padding:16px 0;position:sticky;top:0;
-    background:rgba(13,15,12,.94);backdrop-filter:blur(6px);z-index:20}
-  header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .brand{display:flex;align-items:center;gap:11px;font-family:var(--mono);
-    letter-spacing:.14em;font-size:14px;font-weight:600}
-  .glyph{width:20px;height:20px;flex:none}
-  .navback{font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;
-    color:var(--ink-dim);text-decoration:none}
-  .navback:hover{color:var(--ink)}
-
-  section{padding:38px 0;border-bottom:1px solid var(--rule)}
-  section.hero{padding:14px 0 26px;border-bottom:1px solid var(--rule)}
-  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.2em;
-    text-transform:uppercase;color:var(--green-lit);margin-bottom:16px}
-  h1{font-family:var(--mono);font-weight:600;font-size:clamp(21px,2.7vw,29px);
-    line-height:1.2;letter-spacing:-.025em;margin-bottom:12px;max-width:26ch}
-  h2{font-family:var(--mono);font-weight:600;font-size:clamp(19px,2.9vw,25px);
-    line-height:1.3;letter-spacing:-.02em;margin-bottom:14px}
-  p{margin-bottom:14px;max-width:58ch;color:var(--ink)}
-  p.lead{font-size:18.5px;color:var(--ink);margin-bottom:18px;line-height:1.5}
-
- ---------- */
-.primary{border:1px solid var(--green);background:var(--ground-2);
-  padding:13px 16px;margin-bottom:12px}
-.step{font-family:var(--mono);font-size:12px;letter-spacing:.16em;
-  color:var(--green-lit);margin-bottom:10px}
-.primary h2{font-size:18px;line-height:1.35;font-weight:600;margin-bottom:6px}
-.primary p{color:var(--ink);font-size:17px;max-width:62ch;line-height:1.55}
-.primary .cue{color:var(--green-lit);font-weight:600}
-
-/* ---------- doc tabs ---------- */
-.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
-.tab{font-family:var(--mono);font-size:13.5px;letter-spacing:.06em;background:transparent;
-  color:var(--ink);border:1px solid var(--rule);padding:11px 15px;cursor:pointer;
-  min-height:44px}
-.tab[aria-pressed="true"]{color:var(--ink);border-color:var(--green-lit)}
-.tab:hover{color:var(--ink)}
-.tab:focus-visible{outline:2px solid var(--green-lit);outline-offset:2px}
-
-/* ---------- panes ---------- */
-.panes{display:grid;grid-template-columns:1fr;gap:14px}
-@media(min-width:900px){.panes{grid-template-columns:1fr 1fr}}
-.pane{border:1px solid var(--rule);background:var(--ground-2);display:flex;flex-direction:column;box-shadow:0 10px 34px rgba(0,0,0,.45)}
-.pane-head{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--green-lit);
-  padding:14px 16px;border-bottom:1px solid var(--rule)}
-.paper{background:var(--sheet);color:var(--docink);font-family:var(--doc);padding:20px 20px 24px;flex:1;min-height:320px;position:relative;overflow:hidden}
-
-/* ---------- the closed right pane ---------- */
-.shut{all:unset;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;flex:1;min-height:320px;cursor:pointer;background:var(--ground-2);text-align:center;padding:30px}
-.shut:focus-visible{outline:2px solid var(--green-lit);outline-offset:-4px}
-.shut .lock{font-family:var(--mono);font-size:15px;letter-spacing:.1em;color:var(--green-lit)}
-.shut .hint{font-size:15.5px;color:var(--ink);max-width:30ch;line-height:1.5}
-.shut:hover .lock{color:var(--ink)}
-
-/* ---------- document rendering: human ---------- */
-.d-title{font-family:var(--doc);font-size:19px;font-weight:700;line-height:1.3;margin-bottom:5px;color:var(--docink);letter-spacing:-.005em}
-.d-kicker{font-family:var(--doc);font-size:10.5px;font-weight:700;letter-spacing:.13em;color:var(--green);margin-bottom:11px}
-.d-sub{font-size:15px;color:var(--docink2);margin-bottom:13px;line-height:1.45}
-.d-h{font-size:14.5px;font-weight:700;margin:15px 0 5px;color:var(--docink)}
-.d-p{font-size:14px;color:var(--docink2);margin-bottom:8px;line-height:1.5}
-.d-li{font-size:14px;color:var(--docink2);margin:0 0 6px 17px;position:relative;line-height:1.5}
-.d-li:before{content:"\2022";position:absolute;left:-17px;color:var(--green);font-weight:700}
-.d-note{font-size:11.5px;color:var(--docdim);margin-top:14px;font-style:italic}
-
-.chart{display:flex;align-items:flex-end;gap:12px;height:110px;margin:14px 0 6px;padding-bottom:20px;border-bottom:1px solid var(--docrule);position:relative}
-.bar{flex:1;background:var(--green);position:relative}
-.bar.alt{background:#c3c6bd}
-.bar span{position:absolute;bottom:-19px;left:0;right:0;text-align:center;font-family:var(--doc);font-size:10px;font-weight:600;color:var(--docdim)}
-.bar b{position:absolute;top:-16px;left:0;right:0;text-align:center;font-family:var(--doc);font-size:10.5px;font-weight:700;color:var(--docink)}
-
-.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
-.tbl th{font-family:var(--doc);font-size:10.5px;font-weight:700;letter-spacing:.09em;color:var(--green);text-align:left;padding:6px 8px;border-bottom:1.5px solid var(--docink)}
-.tbl td{padding:6px 8px;border-bottom:1px solid var(--docrule);color:var(--docink2)}
-.tbl td.num{text-align:right;font-variant-numeric:tabular-nums}
-.tbl td.neg{color:#a8342a}
-
-/* ---------- document rendering: machine ---------- */
-/* every element flattens to identical, undifferentiated text */
-.machine .d-title,.machine .d-h,.machine .d-sub,.machine .d-p,
-.machine .d-li,.machine .d-note,.machine .d-kicker{
-  font-size:13.5px !important;font-weight:400 !important;font-style:normal !important;
-  color:#7c7f76 !important;letter-spacing:0 !important;margin:0 0 8px 0 !important;
-  line-height:1.5 !important;font-family:var(--doc) !important}
-.machine .d-li:before{content:"";}
-.machine .chart,.machine .tbl{display:none}
-.machine .flat{border:1px dashed #b9bcb2;padding:10px 12px;margin:10px 0;font-family:var(--mono);font-size:11.5px;color:var(--green);line-height:1.5}
-.machine .q{display:block;font-family:var(--mono);font-size:11px;color:var(--green);margin:1px 0 12px;letter-spacing:-.01em}
-
-/* wipe reveal */
-.wipe{position:absolute;inset:0;background:var(--green);transform-origin:left;transform:scaleX(1);pointer-events:none}
-.wiping .wipe{animation:sweep 900ms cubic-bezier(.6,0,.3,1) forwards}
-@keyframes sweep{0%{transform:scaleX(1)}100%{transform:scaleX(0);transform-origin:right}}
-
-/* ---------- verdict ---------- */
-.verdict{border-left:2px solid var(--green);padding:12px 0 12px 18px;margin-top:14px;
-  opacity:0;transition:opacity 500ms ease}
-.verdict.on{opacity:1}
-.verdict p{font-size:17px;color:var(--ink);max-width:64ch;line-height:1.58}
-.verdict b{color:var(--ink)}
-
-/* ---------- model row ---------- */
-.models{margin-top:18px;padding-top:16px;border-top:1px solid var(--rule);
-  opacity:0;transition:opacity 500ms ease}
-.models.on{opacity:1}
-.models-label{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;
-  color:var(--ink-dim);margin-bottom:10px}
-.mrow{display:flex;flex-wrap:wrap;gap:8px}
-.m{font-family:var(--mono);font-size:12.5px;color:var(--ink-dim);border:1px solid var(--rule);
-  padding:10px 13px;background:transparent;min-height:42px;cursor:not-allowed}
-.m[data-live="1"]{color:var(--ink);border-color:var(--green-lit);cursor:pointer}
-.pending{font-size:14.5px;color:var(--ink);margin-top:10px;font-style:italic}
-
-.reset{font-family:var(--mono);font-size:12.5px;background:transparent;color:var(--green-lit);
-  border:none;cursor:pointer;padding:10px 2px;letter-spacing:.06em;margin-top:6px}
-
-
-  /* ---------- image band: picture behind, text over ---------- */
-  .band{position:relative;overflow:hidden;padding:0;
-    border-bottom:1px solid var(--rule);background:var(--ground)}
-  .bandimg{position:absolute;inset:0;z-index:0;display:block}
-  .bandimg img{width:100%;height:100%;object-fit:cover;object-position:center 44%;opacity:.5}
-  .bandimg:after{content:"";position:absolute;inset:0;pointer-events:none;
-    background:
-      linear-gradient(100deg,rgba(13,15,12,.72) 0%,rgba(13,15,12,.42) 38%,
-        rgba(13,15,12,0) 62%,rgba(13,15,12,.30) 100%),
-      linear-gradient(to bottom,rgba(13,15,12,.45) 0%,rgba(13,15,12,0) 34%,
-        rgba(13,15,12,.55) 82%,var(--ground) 100%)}
-  .bandtext{position:relative;z-index:2;display:flex;flex-direction:column;
-    justify-content:center;min-height:clamp(224px,32vh,300px);
-    padding-top:26px;padding-bottom:26px}
-  .band .eyebrow{margin-bottom:8px}
-  .band h1{margin-bottom:9px;max-width:20ch;
-    text-shadow:0 2px 18px rgba(13,15,12,.85)}
-  .band .lead{max-width:42ch;margin-bottom:14px;font-size:17.5px;line-height:1.5;
-    text-shadow:0 1px 12px rgba(13,15,12,.9)}
-  .scrollcue{display:inline-block;align-self:flex-start;font-family:var(--mono);
-    font-size:13.5px;letter-spacing:.05em;color:var(--green-lit);text-decoration:none;
-    border-bottom:1px solid var(--green);padding-bottom:3px}
-  .scrollcue:hover{color:var(--ink)}
-  @media(max-width:700px){
-    .bandimg img{object-position:62% 40%;opacity:.42}
-    .bandimg:after{background:
-      linear-gradient(to bottom,rgba(13,15,12,.60) 0%,rgba(13,15,12,.45) 40%,
-        rgba(13,15,12,.80) 84%,var(--ground) 100%)}
-    .bandtext{min-height:clamp(230px,40vh,300px);padding-top:22px;padding-bottom:22px}
-    .band h1{max-width:15ch}
-    .band .lead{max-width:34ch}
-  }
-
-  .verticals{display:grid;grid-template-columns:1fr;gap:1px;background:var(--rule);
-    border:1px solid var(--rule);margin-top:24px}
-  @media(min-width:720px){.verticals{grid-template-columns:1fr 1fr}}
-  .v{background:var(--ground);padding:18px 20px}
-  .v b{display:block;font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;
-    color:var(--green-lit);font-weight:600;margin-bottom:6px}
-  .v span{color:var(--ink);font-size:16px;line-height:1.5}
-
-  .stepsintro{font-size:16.5px;line-height:1.55;color:var(--ink);margin-bottom:14px;max-width:78ch}
-  .stepsintro b{color:var(--green-lit);font-weight:600}
-  .honest{border-left:2px solid var(--green);padding-left:20px}
-
-  .cta-band{padding:44px 0}
-  form{margin-top:22px;max-width:560px}
-  label{display:block;font-family:var(--mono);font-size:12.5px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--ink-dim);margin:18px 0 7px}
-  input,textarea{width:100%;background:var(--ground-2);border:1px solid var(--rule);
-    color:var(--ink);font-family:var(--mono);font-size:16px;padding:13px 15px;border-radius:0}
-  input:focus,textarea:focus{outline:none;border-color:var(--green-lit)}
-  textarea{resize:vertical;min-height:88px}
-  button[type=submit]{margin-top:24px;background:var(--green);color:var(--ink);
-    font-family:var(--mono);font-size:15px;letter-spacing:.08em;border:none;
-    padding:16px 30px;cursor:pointer;transition:background .15s;min-height:48px}
-  button[type=submit]:hover{background:var(--green-lit);color:var(--ground)}
-
-  footer{padding:40px 0 56px;color:var(--ink-dim);font-family:var(--mono);
-    font-size:13px;letter-spacing:.04em}
-  footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
-  footer a:hover{color:var(--ink)}
-  .foot-row{display:flex;gap:24px;flex-wrap:wrap;margin-top:12px}
-  .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
-  ::selection{background:var(--green);color:var(--ink)}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GreenBrahma | Strategy, growth, AI and transformation</title>
+<meta name="description" content="GreenBrahma helps businesses turn strategy, marketing, technology and AI into growth systems that actually operate.">
+<link rel="canonical" href="https://greenbrahma.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="GreenBrahma">
+<meta property="og:title" content="GreenBrahma | Strategy, growth, AI and transformation">
+<meta property="og:description" content="GreenBrahma helps businesses turn strategy, marketing, technology and AI into growth systems that actually operate.">
+<meta property="og:url" content="https://greenbrahma.com/">
+<meta name="theme-color" content="#0d0f0c">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/instrument-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "GreenBrahma LLC", "url": "https://greenbrahma.com/", "description": "GreenBrahma helps organizations turn growth strategy, marketing, technology and AI into executable business systems.", "founder": {"@type": "Person", "name": "Geoff Pickering"}, "knowsAbout": ["Growth strategy", "Go-to-market", "Marketing and media", "Customer lifecycle", "AI adoption", "Agentic AI", "SaaS product strategy", "Business transformation"]}</script>
 </head>
-<body>
-
-
-
-
-<header>
+<body class="has-bar">
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
   <div class="wrap">
-    <div class="brand">
-      <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="#5cb824" stroke-width="1.6">
-        <rect x="3" y="3" width="18" height="18"/>
-        <path d="M7 12 L11 12 M11 8 L11 16 M14 8 L17 8 L17 16 L14 16"/>
-      </svg>
-      GREENBRAHMA
-    </div>
-    <a class="navback" href="/thesis.html">THE THESIS &rarr;</a>
+    <a class="brand" href="/" aria-label="GreenBrahma home"><svg viewBox="0 0 24 24" fill="none" stroke="#74c93a" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18"/><path d="M7 12 L11 12 M11 8 L11 16 M14 8 L17 8 L17 16 L14 16"/></svg><span>GreenBrahma</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/capabilities">What we do</a>
+      <a href="/capabilities#how-we-work">How we work</a>
+      <a href="/work">Selected work</a>
+      <a href="/about">About</a>
+      <a class="btn" href="/contact" data-track="nav_talk_click">Let&rsquo;s talk</a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="bars" aria-hidden="true"></span>Menu</button>
   </div>
 </header>
-
-<section class="band">
-  <picture class="bandimg">
-    <source media="(max-width:700px)" srcset="/hero-squeeze-4x5.webp">
-    <img src="/hero-squeeze.webp" alt="A lone office worker standing between two converging walls: AI tools pressing in from one side, Word, PowerPoint and Excel from the other, under demands to do more with less." fetchpriority="high" width="1672" height="941">
-  </picture>
-  <div class="wrap bandtext">
-    <div class="eyebrow">Stuck in the middle</div>
-    <h1>You are the part in the middle.</h1>
-    <p class="lead">Explain it to the model. Fix what it hands back. Do it again tomorrow.</p>
-    <a class="scrollcue" href="#viewer">See what the model actually receives &darr;</a>
+<div class="overlay" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="overlay-top">
+    <a class="brand" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="#74c93a" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18"/><path d="M7 12 L11 12 M11 8 L11 16 M14 8 L17 8 L17 16 L14 16"/></svg><span>GreenBrahma</span></a>
+    <button class="menu-btn menu-close" type="button">Close</button>
   </div>
-</section>
-
-<section class="hero" id="viewer">
+  <nav aria-label="Menu">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/capabilities">What we do</a>
+      <a href="/capabilities#how-we-work">How we work</a>
+      <a href="/work">Selected work</a>
+      <a href="/about">About</a>
+      <a href="/contact">Let&rsquo;s talk</a>
+  </nav>
+  <p class="mail" data-path="email" hidden><a class="link" data-email href="/contact"></a></p>
+</div>
+<main id="main">
+<section class="hero">
   <div class="wrap">
-
-    <p class="stepsintro">Four steps, about a minute. <b>Pick a document</b> you recognise &rarr;
-      <b>look at it</b> &rarr; <b>open the panel</b> beside it &rarr; <b>compare the two</b>.</p>
-
-<!-- PRIMARY NARRATION PANEL -->
-  <div class="primary" id="primary" aria-live="polite">
-    <div class="step" id="pstep">STEP 1 OF 4</div>
-    <h2 id="phead">You go round and round with your LLM, and it never behaves.</h2>
-    <p id="pbody">ChatGPT, Copilot, Claude, Gemini, Perplexity — you explain the same things every
-      time, and you still rewrite the output by hand. <span class="cue">Look below.</span></p>
-  </div>
-
-  <!-- DOC TABS -->
-  <div class="tabs" role="group" aria-label="Choose a document">
-    <button class="tab" data-doc="deck" aria-pressed="true">STRATEGY DECK</button>
-    <button class="tab" data-doc="brief" aria-pressed="false">CLIENT BRIEF</button>
-    <button class="tab" data-doc="board" aria-pressed="false">BOARD PACK</button>
-  </div>
-
-  <!-- PANES -->
-  <div class="panes">
-    <div class="pane">
-      <div class="pane-head">YOUR DOCUMENT</div>
-      <div class="paper" id="human"></div>
-    </div>
-
-    <div class="pane" id="rightpane">
-      <div class="pane-head">AN AI MODEL SEES THIS</div>
-      <button class="shut" id="shut">
-        <span class="lock">▸ CLICK TO REVEAL</span>
-        <span class="hint">Same file. Same page. This is what the machine actually receives.</span>
-      </button>
-      <div class="paper machine" id="machine" hidden><div class="wipe"></div></div>
-    </div>
-  </div>
-
-  <!-- VERDICT -->
-  <div class="verdict" id="verdict">
-    <p><b>Nothing on the right is missing — it's all still there.</b> What's gone is every signal
-      that told a person what any of it <i>meant</i>. No heading is a heading. The chart is an
-      image with no data behind it. Nothing marks a finding, a source, or a limit. The model has
-      to guess all of it, and it guesses confidently. That's the rewrite you do every time.</p>
-  </div>
-
-  <!-- MODEL ROW -->
-  <div class="models" id="models">
-    <div class="models-label">DOES EVERY MODEL SEE IT THE SAME WAY?</div>
-    <div class="mrow">
-      <button class="m">MICROSOFT COPILOT</button>
-      <button class="m">CHATGPT</button>
-      <button class="m">CLAUDE</button>
-      <button class="m">GEMINI</button>
-      <button class="m">GEMINI NOTEBOOK</button>
-      <button class="m">PERPLEXITY</button>
-    </div>
-    <p class="pending">No. They differ, and the differences matter. We're measuring exactly how —
-      same file, same task, three runs each — and these become live when the results are
-      repeatable. We publish them either way.</p>
-    <button class="reset" id="reset">↻ START OVER</button>
-  </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="eyebrow">The part nobody put in the job description</div>
-    <h2>You are the middleware.</h2>
-    <p>Every document starts the same way. You re-explain who the audience is. What tone we use.
-      The three words we never use. That the executive summary runs to one page, not three. That
-      sources get cited inline. That the divider slides in the template are not slide titles.</p>
-    <p>You explain it to one model. Then you explain it again to a different model because the
-      first one wouldn&rsquo;t open the file. Then you fix the output by hand, because it still put a
-      90-word paragraph in a box built for 25.</p>
-    <p>Your organization already knows all of this. It just has no way to tell the machine.</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="eyebrow">Where this hurts most</div>
-    <h2>You already know which file this is.</h2>
-    <div class="verticals">
-      <div class="v"><b>MARKETING</b><span>The strategy deck that gets rebuilt three times before the exec review.</span></div>
-      <div class="v"><b>LEGAL</b><span>The demand package where a fabricated citation is not a typo.</span></div>
-      <div class="v"><b>CONSULTING</b><span>The client report and the deck that have to say the same thing.</span></div>
-      <div class="v"><b>FINANCE</b><span>The board pack whose variance narrative has to be traceable.</span></div>
-      <div class="v"><b>ENGINEERING</b><span>The design review a non-engineer has to be able to read.</span></div>
-      <div class="v"><b>HEALTHCARE ADMIN</b><span>The operational report governance will actually audit.</span></div>
+    <p class="kicker">GREENBRAHMA LLC<br>STRATEGY &times; GROWTH &times; AI &times; TRANSFORMATION</p>
+    <h1 class="display">Build what comes next.</h1>
+    <div class="hero-sub">
+      <p class="lede">GreenBrahma helps businesses turn strategy, marketing, technology and AI into growth systems that actually operate.</p>
+      <div>
+        <p class="body">From growth strategy and P&amp;L to global activation, customer journeys, digital products and agentic AI, GreenBrahma connects strategy with execution.</p>
+        <div class="btn-row" style="margin-top:26px">
+          <a class="btn" href="/contact" data-track="hero_book_click" data-loc="hero">Let&rsquo;s talk</a>
+          <a class="btn quiet" href="/capabilities">Explore what we do</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section>
+<section class="line" aria-label="Where GreenBrahma works">
   <div class="wrap">
-    <div class="eyebrow">Before you ask for a number</div>
-    <div class="honest">
-      <h2>What we can and can&rsquo;t tell you yet.</h2>
-      <p>We are running controlled tests: the same task, the same sources, one conventional
-        template and one GreenBrahma template, across six platforms, three runs each.</p>
-      <p>We will publish the results when they are repeatable, and we will publish them if they
-        are bad. Until then we are not going to put a number on this page.</p>
+    <ol>
+      <li><span class="stage">Strategy</span><p>Where growth can come from and what must change to capture it.</p></li>
+      <li><span class="stage">Activation</span><p>Brand, media, markets and teams moving on one plan.</p></li>
+      <li><span class="stage">Adoption</span><p>New technology and new habits becoming how work gets done.</p></li>
+      <li><span class="stage">Growth</span><p>Results the organization can run, measure and repeat.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band" id="problems" aria-labelledby="problems-h">
+  <div class="wrap">
+    <div class="band-head">
+      <h2 class="h2" id="problems-h">Which of these sounds like your week?</h2>
+    </div>
+    <div class="problems">
+      <button class="problem-q" type="button" aria-expanded="true" aria-controls="p0">&ldquo;We need growth, but our teams are pulling in different directions.&rdquo;</button>
+      <div class="problem-a" id="p0">
+        <p>GreenBrahma aligns strategy, operating priorities, customer experience and execution around a unified growth plan.</p>
+        <a class="link" href="/capabilities#growth">Growth &amp; market activation</a>
+      </div>
+      <button class="problem-q" type="button" aria-expanded="true" aria-controls="p1">&ldquo;We are investing in AI but don&rsquo;t know where it actually belongs.&rdquo;</button>
+      <div class="problem-a" id="p1">
+        <p>Identify high-value use cases, redesign workflows and create an adoption path from experimentation to everyday operations.</p>
+        <a class="link" href="/capabilities#ai">AI, data &amp; intelligent operations</a>
+      </div>
+      <button class="problem-q" type="button" aria-expanded="true" aria-controls="p2">&ldquo;Marketing activity is high, but the system isn&rsquo;t connected.&rdquo;</button>
+      <div class="problem-a" id="p2">
+        <p>Connect brand, media, CRM, automation, analytics and sales into an integrated customer-growth architecture.</p>
+        <a class="link" href="/capabilities#marketing">Marketing, media &amp; customer growth</a>
+      </div>
+      <button class="problem-q" type="button" aria-expanded="true" aria-controls="p3">&ldquo;We have an idea for a digital product or new revenue stream.&rdquo;</button>
+      <div class="problem-a" id="p3">
+        <p>Evaluate viability, design the commercial model and move from concept through MVP toward market readiness.</p>
+        <a class="link" href="/capabilities#products">Digital products &amp; business transformation</a>
+      </div>
+      <button class="problem-q" type="button" aria-expanded="true" aria-controls="p4">&ldquo;We know where we want to go. Execution is the problem.&rdquo;</button>
+      <div class="problem-a" id="p4">
+        <p>Create the governance, operating rhythm and cross-functional alignment necessary to convert strategy into action.</p>
+        <a class="link" href="/capabilities#how-we-work">How we work</a>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="cta-band" id="apply">
+<section class="band" aria-labelledby="caps-h">
   <div class="wrap">
-    <div class="eyebrow">Design partner beta</div>
-    <h2>We&rsquo;re picking twenty people.</h2>
-    <p>Design partners get compiled artifacts for their own templates, cross-model results before
-      anyone else sees them, and direct input on what gets built. What we want in return is your
-      real work and your honest reaction &mdash; including the times it doesn&rsquo;t help.</p>
-
-    <form name="engage" method="POST" data-netlify="true" action="/thanks.html" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="engage" />
-      <p style="display:none"><label>Don&rsquo;t fill this: <input name="bot-field" /></label></p>
-      <label for="name">Name</label>
-      <input id="name" name="name" type="text" required />
-      <label for="company">Organization</label>
-      <input id="company" name="company" type="text" required />
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" required />
-      <label for="where">What breaks? One sentence.</label>
-      <textarea id="where" name="where" required></textarea>
-      <button type="submit">Apply &rarr;</button>
-    </form>
+    <div class="band-head split">
+      <h2 class="h2" id="caps-h">Four outcomes, one operating system for growth.</h2>
+      <p class="lede">AI is not the strategy. It is a new capability inside the strategy.</p>
+    </div>
+    <div class="outcomes">
+      <article class="outcome">
+        <h3 class="h3">Growth &amp; market activation</h3>
+        <p class="promise">Turn strategic ambition into an executable growth plan.</p>
+        <p class="caps">Strategic planning, P&amp;L stewardship, market expansion, competitive analysis, brand strategy, global and local activation, commercial planning, pricing, partnerships, business development.</p>
+        <a class="link" href="/capabilities#growth" data-track="service_view" data-loc="growth">How this works<span class="sr">: Growth &amp; market activation</span></a>
+      </article>
+      <article class="outcome">
+        <h3 class="h3">Marketing, media &amp; customer growth</h3>
+        <p class="promise">Connect brand, media, customer experience and sales around one growth system.</p>
+        <p class="caps">Omnichannel and offline media, digital acquisition, paid search, SEO, social, content, CRM, marketing automation, customer lifecycle management, analytics, sales enablement.</p>
+        <a class="link" href="/capabilities#marketing" data-track="service_view" data-loc="marketing">How this works<span class="sr">: Marketing, media &amp; customer growth</span></a>
+      </article>
+      <article class="outcome">
+        <h3 class="h3">AI, data &amp; intelligent operations</h3>
+        <p class="promise">Move AI from experimentation into the way work gets done.</p>
+        <p class="caps">AI readiness, use-case prioritization, workflow redesign, agentic workflows, context engineering, enterprise AI adoption, AI-enabled analytics, customer-facing agents, change and adoption programs.</p>
+        <a class="link" href="/capabilities#ai" data-track="service_view" data-loc="ai">How this works<span class="sr">: AI, data &amp; intelligent operations</span></a>
+      </article>
+      <article class="outcome">
+        <h3 class="h3">Digital products &amp; business transformation</h3>
+        <p class="promise">Build the platforms, products and operating capabilities required for the next version of the business.</p>
+        <p class="caps">SaaS product strategy, MVP development, product-market validation, digital and commerce transformation, product pricing, sales models, change leadership, data-enabled products, organizational planning.</p>
+        <a class="link" href="/capabilities#products" data-track="service_view" data-loc="products">How this works<span class="sr">: Digital products &amp; business transformation</span></a>
+      </article>
+    </div>
+    <div class="aside-band">
+      <h3 class="h3">Sometimes the problem doesn&rsquo;t need another project. It needs an experienced operator in the room.</h3>
+      <p>Executive advisory covers CEO, CMO and CRO counsel, fractional executive leadership, board advisory, transformation governance, strategic workshops, vendor evaluation and major initiative reviews.</p>
+      <a class="link" href="/capabilities#how-we-work">Ways to work together</a>
+    </div>
   </div>
 </section>
 
-<footer>
+<section class="band on-bone" aria-labelledby="proof-h">
   <div class="wrap">
-    <div>GREENBRAHMA</div>
-    <div style="margin-top:8px">AI-native document intelligence &middot; created by Geoff Pickering</div>
-    <div class="foot-row">
-      <a href="mailto:Geoff@greenbrahma.com">Geoff@greenbrahma.com</a>
-      <a href="/thesis.html">The Inference Gap</a>
+    <div class="band-head">
+      <h2 class="h2" id="proof-h">Experience at scale</h2>
     </div>
+    <dl class="proof">
+      <div><dt>250+</dt><dd>People and agency ecosystem led</dd></div>
+      <div><dt>20+</dt><dd>Cross-functional teams managed</dd></div>
+      <div><dt>5</dt><dd>SaaS product teams led across stages of maturity</dd></div>
+      <div><dt>Global</dt><dd>Market activation and execution experience</dd></div>
+      <div><dt>Executive</dt><dd>CEO, CMO and senior leadership advisory experience</dd></div>
+    </dl>
+    <p class="footnote">These figures describe Geoff Pickering&rsquo;s career experience, not GreenBrahma client volume.</p>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="diff-h">
+  <div class="wrap">
+    <div class="band-head split">
+      <h2 class="h2" id="diff-h">Most business problems don&rsquo;t respect your org chart. Neither do we.</h2>
+      <p class="lede">Growth lives between disciplines: between product and sales, marketing and technology, data and decisions, strategy and execution. GreenBrahma works in those intersections.</p>
+    </div>
+    <div class="cols three">
+      <div><h3 class="h3">Operator, not observer.</h3><p>Experience includes operating budgets, P&amp;L, product ownership, people leadership, agency management and execution, not only advisory recommendations.</p></div>
+      <div><h3 class="h3">Commercial and technical.</h3><p>Market position and brand architecture in one conversation. Agentic workflows, CRM architecture, data and SaaS products in the next.</p></div>
+      <div><h3 class="h3">Enterprise thinking without enterprise bureaucracy.</h3><p>Senior-level thinking goes directly into the engagement. Nothing is sold by one team and delivered by another.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="band-head split">
+      <h2 class="h2" id="how-h">Four ways to bring GreenBrahma in.</h2>
+      <p class="lede">Each is scoped to the problem. The right one depends on how big the question is and how long it needs senior attention.</p>
+    </div>
+    <div class="cols four">
+      <article class="model">
+        <h3 class="h3">Strategic sprint</h3>
+        <p class="tag">Focused question. Senior attention. Actionable answer.</p>
+        <p>A focused engagement addressing one important issue.</p>
+        <p class="eg">For example: a growth opportunity assessment, AI opportunity map, customer lifecycle audit, go-to-market reset or digital product viability review.</p>
+      </article>
+      <article class="model">
+        <h3 class="h3">Transformation engagement</h3>
+        <p class="tag">Design the change, then help carry it out.</p>
+        <p>A defined, multi-phase initiative in which GreenBrahma helps design and execute change.</p>
+        <p class="eg">Scoped by phase, with clear ownership on both sides at each one.</p>
+      </article>
+      <article class="model">
+        <h3 class="h3">Fractional executive</h3>
+        <p class="tag">Senior leadership without a permanent seat.</p>
+        <p>Embedded leadership for organizations that need senior marketing, growth, transformation or AI leadership without creating a permanent executive role.</p>
+        <p class="eg">Sized to the mandate: the role you need filled and the time it takes.</p>
+      </article>
+      <article class="model">
+        <h3 class="h3">Executive and board advisor</h3>
+        <p class="tag">An experienced operator in the room.</p>
+        <p>Ongoing strategic counsel for CEOs, founders, leadership teams and boards.</p>
+        <p class="eg">Useful for major initiative reviews, vendor evaluation, strategic workshops and transformation governance.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="work-h">
+  <div class="wrap">
+    <div class="band-head split">
+      <h2 class="h2" id="work-h">Selected work</h2>
+      <p class="lede">Described by situation, mandate and what changed. Client names and confidential figures stay out.</p>
+    </div>
+      <article class="case">
+        <h3 class="h3">Building an enterprise customer activation model</h3>
+        <dl>
+          <div><dt>The situation</dt><dd>Customer data, media, CRM and market execution needed to operate as a coordinated lifecycle system.</dd></div>
+          <div><dt>The mandate</dt><dd>Lead cross-functional integration spanning media, customer segmentation, customer experience and marketing technology.</dd></div>
+          <div><dt>The approach</dt><dd>Create a lifecycle framework linking audience segmentation, channel activation and customer communications.</dd></div>
+          <div><dt>What changed</dt><dd>A repeatable framework existed for orchestrating customer engagement across marketing channels.</dd></div>
+          <div><dt>Why it matters</dt><dd>Most organizations already own the pieces. The work is making them run as one system that someone is accountable for.</dd></div>
+        </dl>
+      </article>
+    <p style="margin-top:28px"><a class="link" href="/work" data-track="case_study_view" data-loc="home">Read all selected work</a></p>
+  </div>
+</section>
+
+<section class="band lab" aria-labelledby="lab-h">
+  <div class="wrap split">
+    <div>
+      <span class="status">In development, not client work</span>
+      <h2 class="h2" id="lab-h">Applied AI lab</h2>
+      <p class="lede" style="margin-top:18px;color:var(--bone-2)">What GreenBrahma is building and testing now, so client advice comes from hands-on work.</p>
+    </div>
+    <ul>
+      <li><b>Multi-tenant AI agents</b>One agent platform serving many organizations, each with its own data, rules and voice.</li>
+      <li><b>Context engineering</b>Designing what a model is given, so its answers reflect how the business actually decides.</li>
+      <li><b>Model Context Protocol integration</b>Connecting agents to the systems where work already lives.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="band on-bone" aria-labelledby="geoff-h">
+  <div class="wrap split">
+    <h2 class="belief" id="geoff-h">&ldquo;The hardest business problems rarely fit neatly inside one department.&rdquo;</h2>
+    <div class="prose">
+      <p>Geoff Pickering built GreenBrahma around that belief. His career has moved across growth strategy, brand, media, digital transformation, SaaS products, customer experience, AI, analytics, sales and operations.</p>
+      <p>GreenBrahma puts that experience directly into the room with the client.</p>
+      <p><a class="link" href="/about">Meet Geoff</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <h2 class="h2">You don&rsquo;t need another strategy deck. You need the organization to move.</h2>
+    <p>Tell Geoff what is changing, stuck or worth exploring. The first conversation is about your situation, with no sales deck.</p>
+    <div class="btn-row">
+      <a class="btn" href="/contact" data-track="hero_book_click" data-loc="closing">Let&rsquo;s talk</a>
+      <a class="btn quiet" href="/contact" data-path="email" data-email-label="Email Geoff" hidden>Email Geoff</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <div>
+      <a class="brand" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="#74c93a" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18"/><path d="M7 12 L11 12 M11 8 L11 16 M14 8 L17 8 L17 16 L14 16"/></svg><span>GreenBrahma LLC</span></a>
+      <p>Strategy that moves. Technology that matters. Growth you can operationalize.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <a href="/capabilities">What we do</a>
+      <a href="/work">Selected work</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/contact" data-path="email" data-email hidden></a>
+    </nav>
   </div>
 </footer>
-
-<script>
-
-
-(function(){
-  var DOCS = {
-    deck: {
-      human:
-        '<div class="d-kicker">CATEGORY REVIEW · Q3 · CONFIDENTIAL</div>'+
-        '<div class="d-title">North America share loss is concentrated in one channel</div>'+
-        '<div class="d-sub">Grocery held. Club and e-commerce did not.</div>'+
-        '<div class="chart">'+
-          '<div class="bar" style="height:78%"><b>+1.2</b><span>GROCERY</span></div>'+
-          '<div class="bar alt" style="height:42%"><b>−3.8</b><span>CLUB</span></div>'+
-          '<div class="bar alt" style="height:30%"><b>−5.1</b><span>E-COMM</span></div>'+
-          '<div class="bar" style="height:61%"><b>−0.4</b><span>CONV</span></div>'+
-        '</div>'+
-        '<div class="d-h">What this means</div>'+
-        '<div class="d-li">Club losses track a single competitor promotion, not price</div>'+
-        '<div class="d-li">E-commerce decline predates the packaging change</div>'+
-        '<div class="d-li">Recommend holding list price and reallocating trade spend</div>'+
-        '<div class="d-note">Source: Nielsen scan data, 13 w/e 9 Aug. Excludes hard discount.</div>',
-      machine:
-        '<div class="d-kicker">CATEGORY REVIEW · Q3 · CONFIDENTIAL</div>'+
-        '<span class="q">? label, classification, or body text</span>'+
-        '<div class="d-title">North America share loss is concentrated in one channel</div>'+
-        '<span class="q">? title, finding, or first sentence</span>'+
-        '<div class="d-sub">Grocery held. Club and e-commerce did not.</div>'+
-        '<div class="flat">[ IMAGE — no alt text, no underlying values ]<br>'+
-          '? four numbers exist on screen and nowhere in the file</div>'+
-        '<div class="d-h">What this means</div>'+
-        '<span class="q">? heading or statement</span>'+
-        '<div class="d-li">Club losses track a single competitor promotion, not price</div>'+
-        '<div class="d-li">E-commerce decline predates the packaging change</div>'+
-        '<div class="d-li">Recommend holding list price and reallocating trade spend</div>'+
-        '<span class="q">? which of these is fact, which is inference, which is the recommendation</span>'+
-        '<div class="d-note">Source: Nielsen scan data, 13 w/e 9 Aug. Excludes hard discount.</div>'+
-        '<span class="q">? attribution not linked to any claim above</span>'
-    },
-    brief: {
-      human:
-        '<div class="d-kicker">CLIENT BRIEF · SCIPAB</div>'+
-        '<div class="d-title">Meridian Health — Q4 enrollment campaign</div>'+
-        '<div class="d-h">Situation</div>'+
-        '<div class="d-p">Meridian enters open enrollment with 11% more plan options than last year and the same media budget.</div>'+
-        '<div class="d-h">Complication</div>'+
-        '<div class="d-p">Broker-led acquisition has flattened for three consecutive quarters while direct-to-consumer cost per enrollment has risen 34%.</div>'+
-        '<div class="d-h">Implication</div>'+
-        '<div class="d-p">Holding both channels at current spend delivers roughly 8,000 fewer enrollments than plan.</div>'+
-        '<div class="d-h">Position</div>'+
-        '<div class="d-p">Consolidate spend behind the two plans that convert without broker involvement.</div>'+
-        '<div class="d-h">Action</div>'+
-        '<div class="d-p">Approve a reallocation of $2.4M from broker co-op to direct performance media by 14 September.</div>'+
-        '<div class="d-h">Benefit</div>'+
-        '<div class="d-p">Recovers the enrollment gap and lowers blended acquisition cost into next plan year.</div>',
-      machine:
-        '<div class="d-kicker">CLIENT BRIEF · SCIPAB</div>'+
-        '<div class="d-title">Meridian Health — Q4 enrollment campaign</div>'+
-        '<span class="q">? six sections follow — the file does not say they are a sequence</span>'+
-        '<div class="d-h">Situation</div>'+
-        '<div class="d-p">Meridian enters open enrollment with 11% more plan options than last year and the same media budget.</div>'+
-        '<div class="d-h">Complication</div>'+
-        '<div class="d-p">Broker-led acquisition has flattened for three consecutive quarters while direct-to-consumer cost per enrollment has risen 34%.</div>'+
-        '<span class="q">? "Complication" is a heading here and a body word elsewhere</span>'+
-        '<div class="d-h">Implication</div>'+
-        '<div class="d-p">Holding both channels at current spend delivers roughly 8,000 fewer enrollments than plan.</div>'+
-        '<div class="d-h">Position</div>'+
-        '<div class="d-p">Consolidate spend behind the two plans that convert without broker involvement.</div>'+
-        '<div class="d-h">Action</div>'+
-        '<div class="d-p">Approve a reallocation of $2.4M from broker co-op to direct performance media by 14 September.</div>'+
-        '<span class="q">? the one line that is a decision request is not marked as one</span>'+
-        '<div class="d-h">Benefit</div>'+
-        '<div class="d-p">Recovers the enrollment gap and lowers blended acquisition cost into next plan year.</div>'
-    },
-    board: {
-      human:
-        '<div class="d-kicker">BOARD PACK · ITEM 4 · FINANCE</div>'+
-        '<div class="d-title">Chair\'s note</div>'+
-        '<div class="d-p">The quarter came in below plan on revenue and ahead on contribution margin. The shortfall is concentrated in the enterprise renewal cohort and is, in the view of management, timing rather than loss.</div>'+
-        '<div class="d-p">We are not proposing a change to full-year guidance at this meeting.</div>'+
-        '<div class="d-h">Variance to plan</div>'+
-        '<table class="tbl"><tr><th>Line</th><th>Plan</th><th>Actual</th><th>Var</th></tr>'+
-        '<tr><td>Revenue</td><td class="num">14.80</td><td class="num">13.62</td><td class="num neg">(1.18)</td></tr>'+
-        '<tr><td>Gross profit</td><td class="num">11.84</td><td class="num">11.29</td><td class="num neg">(0.55)</td></tr>'+
-        '<tr><td>Opex</td><td class="num">9.90</td><td class="num">9.11</td><td class="num">0.79</td></tr>'+
-        '<tr><td>EBITDA</td><td class="num">1.94</td><td class="num">2.18</td><td class="num">0.24</td></tr></table>'+
-        '<div class="d-note">$M. Unaudited. Prepared on the same basis as the prior period.</div>',
-      machine:
-        '<div class="d-kicker">BOARD PACK · ITEM 4 · FINANCE</div>'+
-        '<div class="d-title">Chair\'s note</div>'+
-        '<div class="d-p">The quarter came in below plan on revenue and ahead on contribution margin. The shortfall is concentrated in the enterprise renewal cohort and is, in the view of management, timing rather than loss.</div>'+
-        '<span class="q">? "in the view of management" — opinion, not established fact</span>'+
-        '<div class="d-p">We are not proposing a change to full-year guidance at this meeting.</div>'+
-        '<div class="d-h">Variance to plan</div>'+
-        '<div class="flat">[ TABLE — 4 columns × 4 rows ]<br>'+
-          '? no units declared · ? parentheses may be negative or footnote<br>'+
-          '? which column is authoritative · ? no rounding rule</div>'+
-        '<div class="d-note">$M. Unaudited. Prepared on the same basis as the prior period.</div>'+
-        '<span class="q">? the units are declared here, after the table, in a footnote</span>'
-    }
-  };
-
-  var STEPS = [
-    {s:'STEP 1 OF 4', h:'Start with something you recognise.',
-     b:'<span class="cue">Pick one of the three</span> — whichever is closest to the thing you made this week.'},
-    {s:'STEP 2 OF 4', h:'That\'s the document. Nothing unusual about it.',
-     b:'Try the others if you like. <span class="cue">Then open the panel on the right.</span>'},
-    {s:'STEP 3 OF 4', h:'That\'s what you see. Ready?',
-     b:'<span class="cue">Click the panel on the right</span> — <i>An AI model sees this</i>.'},
-    {s:'STEP 4 OF 4', h:'Every word survived. Every meaning did not.',
-     b:'Read the two side by side. The green questions are the things your file never answered — so the model answers them itself.'}
-  ];
-
-  var human=document.getElementById('human'), machine=document.getElementById('machine'),
-      shut=document.getElementById('shut'), rightpane=document.getElementById('rightpane'),
-      verdict=document.getElementById('verdict'), models=document.getElementById('models'),
-      reset=document.getElementById('reset'), tabs=document.querySelectorAll('.tab'),
-      pstep=document.getElementById('pstep'), phead=document.getElementById('phead'),
-      pbody=document.getElementById('pbody');
-  var cur='deck', tabbed=0, revealed=false;
-
-  function setStep(i){ pstep.textContent=STEPS[i].s; phead.textContent=STEPS[i].h;
-    pbody.innerHTML=STEPS[i].b; }
-
-  function renderHuman(){ human.innerHTML=DOCS[cur].human; }
-  function renderMachine(){
-    machine.innerHTML='<div class="wipe"></div>'+DOCS[cur].machine;
-    machine.classList.remove('wiping');
-    void machine.offsetWidth;
-    machine.classList.add('wiping');
-  }
-
-  renderHuman(); setStep(0);
-
-  tabs.forEach(function(t){
-    t.addEventListener('click', function(){
-      tabs.forEach(function(o){o.setAttribute('aria-pressed','false');});
-      t.setAttribute('aria-pressed','true');
-      cur=t.dataset.doc; tabbed++;
-      renderHuman();
-      if(revealed){ renderMachine(); }
-      else if(tabbed>=2){ setStep(2); }
-      else { setStep(1); }
-    });
-  });
-
-  shut.addEventListener('click', function(){
-    revealed=true;
-    shut.hidden=true; shut.style.display='none';
-    machine.hidden=false;
-    renderMachine();
-    setStep(3);
-    setTimeout(function(){ verdict.classList.add('on'); models.classList.add('on'); }, 900);
-  });
-
-  reset.addEventListener('click', function(){
-    revealed=false; tabbed=0;
-    machine.hidden=true; shut.hidden=false; shut.style.display='';
-    verdict.classList.remove('on'); models.classList.remove('on');
-    setStep(0);
-  });
-})();
-</script>
+<div class="actionbar">
+  <a href="/contact" data-path="sms" data-track="text_geoff_click" data-loc="bar" hidden>Text Geoff</a>
+  <a class="primary" href="/contact" data-path="booking" data-track="meeting_scheduler_open" data-loc="bar" hidden>Book a conversation</a>
+  <a class="primary" href="/contact" data-fallback="booking" data-track="hero_book_click" data-loc="bar">Start a conversation</a>
+</div>
+<script src="/assets/site.js" defer></script>
 </body>
 </html>
