@@ -8,6 +8,14 @@
  * Settings (Cloudflare dashboard > Workers > greenbrahma > Settings > Variables):
  *   NOTIFY_TO    address that receives form notifications (required for email)
  *   NOTIFY_FROM  sender address on a domain onboarded for Cloudflare Email Sending
+ *
+ * Optional text alert through Twilio (all must be set for texts to send):
+ *   TWILIO_ACCOUNT_SID  account id, starts with AC
+ *   TWILIO_API_KEY      API key SID, starts with SK
+ *   TWILIO_API_SECRET   the secret that goes with that API key
+ *   NOTIFY_SMS_TO       mobile number that receives the alert, e.g. +15555550123
+ *   TWILIO_FROM         optional: a Twilio number (+1...) or messaging service (MG...).
+ *                       When left out, the first text-capable number on the account is used.
  */
 
 const FORMS = {
@@ -99,6 +107,40 @@ async function handleForm(request, env, ctx, url) {
 }
 
 async function notify(env, form, record, fields, id) {
+  await Promise.allSettled([notifyByEmail(env, form, record, fields, id), notifyByText(env, form, record, id)]);
+}
+
+async function notifyByText(env, form, record, id) {
+  const { TWILIO_ACCOUNT_SID: sid, TWILIO_API_KEY: key, TWILIO_API_SECRET: secret, NOTIFY_SMS_TO: to } = env;
+  if (!sid || !key || !secret || !to) return;
+  const auth = 'Basic ' + btoa(key + ':' + secret);
+  const base = 'https://api.twilio.com/2010-04-01/Accounts/' + sid;
+  try {
+    let from = env.TWILIO_FROM;
+    if (!from) {
+      const r = await fetch(base + '/IncomingPhoneNumbers.json?PageSize=50', { headers: { Authorization: auth } });
+      const j = await r.json();
+      if (!r.ok) throw new Error('Twilio ' + r.status + ': ' + (j.message || 'number lookup failed'));
+      from = (j.incoming_phone_numbers || []).find((n) => n.capabilities && n.capabilities.sms)?.phone_number;
+      if (!from) throw new Error('No text-capable Twilio number on the account.');
+    }
+    const snippet = record.message.replace(/\s+/g, ' ').slice(0, 220);
+    const body = new URLSearchParams({
+      To: to,
+      Body: `GreenBrahma: new note from ${record.name}${record.company ? ' (' + record.company + ')' : ''}. Reply by ${record.reply_by || 'email'}: ${record.reply_by && record.reply_by !== 'Email' && record.phone ? record.phone : record.email}. "${snippet}"`,
+    });
+    body.set(from.startsWith('MG') ? 'MessagingServiceSid' : 'From', from);
+    const r = await fetch(base + '/Messages.json', { method: 'POST', headers: { Authorization: auth, 'Content-Type': 'application/x-www-form-urlencoded' }, body });
+    const j = await r.json();
+    if (!r.ok) throw new Error('Twilio ' + r.status + (j.code ? ' (' + j.code + ')' : '') + ': ' + (j.message || 'send failed'));
+    if (id) await env.DB.prepare('UPDATE submissions SET sms_notified = 1 WHERE id = ?').bind(id).run();
+  } catch (e) {
+    console.error('text alert failed', e);
+    if (id) await env.DB.prepare('UPDATE submissions SET sms_error = ? WHERE id = ?').bind(String(e?.message || e).slice(0, 500), id).run();
+  }
+}
+
+async function notifyByEmail(env, form, record, fields, id) {
   if (!env.EMAIL || !env.NOTIFY_TO || !env.NOTIFY_FROM) return;
   const lines = [
     `${form.label} on greenbrahma.com`,

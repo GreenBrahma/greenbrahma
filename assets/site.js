@@ -12,7 +12,7 @@
   var CONTACT = {
     email: '',
     sms: '',
-    booking: ''
+    booking: 'https://calendly.com/geoff-greenbrahma/intro-conversation-with-geoff'
   };
 
   var doc = document;
