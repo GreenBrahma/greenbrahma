@@ -1,0 +1,27 @@
+{
+  "$schema": "https://unpkg.com/wrangler@latest/config-schema.json",
+  "name": "greenbrahma",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "routes": [
+    { "pattern": "greenbrahma.com", "custom_domain": true },
+    { "pattern": "www.greenbrahma.com", "custom_domain": true }
+  ],
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "greenbrahma-site", "database_id": "fa73493d-f6d5-417c-a193-eb40641586d3" }
+  ],
+  "send_email": [
+    { "name": "EMAIL" }
+  ],
+  // Variables set in the dashboard (NOTIFY_TO, NOTIFY_FROM) survive deploys.
+  "keep_vars": true
+}
