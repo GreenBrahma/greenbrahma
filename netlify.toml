@@ -6,3 +6,39 @@
   to = "/brett#walkthrough"
   status = 301
   force = true
+
+# Earlier site (BrahmaScore, the thesis, the reseller walkthrough). Still reachable
+# by direct link, never linked from the new site, and kept out of search indexes.
+[[headers]]
+  for = "/brahmascore*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+[[headers]]
+  for = "/thesis*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+[[headers]]
+  for = "/brett*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+[[headers]]
+  for = "/thanks*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+[[headers]]
+  for = "/A%20GreenBrahma%20Index*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+[[headers]]
+  for = "/A GreenBrahma Index*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive"
+[[headers]]
+  for = "/thank-you*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
