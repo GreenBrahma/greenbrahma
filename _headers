@@ -1,0 +1,16 @@
+# Earlier site (BrahmaScore, the thesis, the reseller walkthrough). Still reachable
+# by direct link, never linked from the new site, and kept out of search indexes.
+/brahmascore*
+  X-Robots-Tag: noindex, nofollow, noarchive
+/thesis*
+  X-Robots-Tag: noindex, nofollow, noarchive
+/brett*
+  X-Robots-Tag: noindex, nofollow, noarchive
+/thanks*
+  X-Robots-Tag: noindex, nofollow, noarchive
+/A%20GreenBrahma%20Index*
+  X-Robots-Tag: noindex, nofollow, noarchive
+/thank-you*
+  X-Robots-Tag: noindex
+/assets/*
+  Cache-Control: public, max-age=3600

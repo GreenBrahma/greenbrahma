@@ -197,7 +197,7 @@
       btn.disabled = true; btn.textContent = 'Sending…';
 
       var data = new URLSearchParams(new FormData(form));
-      fetch('/', { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data.toString() })
+      fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' }, body: data.toString() })
         .then(function (res) {
           if (!res.ok) throw new Error('HTTP ' + res.status);
           track('contact_form_submit', { reply_by: data.get('reply-by') || '' });
