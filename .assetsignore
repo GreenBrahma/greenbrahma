@@ -9,3 +9,4 @@ netlify.toml
 package.json
 package-lock.json
 README.md
+.wrangler
